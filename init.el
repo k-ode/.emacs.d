@@ -24,6 +24,9 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
 
+;; Stop creating auto save files
+(setq auto-save-default nil)
+
 ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
@@ -50,17 +53,6 @@
 (require 'setup-hippie)
 (require 'setup-yasnippet)
 
-;;(add-hook 'after-init-hook
-;;		  #'(lambda ()
-;;			  (when (locate-library "slime-js")
-;;				(require 'setup-slime-js))))
-
-;; Load in a better way?
-(autoload 'smart-tabs-mode "smart-tabs-mode"
-    "Intelligently indent with tabs, align with spaces!")
-(autoload 'smart-tabs-mode-enable "smart-tabs-mode")
-(autoload 'smart-tabs-advice "smart-tabs-mode")
-
 ;; Map files to modes
 (require 'mode-mappings)
 
@@ -72,6 +64,7 @@
 
 (require 'multiple-cursors)
 (require 'rainbow-mode)
+(require 'idomenu)
 
 ;; Setup key bindings
 (require 'key-bindings)

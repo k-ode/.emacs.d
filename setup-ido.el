@@ -1,13 +1,13 @@
 ;; Interactively do things
 (require 'ido)
 (ido-mode t)
-(setq ido-enable-prefix nil
-      ido-enable-flex-matching t
-      ido-case-fold nil
-      ido-auto-merge-work-directories-length -1
-      ido-create-new-buffer 'always
-      ido-use-filename-at-point nil
-      ido-max-prospects 10)
+(setq recentf-max-saved-items 100)
+(setq confirm-nonexistent-file-or-buffer nil)
+(setq kill-buffer-query-functions
+  (remq 'process-kill-buffer-query-function
+         kill-buffer-query-functions))
+(setq ido-create-new-buffer 'always)
+(setq ido-max-prospects 8)
 
 (set-default 'imenu-auto-rescan t)
 

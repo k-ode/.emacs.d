@@ -17,4 +17,3 @@ auto-mode-alist))
 auto-mode-alist))
 
 (provide 'mode-mappings)
-
