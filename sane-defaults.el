@@ -1,0 +1,51 @@
+;; Auto refresh buffers
+(global-auto-revert-mode)
+
+;; Answering just y or n is enough
+;;(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Set default encoding to utf-8
+(prefer-coding-system 'utf-8)
+(setq coding-system-for-read 'utf-8)
+(setq coding-system-for-write 'utf-8)
+
+;; Remove text in active region if inserting text
+(delete-selection-mode 1)
+
+;; Show column number
+(column-number-mode 1)
+
+;; Save list of recent files (open with C-x f)
+(recentf-mode 1)
+(setq recentf-max-saved-items 100)
+
+;; Undo/redo window configuration with C-c <left>/<right>
+(winner-mode 1)
+
+;; Show me empty lines after buffer end
+(set-default 'indicate-empty-lines t)
+
+;; Don't need text in scratch
+(setq initial-scratch-message "")
+
+;; Org-mode is silly
+(setq org-replace-disputed-keys t)
+
+;; Don't break lines
+(setq-default truncate-lines t)
+
+;; Fontify org-mode code blocks
+(setq org-src-fontify-natively t)
+
+;; Represent undo-history as an actual tree (visualize with C-x u)
+(setq undo-tree-mode-lighter "")
+(global-undo-tree-mode)
+
+;; Match pairs!
+(electric-pair-mode +1)
+   
+;; Add parts of each file's directory to the buffer name if not unique
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'forward)
+
+(provide 'sane-defaults)
