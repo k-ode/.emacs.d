@@ -1,8 +1,6 @@
 auto-save-list/
-elpa/archives/ 
-elpa/archives/gnu/
-elpa/archives/marmelade/
-elpa/archives/melpa/
+elpa/archives/**/*
 backups/
 tmp/
 .places
+bookmarks
