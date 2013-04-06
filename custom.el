@@ -12,7 +12,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(flymake-errline ((t (:foreground "firebrick" :underline nil :weight bold))) t)
- '(flymake-infoline ((t (:underline "DarkGreen"))))
+ '(flymake-infoline ((t (:underline "DarkGreen"))) t)
  '(flymake-warnline ((t (:background "default" :foreground "default" :underline "#dfaf8f" :weight bold))) t)
- '(js2-external-variable ((t (:foreground "DarkOrange2"))))
- '(js2-warning ((t (:underline "DarkOrange2")))))
+ '(js2-external-variable ((t (:foreground "DarkOrange2"))) t)
+ '(js2-warning ((t (:underline "DarkOrange2"))) t))

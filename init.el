@@ -45,6 +45,7 @@
 
 ;; Setup extensions
 (eval-after-load 'js2-mode '(require 'setup-js2-mode))
+(eval-after-load 'org '(require 'setup-org))
 ;; Load slime-js when asked for
 (autoload 'slime-js-jack-in-browser "setup-slime-js" nil t)
 (autoload 'slime-js-jack-in-node "setup-slime-js" nil t)
