@@ -35,6 +35,9 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
+;; Version control is really slow windows, so disable 
+;; (setq vc-handled-backends nil)
+
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
