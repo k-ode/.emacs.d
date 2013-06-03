@@ -12,7 +12,9 @@
 (setq show-paren-style 'parenthesis)
 
 ;; I really like this theme
-(load-theme 'zenburn t)
+;;(load-theme 'zenburn t)
+;;(load-theme 'github t)
+(load-theme 'solarized-light t)
 
 (provide 'appearance)
 

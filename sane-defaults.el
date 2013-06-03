@@ -1,5 +1,8 @@
 ;; Auto refresh buffers
-(global-auto-revert-mode)
+(global-auto-revert-mode 1)
+
+;;(setq global-auto-revert-non-file-buffers t)
+;;(setq auto-revert-verbose nil)
 
 ;; Answering just y or n is enough
 ;;(defalias 'yes-or-no-p 'y-or-n-p)
@@ -8,6 +11,9 @@
 (prefer-coding-system 'utf-8)
 (setq coding-system-for-read 'utf-8)
 (setq coding-system-for-write 'utf-8)
+
+;; Never insert tabs
+(set-default 'indent-tabs-mode nil)
 
 ;; Remove text in active region if inserting text
 (delete-selection-mode 1)
@@ -49,5 +55,11 @@
 ;; Add parts of each file's directory to the buffer name if not unique
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
+
+;; Show code that exceeds maximum line length
+(require 'whitespace)
+(setq whitespace-line-column 80) ;; limit line length
+(setq whitespace-style '(face lines-tail))
+(add-hook 'prog-mode-hook 'whitespace-mode)
 
 (provide 'sane-defaults)

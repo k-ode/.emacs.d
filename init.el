@@ -35,7 +35,7 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
-;; Version control is really slow windows, so disable 
+;; Version control is really slow on windows, so disable 
 ;; (setq vc-handled-backends nil)
 
 ;; Save point position between sessions
@@ -49,9 +49,11 @@
 ;; Setup extensions
 (eval-after-load 'js2-mode '(require 'setup-js2-mode))
 (eval-after-load 'org '(require 'setup-org))
-;; Load slime-js when asked for
-(autoload 'slime-js-jack-in-browser "setup-slime-js" nil t)
-(autoload 'slime-js-jack-in-node "setup-slime-js" nil t)
+;; Autoload skewer when asked for
+(autoload 'skewer-start "setup-skewer" nil t)
+;;(autoload 'skewer-demo "setup-skewer" nil t)
+
+(require 'setup-html-mode)
 (require 'setup-dired)
 (require 'setup-ido)
 (require 'setup-hippie)
@@ -75,3 +77,4 @@
 
 (require 'appearance)
 (require 'my-misc)
+(put 'scroll-left 'disabled nil)
