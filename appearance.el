@@ -14,7 +14,7 @@
 ;; I really like this theme
 ;;(load-theme 'zenburn t)
 ;;(load-theme 'github t)
-(load-theme 'solarized-light t)
+(load-theme 'solarized-dark t)
 
 (provide 'appearance)
 

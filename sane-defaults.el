@@ -25,7 +25,7 @@
 (recentf-mode 1)
 (setq recentf-max-saved-items 100)
 (add-to-list 'recentf-exclude "\\.ido.last\\'")
-
+(setq recent-exlude '("/tmp/" "/ssh:"))
 
 ;; Undo/redo window configuration with C-c <left>/<right>
 (winner-mode 1)

@@ -1,38 +1,26 @@
 ;; Interactively do things
 (require 'ido)
 (ido-mode t)
-(setq recentf-max-saved-items 100)
-(setq confirm-nonexistent-file-or-buffer nil)
-(setq kill-buffer-query-functions
-  (remq 'process-kill-buffer-query-function
-         kill-buffer-query-functions))
-(setq ido-create-new-buffer 'always)
-(setq ido-max-prospects 8)
-
+(setq ido-create-new-buffer 'always
+      ido-max-prospects 8
+      ido-auto-merge-work-directories-length -1
+      ido-case-fold nil
+      ido-create-new-buffer 'always
+      ido-enable-prefix nil
+      ido-use-virtual-buffers t)
+      
 (set-default 'imenu-auto-rescan t)
 
 ;; Use ido everywhere
 (require 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
 
-;; Switch current ido mode
-(defun switch-ido-mode ()
+(defun recentf-ido-find-file ()
+  "Find a recent file using ido."
   (interactive)
-  (if (and (eq ido-mode nil)
-			 (eq ido-ubiquitous-mode nil))
-	  (progn (setq ido-ubiquitous-mode t)
-			 (ido-mode)
-			 (setq confirm-nonexistent-file-or-buffer nil)
-			 (message "Ubiquitos and ido mode enabled"))
-	(if (and (eq ido-mode 'both)
-			 (eq ido-ubiquitous-mode t))
-		(progn (setq ido-ubiquitous-mode nil)
-			   (ido-mode)
-			   (setq confirm-nonexistent-file-or-buffer t)
-			   (message "Ubiquitos and ido mode disabled"))
-	  (if (eq ido-mode 'both)
-		  (progn (setq ido-ubiquitous t)
-				 (message "Enabled ubiquitos mode"))))))
+  (if (and ido-use-virtual-buffers (fboundp 'ido-toggle-virtual-buffers))
+      (ido-switch-buffer)
+    (find-file (ido-completing-read "Open file: " recentf-list nil t))))
 
 ;; Fix ido-ubiquitous for newer packages
 (defmacro ido-ubiquitous-use-new-completing-read (cmd package)

@@ -5,7 +5,7 @@
 
 (defun skewer-start ()
   (interactive)
-  (let ((httpd-port 8080))
+  (let ((httpd-port 8023))
     (httpd-start)
     (message "Ready to skewer the browser. Now jack in with the bookmarklet.")))
 

@@ -3,9 +3,14 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-		))
+        sgml-slash
+        tagedit-forward-slurp-tag
+        tagedit-insert-hash
+        tagedit-insert-lt
+        tagedit-insert-quote
+        ))
 
 (setq mc/cmds-to-run-once
       '(
-		tagedit-insert-gt
-		))
+        tagedit-insert-gt
+        ))
