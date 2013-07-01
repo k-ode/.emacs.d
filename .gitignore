@@ -4,3 +4,5 @@ backups/
 tmp/
 .places
 bookmarks
+url
+ac-comphist.dat
