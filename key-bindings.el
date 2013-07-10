@@ -3,15 +3,24 @@
 (global-set-key (kbd "C-x r q") 'save-buffers-kill-terminal)
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
-;; Completion that uses many different methods to find options.
-(global-set-key (kbd "C-.") 'hippie-expand-no-case-fold)
-(global-set-key (kbd "C-:") 'hippie-expand-lines)
-(global-set-key (kbd "C-,") 'completion-at-point)
+;;(global-set-key (kbd "C-ä") 'yas/expand)
+(global-set-key (kbd "C-ä") 'hippie-expand)
+;;(global-set-key (kbd "C-ö") 'simplezen-expand)
+
+;; I make a lot of mistakes
+(global-set-key (kbd "C-.") 'undo)
+(global-set-key (kbd "C-,") 'undo-tree-redo)
+
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
+
+(global-set-key (kbd "C-x C-m") 'smex)
 
 ;; Should be able to eval and replace anywhere
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
 
-;; Be smarter about when a line begins. 
+;; Be smarter about when a line begins 
 (global-set-key (kbd "C-a") 'smart-line-beginning)
 
 ;; Pull line up
@@ -40,6 +49,8 @@
 (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "M-'") 'mc/mark-all-like-this-dwim)
 
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+
 ;; Move lines around
 (global-set-key (kbd "<C-S-down>") 'move-line-down)
 (global-set-key (kbd "<C-S-up>") 'move-line-up)
@@ -51,6 +62,10 @@
 ;; Multi occur
 (global-set-key (kbd "M-s m") 'multi-occur)
 (global-set-key (kbd "M-s M") 'multi-occur-in-matching-buffers)
+
+;; File finding
+(global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+(global-set-key (kbd "C-x o") 'find-file-in-project)
 
 ;; Get recent files
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
@@ -66,5 +81,8 @@
 
 ;; Show only line numbers when using goto
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
+
+;; Eval buffer
+(global-set-key (kbd "C-c C-k") 'eval-buffer)
 
 (provide 'key-bindings)

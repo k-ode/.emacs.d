@@ -1,0 +1,3 @@
+ls
+./wordcount.py small.txt
+ls

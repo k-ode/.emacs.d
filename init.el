@@ -1,3 +1,7 @@
+(defmacro after-load (feature &rest body)
+  "After FEATURE is loaded, evaluate BODY."
+  (declare (indent defun)))
+
 ;; Turn off mouse interface early in startup to avoid momentary display
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -45,6 +49,7 @@
 
 (require 'setup-package)
 (require 'sane-defaults)
+(require 'setup-smartparens)
 
 ;; Setup extensions
 (eval-after-load 'js2-mode '(require 'setup-js2-mode))
@@ -54,10 +59,14 @@
 ;;(autoload 'skewer-demo "setup-skewer" nil t)
 
 (require 'setup-html-mode)
+(require 'setup-js-mode)
 (require 'setup-dired)
 (require 'setup-ido)
 (require 'setup-hippie)
 (require 'setup-yasnippet)
+(require 'setup-auto-complete)
+(require 'setup-flycheck)
+(require 'setup-css)
 
 ;; Map files to modes
 (require 'mode-mappings)
@@ -69,7 +78,6 @@
     (load file)))
 
 (require 'multiple-cursors)
-(require 'rainbow-mode)
 (require 'idomenu)
 
 ;; Setup key bindings
@@ -78,3 +86,4 @@
 (require 'appearance)
 (require 'my-misc)
 (put 'scroll-left 'disabled nil)
+

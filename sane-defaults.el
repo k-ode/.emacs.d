@@ -5,7 +5,10 @@
 ;;(setq auto-revert-verbose nil)
 
 ;; Answering just y or n is enough
-;;(defalias 'yes-or-no-p 'y-or-n-p)
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+;; Smooth scroll
+(require 'smooth-scrolling)
 
 ;; Set default encoding to utf-8
 (prefer-coding-system 'utf-8)
@@ -50,8 +53,8 @@
 (global-undo-tree-mode)
 
 ;; Match pairs!
-(electric-pair-mode +1)
-   
+;;(electric-pair-mode +1)   
+
 ;; Add parts of each file's directory to the buffer name if not unique
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)

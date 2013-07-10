@@ -1,9 +1,7 @@
+(add-hook 'prog-mode-hook 'idle-highlight-mode)
+
 ;; Don't save temporary files in same directory, please
 (setq temporary-file-directory "~/.emacs.d/tmp/")
-
-(add-hook 'html-mode-hook
-		  (lambda()
-			(setq sgml-basic-offset 4)))
 
 ;; Change window quickly with S-left and S-right
 (when (fboundp 'windmove-default-keybindings)
@@ -16,9 +14,5 @@
   (use-local-map nil)
   (c-set-offset 'substatement-open 0))
 (add-hook 'csharp-mode-hook 'my-csarhp-mode-fn t)
-
-(add-hook 'css-mode-hook (lambda () 
-						   (rainbow-mode 1)
-						   ))
 
 (provide 'my-misc)

@@ -6,6 +6,8 @@
 
 ;; Jump to end of snippet definition
 (define-key yas/keymap (kbd "<return>") 'yas/exit-all-snippets)
+;;(define-key yas-minor-mode-map [(tab)] nil)
+;;(define-key yas-minor-mode-map (kbd "TAB") nil)
 
 ;; Inter-field navigation
 (defun yas/goto-end-of-active-field ()

@@ -1,3 +1,6 @@
+(setq is-windows (equal system-type 'windows-nt))
+(setq is-linux (equal system-type 'gnu/linux))
+
 ;; No annyoing end of file sound
 (setq visible-bell t)
 
@@ -8,13 +11,16 @@
 (global-hl-line-mode 1)
 
 ;; Highligt current parenthesis
-(show-paren-mode t)
-(setq show-paren-style 'parenthesis)
+;;(show-paren-mode t)
+;;(setq show-paren-style 'parenthesis)
 
 ;; I really like this theme
-;;(load-theme 'zenburn t)
+(when is-linux
+  (load-theme 'gruber-darker t))
 ;;(load-theme 'github t)
-(load-theme 'solarized-dark t)
+
+(when is-windows
+  (load-theme 'solarized-dark t))
 
 (provide 'appearance)
 
