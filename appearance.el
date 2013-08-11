@@ -1,6 +1,3 @@
-(setq is-windows (equal system-type 'windows-nt))
-(setq is-linux (equal system-type 'gnu/linux))
-
 ;; No annyoing end of file sound
 (setq visible-bell t)
 
