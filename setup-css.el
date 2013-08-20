@@ -8,4 +8,6 @@
             (dolist (hook '(css-mode-hook))
               (add-hook hook 'ac-css-mode-setup)))
 
+(setq scss-compile-at-save nil)
+
 (provide 'setup-css)

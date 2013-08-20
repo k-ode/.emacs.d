@@ -1,4 +1,4 @@
-(add-hook 'js-mode-hook (lambda () (flycheck-mode 1)))
+;; (add-hook 'js-mode-hook (lambda () (flycheck-mode 1)))
 
 ;; Use lambda for anonymous functions
 (font-lock-add-keywords
