@@ -2,13 +2,14 @@
 
 ;; ----- ido-last-directory-list -----
 (
+ ("/home/kim/downloads/" . "libspotify-12.1.51-Linux-x86_64-release/")
  ("/home/kim/dev/angular/angular-phonecat/app/" . "js/")
  ("/home/kim/dev/angular/angular-phonecat/test/" . "unit/")
  ("/home/kim/dev/angular/angular-phonecat/" . "test/")
  ("/home/kim/dev/angular/" . "angular-phonecat/")
  ("/home/kim/.config/" . "openbox/")
  ("/home/kim/.emacs.d/snippets/" . "html-mode/")
- ("/home/kim/.emacs.d/" . "defuns/")
+ ("/home/kim/.emacs.d/" . "eshell/")
  ("/home/kim/dev/mopidy/clients/mopidy-lux/app/scripts/" . "directives/")
  ("/home/kim/dev/mopidy/clients/mopidy-lux/app/" . "scripts/")
  ("/home/kim/dev/mopidy/clients/mopidy-lux/dist/" . "scripts/")
@@ -19,17 +20,22 @@
  ("/home/kim/dev/mopidy/clients/Mopidy-Webclient/" . "webclient/")
  ("/home/kim/dev/mopidy/clients/" . "mopidy-lux/")
  ("/home/kim/dev/mopidy/" . "clients/")
- ("/home/kim/dev/" . "angular/")
+ ("/home/kim/dev/" . "nodeply/")
  ("/etc/X11/" . "Xresources/")
  ("/etc/" . "X11/")
  ("/" . "etc/")
  ("/home/kim/src/node-v0.10.10/" . "lib/")
  ("/home/kim/src/" . "node-v0.10.10/")
- ("/home/kim/" . ".emacs.d/")
+ ("/home/kim/" . "downloads/")
 )
 
 ;; ----- ido-work-directory-list -----
 (
+ "/home/kim/downloads/libspotify-12.1.51-Linux-x86_64-release/"
+ "/home/kim/dev/nodeply/"
+ "/home/kim/.config/beets/"
+ "/home/kim/.config/"
+ "/home/kim/Dropbox/org/"
  "/home/kim/.emacs.d/defuns/"
  "/etc/"
  "/home/kim/dev/angular/angular-phonecat/test/unit/"
@@ -48,7 +54,6 @@
  "/home/kim/dev/mopidy/clients/mopidy-lux/app/scripts/directives/"
  "/home/kim/dev/mopidy/clients/mopidy-lux/app/scripts/controllers/"
  "/home/kim/dev/python/google/"
- "/home/kim/Dropbox/org/"
  "/home/kim/dev/mopidy/clients/Mopidy-Webclient/webclient/js/"
  "/etc/X11/"
  "/etc/X11/Xresources/"
@@ -57,29 +62,49 @@
 
 ;; ----- ido-work-file-list -----
 (
+ "README"
+ ".jshintrc"
+ "config.yaml"
+ "work.org"
  "misc-defuns.el"
  "modules"
  "filtersSpec.js"
  "directivesSpec.js"
  "filters.js"
- ".jshintrc"
  "controllersSpec.js"
- "controllers.js"
- "index.html"
- "appearance.el"
 )
 
 ;; ----- ido-dir-file-cache -----
 (
- ("/home/kim/.emacs.d/" (20955 29793 361405 221000) ".git/" "setup-smartparens.el" "sane-defaults.el" ".gitignore" "setup-html-mode.el" "url/" "themes/" "init.el" "setup-css.el" "ac-comphist.dat" "site-lisp/" "setup-org.el" "../" "elpa/" "tmp/" "README" "appearance.el" "mode-mappings.el" "key-bindings.el" "setup-skewer.el" "setup-auto-complete.el" "./" "setup-js-mode.el" "snippets/" "setup-js2-mode.el" "setup-ido.el" "setup-package.el" "setup-flycheck.el" ".mc-lists.el" "setup-yasnippet.el" "defuns/" "eshell/" "setup-dired.el" "auto-save-list/" "my-misc.el" "backups/" "setup-hippie.el" "setup-slime-js.el" "custom.el" ".places" "recentf" "ido.last")
+ ("/home/kim/downloads/libspotify-12.1.51-Linux-x86_64-release/" (20965 15178 753546 478000) "share/" "ChangeLog" "../" "README" "./" "lib/" "LICENSE" "include/" "Makefile" "licenses.xhtml")
+
+ ("/home/kim/downloads/" (20440 41516 0 0) "AnonymousPro-1.002.001/" "switchoff/" "AnonymousPro-1.002.zip" "../" "angular-1.1.5.zip" "./" "compton/" "get-pip.py" "google-chrome-stable_current_amd64.deb" "libspotify-12.1.51-Linux-x86_64-release.tar.gz" "libpeerconnection.log" "libspotify-12.1.51-Linux-x86_64-release/" "rompr-0.31.zip")
+
+ ("/home/kim/" (20965 10456 204961 820000) ".smex-items" "videos/" "src/" "documents/" ".gitconfig" ".gmrunrc" ".mono/" ".recently-used" ".xsession-errors" ".macromedia/" ".conkyrc" ".dropbox-dist/" "images/" "backup/" ".bower/" ".node-gyp/" ".gmrun_history" ".Xauthority" ".fontconfig/" "../" ".Xmodmap" "tmp/" ".pulse/" ".gconf/" ".xchat2/" ".mozilla/" ".ssh/" ".gnome2/" ".bash_logout" ".ncmpcpp/" "bin/" ".xscreensaver" "./" ".nv/" ".profile" ".fonts.conf" ".bashrc" "music/" ".gtkrc-2.0.mine" ".config/" "data/" "downloads/" ".pbuilderrc" ".gtk-bookmarks" ".dropbox/" "libpeerconnection.log" ".fonts/" ".npm/" ".gstreamer-0.10/" ".gvfs/" "Dropbox/" ".gnome2_private/" ".bash_history" ".Xresources" ".dbus/" ".pulse-cookie" "dev/" ".adobe/" ".local/" ".emacs.d/" ".icons/" ".cache/" "templates/" ".nvidia-settings-rc" ".themes/" ".pki/" ".gtkrc-2.0")
+
+ ("/home/kim/dev/nodeply/" (20965 14965 334764 664000) "../" "./" ".jshintrc" "node-spotify/")
+
+ ("/home/kim/dev/" (20964 42227 60164 754000) "testhtml.html" "../" "mopidy/" "python/" "./" ".tern-project" "porthos/" "nodeply/" "angular/" "terntest.js")
+
+ ("/home/kim/dev/angular/angular-phonecat/" (20955 29729 726257 762000) ".git/" ".gitignore" "test/" "../" "app/" "./" "README.md" "libpeerconnection.log" ".jshintrc" "scripts/" "config/" ".travis.yml" "logs/")
+
+ ("/home/kim/.config/beets/" (20963 18922 619346 760000) "../" "./")
+
+ ("/home/kim/Dropbox/org/" (20956 1452 805007 101000) "../" "./" "school.org" "work.org" "porthos.org")
+
+ ("/home/kim/Dropbox/" (20960 2450 672218 183000) "Photos/" "KK_Skaderapporteringssystemet/" ".dropbox.cache/" "org/" "../" "Public/" "./" "temp/" ".dropbox" "Viktigt/" "Mjukvaruutvecklingsprojektet/" "dev/")
+
+ ("/home/kim/.emacs.d/eshell/" (20948 9722 12589 567000) "history" "../" "./")
+
+ ("/home/kim/.emacs.d/elpa/" (20955 17190 541534 671000) "undo-tree-20130614.1632/" "less-css-mode-20130610.1645/" "popup-20130324.1305/" "cl-lib-0.3/" "s-20130617.1851/" "skewer-mode-20130605.1217/" "simple-httpd-20130527.1257/" "../" "expand-region-20130610.737/" "ido-ubiquitous-20121214.2145/" "auto-complete-20130503.2013/" "coffee-mode-20130618.1418/" "yasnippet-20130505.2115/" "multiple-cursors-20130608.1031/" "js2-mode-20130619.1123/" "./" "ac-js2-20130619.1934/" "idle-highlight-mode-20120920.1848/" "color-theme-20080305.834/" "find-file-in-project-20120716.1655/" "tagedit-20130514.1551/" "simplezen-20130421.1052/" "archives/" "smooth-scrolling-20130602.1609/" "flycheck-20130707.1121/" "js2-refactor-20130622.1018/" "smartparens-20130708.52/" "dash-20130617.739/" "gruber-darker-theme-20130702.2042/" "php-mode-20130705.1657/" "noctilux-theme-20130504.1829/" "diminish-20091203.1912/" "color-theme-sanityinc-tomorrow-20130707.1110/" "smex-20130707.1255/" "egg-20130702.925/")
+
+ ("/home/kim/.emacs.d/defuns/" (20956 31411 896405 359000) "snippet-helpers.el" "misc-defuns.el" "../" "lisp-defuns.el" "editing-defuns.el" "./" "file-defun.el")
+
+ ("/home/kim/.emacs.d/" (20959 22649 875932 136000) ".git/" "setup-smartparens.el" "tramp" "sane-defaults.el" ".gitignore" "setup-html-mode.el" "url/" "themes/" "init.el" "setup-css.el" "ac-comphist.dat" "site-lisp/" ".#ido.last" "setup-org.el" "../" "elpa/" "tmp/" "README" "appearance.el" "mode-mappings.el" "key-bindings.el" "setup-skewer.el" "setup-auto-complete.el" "./" "setup-js-mode.el" "snippets/" "setup-js2-mode.el" "setup-ido.el" "setup-package.el" "setup-flycheck.el" ".mc-lists.el" "setup-yasnippet.el" "defuns/" "eshell/" "setup-dired.el" "auto-save-list/" "my-misc.el" "backups/" "setup-hippie.el" "setup-slime-js.el" "custom.el" ".places" "%backup%~" "recentf" "ido.last")
 
  ("/etc/" (20956 29490 995780 735000) "locale.alias" "profile" "java-6-openjdk/" "ppp/" "modules" "wildmidi/" "rc6.d/" "sudoers.d/" "gai.conf" "mtab" "security/" "sysctl.d/" "NetworkManager/" "exim4/" "hosts.deny" "gtkmathview/" "logrotate.conf" "staff-group-for-usr-local" "default/" "bindresvport.blacklist" "gtk-3.0/" "cron.hourly/" "inputrc" "obex-data-server/" "cron.d/" "rc5.d/" "gtk-2.0/" "sensors.d/" "ghostscript/" "grub.d/" "login.defs" "pam.conf" "aliases" "securetty" "sysctl.conf" "crontab" "vpnc/" "dpkg/" "wpa_supplicant/" "deluser.conf" "magic" "network/" "ucf.conf" "ConsoleKit/" "nanorc" "OpenCL/" "resolv.conf" "passwd-" "email-addresses" "shadow-" "shadow" "blkid.tab" "logcheck/" "libnl-3/" "kbd/" "emacs/" "wgetrc" "rmt" "subversion/" "rc3.d/" "pm/" "iceweasel/" "pkcs11/" "nail.rc" "ts.conf" "opt/" "timezone" "selinux/" "drirc" "sudoers" "xdg/" "avahi/" "rc2.d/" "perl/" "python/" "ca-certificates.conf" "sound/" "mailcap" ".java/" "request-key.conf" "icedtea-web/" "dictionaries-common/" "vlc/" "terminfo/" "polkit-1/" "alternatives/" "bonobo-activation/" "rpc" "issue.net" "mke2fs.conf" "svn2cl/" "live/" "shells" "lsb-release-crunchbang" "slim.conf" "rcS.d/" "udev/" "motd" "fonts/" "cron.monthly/" "localtime" "ld.so.conf.d/" "asound.conf" "initramfs-tools/" "xml/" "ca-certificates/" "rearj.cfg" "usb_modeswitch.conf" "insserv.conf" "dbus-1/" "inittab" "anacrontab" "host.conf" "smxi.conf" "environment" "os-release" "bluetooth/" "nsswitch.conf" "openal/" "gimp/" "init/" "javascript-common/" "cups/" "ldap/" "mailcap.order" "sgml/" "gshadow-" "issue.net.distrib" "fuse.conf" "passwd" "rc4.d/" "vim/" "group-" "ld.so.conf" "libpaper.d/" "pnm2ppa.conf" "lsb-base-logging.sh" "openvpn/" "debconf.conf" "debian_version" "rc0.d/" "fstab" "ImageMagick/" "gmrunrc" "UPower/" "ld.so.cache" "rsyslog.conf" "samba/" "gshadow" "fstab.d/" "timidity/" "X11/" "manpath.config" "issue.distrib" "conky/" "colord.conf" "cron.weekly/" "hosts" "rsyslog.d/" "chatscripts/" "ntp.conf" "ifplugd/" "skel/" "kernel/" "hp/" "insserv/" "dhcp3/" "init.d/" "papersize" "libaudit.conf" "iproute2/" "cupshelpers/" "hdparm.conf" "checkinstallrc" "blkid.tab.old" "services" "gftp/" "pulse/" "s-distro-level" "bash.bashrc" "gnome-vfs-mime-magic" "snmp/" "cron.daily/" "calendar/" "hostname" "apt/" "bash_completion" "adjtime" "logrotate.d/" "usb_modeswitch.d/" "mailname" "profile.d/" "mercurial/" "apache2/" "ssh/" "gconf/" "screenrc" "php5/" "mime.types" "mono/" "groff/" "sane.d/" "bash_completion.d/" "ssl/" "menu/" "rc1.d/" "motd.tail" "locale.gen" "systemd/" "dhcp/" "magic.mime" "gdb/" "modprobe.d/" "request-key.d/" ".pwd.lock" "gnome-vfs-2.0/" "group" "console-setup/" "sensors3.conf" "apm/" "pam.d/" "resolvconf/" "networks" "menu-methods/" "protocols" "issue" "foomatic/" "rc.local" "python2.7/" "hosts.allow" "adduser.conf" "emacs-snapshot/" "s-distro-version" "insserv.conf.d/" "../" "./")
 
- ("/home/kim/" (20955 29793 265406 508000) ".smex-items" "videos/" "src/" "documents/" ".gitconfig" ".gmrunrc" ".mono/" ".recently-used" ".xsession-errors" ".macromedia/" ".conkyrc" ".dropbox-dist/" "images/" "backup/" ".bower/" ".gmrun_history" ".Xauthority" ".fontconfig/" "../" ".Xmodmap" "tmp/" ".pulse/" ".gconf/" ".xchat2/" ".mozilla/" ".ssh/" ".gnome2/" ".bash_logout" ".ncmpcpp/" "bin/" ".xscreensaver" "./" ".nv/" ".profile" ".fonts.conf" ".bashrc" "music/" ".gtkrc-2.0.mine" ".config/" "downloads/" ".pbuilderrc" ".gtk-bookmarks" ".dropbox/" "libpeerconnection.log" ".fonts/" ".npm/" ".gstreamer-0.10/" ".gvfs/" "Dropbox/" ".gnome2_private/" ".bash_history" ".Xresources" ".dbus/" ".pulse-cookie" "dev/" ".adobe/" ".local/" ".emacs.d/" ".icons/" ".cache/" "templates/" ".nvidia-settings-rc" ".themes/" ".pki/" ".gtkrc-2.0")
-
  ("/home/kim/dev/angular/angular-phonecat/test/unit/" (20955 29633 51552 950000) "servicesSpec.js" "filtersSpec.js" "directivesSpec.js" "controllersSpec.js" "../" "./")
-
- ("/home/kim/dev/angular/angular-phonecat/" (20955 25357 436044 919000) ".git/" ".gitignore" "test/" "../" "app/" "./" "README.md" "libpeerconnection.log" ".jshintrc" "scripts/" "config/" ".travis.yml" "logs/")
 
  ("/home/kim/dev/angular/angular-phonecat/app/js/" (20955 25141 598936 683000) "filters.js" "../" "controllers.js" "./" "directives.js" "app.js" "services.js")
 
@@ -89,13 +114,9 @@
 
  ("/home/kim/dev/angular/angular-phonecat/test/lib/" (20955 11060 208060 594000) "../" "./" "angular/")
 
- ("/home/kim/dev/" (20955 13194 971249 516000) "testhtml.html" ".tern-port" "../" "mopidy/" "python/" "./" ".tern-project" "angular/" "terntest.js")
-
  ("/home/kim/dev/angular/angular-phonecat/test/" (20955 11060 212060 540000) "unit/" "../" "e2e/" "./" "lib/")
 
  ("/home/kim/dev/angular/" (20955 11082 371760 834000) "../" "./" "angular-phonecat/")
-
- ("/home/kim/.emacs.d/defuns/" (20953 65305 257448 436000) "snippet-helpers.el" "misc-defuns.el" "../" "lisp-defuns.el" "editing-defuns.el" "./" "file-defun.el")
 
  ("/home/kim/.emacs.d/snippets/html-mode/" (20946 19623 159962 174000) "input" "em" "../" "./" "script" "strong" "html" "code")
 
@@ -136,10 +157,6 @@
  ("/home/kim/dev/python/" (20947 59492 997990 830000) "google/" "../" "./")
 
  ("/home/kim/dev/mopidy/clients/" (20948 52443 981900 841000) "jukepi/" "Mopidy-Webclient/" "../" "./" "mopidy-lux/" "rompr/")
-
- ("/home/kim/Dropbox/org/" (20947 34601 875559 17000) "../" "./" "school.org" "work.org" "porthos.org")
-
- ("/home/kim/Dropbox/" (20948 47443 695748 148000) "Photos/" "KK_Skaderapporteringssystemet/" ".dropbox.cache/" "org/" "../" "Public/" "./" "temp/" ".dropbox" "Viktigt/" "Mjukvaruutvecklingsprojektet/" "dev/")
 
  ("/home/kim/dev/mopidy/clients/Mopidy-Webclient/webclient/" (20948 42001 939788 905000) "images/" "../" "index.html" "./" "css/" "js/")
 
