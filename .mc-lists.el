@@ -4,6 +4,7 @@
 (setq mc/cmds-to-run-for-all
       '(
         sgml-slash
+        sp--self-insert-command
         tagedit-forward-slurp-tag
         tagedit-insert-hash
         tagedit-insert-lt

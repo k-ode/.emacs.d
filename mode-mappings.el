@@ -1,3 +1,7 @@
+;; CSS
+(autoload 'scss-mode "scss-mode")
+(add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
+
 ;; Javascript
 (autoload 'js2-mode "js2-mode" nil t)
 (add-to-list 'auto-mode-alist '("\\.js$" . javascript-mode))

@@ -2,6 +2,9 @@
   "After FEATURE is loaded, evaluate BODY."
   (declare (indent defun)))
 
+(setq is-windows (equal system-type 'windows-nt))
+(setq is-linux (equal system-type 'gnu/linux))
+
 ;; Turn off mouse interface early in startup to avoid momentary display
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -86,4 +89,3 @@
 (require 'appearance)
 (require 'my-misc)
 (put 'scroll-left 'disabled nil)
-
