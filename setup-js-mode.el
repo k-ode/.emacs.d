@@ -14,16 +14,16 @@
                                        (match-end 1) "\u2190")
                        nil)))))
 
-(setq tern-ac-on-dot nil)
-(add-to-list 'load-path (expand-file-name "tern/emacs" site-lisp-dir))
-(autoload 'tern-mode "tern.el" nil t)
+;;(setq tern-ac-on-dot nil)
+;;(add-to-list 'load-path (expand-file-name "tern/emacs" site-lisp-dir))
+;;(autoload 'tern-mode "tern.el" nil t)
 ;;(add-hook 'js-mode-hook (lambda () (tern-mode t)))
-(eval-after-load 'auto-complete
-  '(eval-after-load 'tern
-     '(progn
-        (require 'tern-auto-complete)
-        (define-key js-mode-map (kbd "C-c C-a") 'tern-ac-complete)
-        (tern-ac-setup))))
+;; (eval-after-load 'auto-complete
+;;   '(eval-after-load 'tern
+;;      '(progn
+;;         (require 'tern-auto-complete)
+;;         (define-key js-mode-map (kbd "C-c C-a") 'tern-ac-complete)
+;;        (tern-ac-setup))))
 
 (provide 'setup-js-mode)
 
