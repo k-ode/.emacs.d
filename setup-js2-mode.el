@@ -14,7 +14,8 @@
 (setq-default js2-mirror-mode nil)
 
 ;; Let flycheck handle parse errors
-(setq-default js2-show-parse-errors nil)
+(setq-default js2-mode-show-parse-errors nil)
+(setq-default js2-mode-show-strict-warnings nil)
 (setq-default js2-strict-missing-semi-warning nil)
 (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
 

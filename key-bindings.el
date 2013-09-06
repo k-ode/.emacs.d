@@ -3,9 +3,12 @@
 (global-set-key (kbd "C-x r q") 'save-buffers-kill-terminal)
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
-;;(global-set-key (kbd "C-ä") 'yas/expand)
-(global-set-key (kbd "C-ä") 'hippie-expand)
-;;(global-set-key (kbd "C-ö") 'simplezen-expand)
+;; Completion that uses many different methods to find options.
+(global-set-key (kbd "C-ä") 'hippie-expand-no-case-fold)
+(global-set-key (kbd "C-Ä") 'hippie-expand-lines)
+(global-set-key (kbd "C-ö") 'completion-at-point)
+
+(global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
 
 ;; I make a lot of mistakes
 (global-set-key (kbd "C-.") 'undo)
@@ -34,6 +37,9 @@
 (global-set-key (kbd "C-c c") 'comment-or-uncomment-region)
 (global-set-key (kbd "C-c u") 'uncomment-region)
 
+;; Yank and indent
+(global-set-key (kbd "C-S-y") 'yank-unindented)
+
 ;; Expand region
 (global-set-key (kbd "C-'") 'er/expand-region)
 
@@ -60,8 +66,8 @@
 (global-set-key (kbd "C-c i") 'idomenu)
 
 ;; Multi occur
-(global-set-key (kbd "M-s m") 'multi-occur)
-(global-set-key (kbd "M-s M") 'multi-occur-in-matching-buffers)
+;;(global-set-key (kbd "") 'multi-occur)
+;;(global-set-key (kbd "") 'multi-occur-in-matching-buffers)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)

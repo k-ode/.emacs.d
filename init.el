@@ -67,7 +67,7 @@
 (require 'setup-ido)
 (require 'setup-hippie)
 (require 'setup-yasnippet)
-(require 'setup-auto-complete)
+;;(require 'setup-auto-complete)
 (require 'setup-flycheck)
 (require 'setup-css)
 
@@ -82,6 +82,7 @@
 
 (require 'multiple-cursors)
 (require 'idomenu)
+(require 'sr-speedbar)
 
 ;; Setup key bindings
 (require 'key-bindings)
@@ -89,3 +90,4 @@
 (require 'appearance)
 (require 'my-misc)
 (put 'scroll-left 'disabled nil)
+
