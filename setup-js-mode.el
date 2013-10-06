@@ -26,4 +26,3 @@
 ;;        (tern-ac-setup))))
 
 (provide 'setup-js-mode)
-
