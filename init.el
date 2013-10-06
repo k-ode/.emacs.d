@@ -51,6 +51,7 @@
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
 (require 'setup-package)
+(require 'setup-shell)
 (require 'sane-defaults)
 (require 'setup-smartparens)
 
