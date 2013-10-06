@@ -10,8 +10,6 @@
 
 (global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
 
-help
-
 ;; I make a lot of mistakes
 (global-set-key (kbd "C-_") 'undo-tree-undo)
 (global-set-key (kbd "M-_") 'undo-tree-redo)
