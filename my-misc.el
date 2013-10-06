@@ -1,3 +1,6 @@
+;; Projectile
+(projectile-global-mode)
+
 ;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; Speedbar stuff

@@ -1,3 +1,7 @@
+;; Up-down case is confusing, apparently.
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
+
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 

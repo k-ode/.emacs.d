@@ -71,7 +71,7 @@
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-x o") 'find-file-in-project)
+(global-set-key (kbd "C-c C-f") 'projectile-find-file)
 
 ;; Get recent files
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
