@@ -1,4 +1,4 @@
-(add-hook 'prog-mode-hook 'idle-highlight-mode)
+;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; Speedbar stuff
 (setq sr-speedbar-right-side nil)

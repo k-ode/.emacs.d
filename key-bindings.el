@@ -11,8 +11,8 @@
 (global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
 
 ;; I make a lot of mistakes
-(global-set-key (kbd "C-.") 'undo)
-(global-set-key (kbd "C-,") 'undo-tree-redo)
+(global-set-key (kbd "C-:") 'undo)
+(global-set-key (kbd "C-_") 'undo-tree-redo)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)

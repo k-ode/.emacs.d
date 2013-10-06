@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        js2-mode-show-node
         sgml-slash
         sp--self-insert-command
         tagedit-forward-slurp-tag

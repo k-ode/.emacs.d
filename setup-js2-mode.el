@@ -1,7 +1,5 @@
 (require 'js2-refactor)
 
-(add-hook 'js2-mode-hook '(lambda () (setq mode-name "JS2")))
-
 (setq-default js2-global-externs '("module" "require" "jQuery" "$" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "console" "JSON" "angular" "moment"))
 (setq-default js2-indent-on-enter-key nil)
 (setq-default js2-allow-rhino-new-expr-initializer nil)
