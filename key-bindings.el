@@ -4,15 +4,15 @@
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
 ;; Completion that uses many different methods to find options.
-(global-set-key (kbd "C-ä") 'hippie-expand-no-case-fold)
-(global-set-key (kbd "C-Ä") 'hippie-expand-lines)
-(global-set-key (kbd "C-ö") 'completion-at-point)
+(global-set-key (kbd "C-.") 'hippie-expand-no-case-fold)
+(global-set-key (kbd "C-:") 'hippie-expand-lines)
+(global-set-key (kbd "C-,") 'completion-at-point)
 
 (global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
 
 ;; I make a lot of mistakes
-(global-set-key (kbd "C-:") 'undo)
-(global-set-key (kbd "C-_") 'undo-tree-redo)
+(global-set-key (kbd "C-_") 'undo-tree-undo)
+(global-set-key (kbd "M-_") 'undo-tree-redo)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -63,7 +63,11 @@
 
 ;; Occur and imenu
 (global-set-key (kbd "C-c o") 'occur)
-(global-set-key (kbd "C-c i") 'idomenu)
+(global-set-key (kbd "C-x C-i") 'idomenu)
+
+;; Magit
+(global-set-key (kbd "C-x m") 'magit-status)
+(autoload 'magit-status "magit")
 
 ;; Multi occur
 ;;(global-set-key (kbd "") 'multi-occur)
