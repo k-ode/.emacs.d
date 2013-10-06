@@ -1,15 +1,28 @@
 ;; Interactively do things
 (require 'ido)
 (ido-mode t)
-(setq ido-create-new-buffer 'always
+(setq ido-enable-prefix nil
+      ido-enable-flex-matching t
+      ido-create-new-buffer 'always
       ido-max-prospects 8
       ido-auto-merge-work-directories-length -1
       ido-case-fold nil
       ido-create-new-buffer 'always
-      ido-enable-prefix nil
       ido-use-virtual-buffers t)
       
 (set-default 'imenu-auto-rescan t)
+
+(require 'flx-ido)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights
+;;(setq ido-use-faces nil)
+
+(require 'ido-vertical-mode)
+(ido-vertical-mode)
+
+;; Ido at point
+(require 'ido-at-point)
+(ido-at-point-mode)
 
 ;; Use ido everywhere
 (require 'ido-ubiquitous)
