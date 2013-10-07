@@ -153,7 +153,7 @@ string).  It returns t if a new completion is found, nil otherwise."
                                          try-complete-lisp-symbol-partially
                                          try-complete-lisp-symbol))
 
-;; Create own function to expand lines (C-S-.)
+;; Create own function to expand lines
 (defun hippie-expand-lines ()
   (interactive)
   (let ((hippie-expand-try-functions-list '(try-expand-line-closest-first

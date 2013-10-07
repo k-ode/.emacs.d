@@ -3,7 +3,8 @@
 ;; Copyright (C) 2010 Georg Brandl
 ;;
 ;; Author: Georg Brandl <georg@python.org>
-;; Version: 0.1
+;; Version: 20111122.1048
+;; X-Original-Version: 0.1
 ;;
 ;; This file is NOT part of GNU Emacs.
 ;;

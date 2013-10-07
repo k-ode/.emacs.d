@@ -1,4 +1,5 @@
 ;;; csharp-mode.el --- C# mode derived mode
+;; Version: 20130824.1200
 
 ;; Author     : Dylan R. E. Moonfire (original)
 ;; Maintainer : Dino Chiesa <dpchiesa@hotmail.com>
