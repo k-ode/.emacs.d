@@ -17,12 +17,12 @@
 ;; disable ido faces to see flx highlights
 ;;(setq ido-use-faces nil)
 
-(require 'ido-vertical-mode)
-(ido-vertical-mode)
-
 ;; Ido at point
 (require 'ido-at-point)
 (ido-at-point-mode)
+
+(require 'ido-vertical-mode)
+(ido-vertical-mode)
 
 ;; Use ido everywhere
 (require 'ido-ubiquitous)

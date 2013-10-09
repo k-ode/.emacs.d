@@ -4,7 +4,7 @@
 
 
 ;;;### (autoloads (ido-at-point-mode) "ido-at-point" "ido-at-point.el"
-;;;;;;  (21072 51419 0 0))
+;;;;;;  (21077 51925 0 0))
 ;;; Generated autoloads from ido-at-point.el
 
 (autoload 'ido-at-point-mode "ido-at-point" "\
@@ -25,7 +25,7 @@ With `ido-at-point-mode' use IDO for `completion-at-point'.
 
 ;;;***
 
-;;;### (autoloads nil nil ("ido-at-point-pkg.el") (21072 51419 689000
+;;;### (autoloads nil nil ("ido-at-point-pkg.el") (21077 51925 319000
 ;;;;;;  0))
 
 ;;;***

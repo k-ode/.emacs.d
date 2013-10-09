@@ -1,5 +1,7 @@
 (require 'js2-refactor)
 
+;;(setq ac-js2-evaluate-calls t)
+
 (setq-default js2-global-externs '("module" "require" "jQuery" "$" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "console" "JSON" "angular" "moment"))
 (setq-default js2-indent-on-enter-key nil)
 (setq-default js2-allow-rhino-new-expr-initializer nil)

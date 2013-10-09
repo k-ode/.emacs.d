@@ -11,6 +11,7 @@
 
 (add-hook 'html-mode-hook
 		  (lambda()
+            (auto-complete-mode)
 			(setq sgml-basic-offset 4)))
 
 (eval-after-load "sgml-mode"
