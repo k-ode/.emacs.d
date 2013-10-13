@@ -1,25 +1,25 @@
 (require 'js2-refactor)
+(js2r-add-keybindings-with-prefix "C-c C-r")
 
-;;(setq ac-js2-evaluate-calls t)
-
+;; Indendt case labels on extra level
+(setq-default js2-indent-switch-body t)
+;; Globals
 (setq-default js2-global-externs '("module" "require" "jQuery" "$" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "console" "JSON" "angular" "moment"))
-(setq-default js2-indent-on-enter-key nil)
-(setq-default js2-allow-rhino-new-expr-initializer nil)
-(setq-default js2-auto-indent-p nil)
-(setq-default js2-enter-indents-newline nil)
+;; Delay in seconds before re-parsing
 (setq-default js2-idle-timer-delay 0.1)
-(setq-default js2-strict-inconsistent-return-warning nil)
-(setq-default js2-concat-multiline-string 'eol)
-(setq-default js2-rebind-eol-bol-keys nil)
-(setq-default js2-mirror-mode nil)
+;; js2-line-break sets + at the end
+(setq-default js2-concat-multiline-strings 'eol)
 
 ;; Let flycheck handle parse errors
+(setq-default js2-allow-rhino-new-expr-initializer nil)
+(setq-default js2-strict-inconsistent-return-warning nil)
 (setq-default js2-mode-show-parse-errors nil)
 (setq-default js2-mode-show-strict-warnings nil)
 (setq-default js2-strict-missing-semi-warning nil)
 (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
 
-(add-hook 'js2-mode-hook (lambda () (flycheck-mode 1)))
+;; Flycheck crashing emacs on exit atm
+;; (add-hook 'js2-mode-hook (lambda () (flycheck-mode 1)))
 
 (require 'js2-imenu-extras)
 (js2-imenu-extras-setup)
@@ -40,5 +40,6 @@
 
 ;; steal back alt-j
 (define-key js2-mode-map (kbd "M-j") '(lambda () (interactive) (join-line -1)))
+(define-key js2-mode-map (kbd "M-n") '(lambda () (interactive) (js2-line-break)))
 
 (provide 'setup-js2-mode)

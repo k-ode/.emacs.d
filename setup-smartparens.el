@@ -1,12 +1,12 @@
 (require 'smartparens-config)
 (smartparens-global-mode t)
 
+;; highlight matching pairs
 (show-smartparens-global-mode t)
 
 (sp-local-pair 'minibuffer-inactive-mode "'" nil :actions nil)
 
-;;(sp-with-modes '(html-mode sgml-mode)
-;;  (sp-local-pair "<" ">"))
+(setq sp-autoescape-string-quote nil)
 
 (sp-with-modes '(js-mode js2-mode)
   (sp-local-pair "'" "'"))

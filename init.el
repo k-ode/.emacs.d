@@ -1,14 +1,14 @@
+;; Turn off mouse interface early in startup to avoid momentary display
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
+
 (defmacro after-load (feature &rest body)
   "After FEATURE is loaded, evaluate BODY."
   (declare (indent defun)))
 
 (setq is-windows (equal system-type 'windows-nt))
 (setq is-linux (equal system-type 'gnu/linux))
-
-;; Turn off mouse interface early in startup to avoid momentary display
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
 ;; No splash screen please ... jeez
 (setq inhibit-startup-message t)
@@ -51,6 +51,7 @@
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
 (require 'setup-package)
+(require 'appearance)
 (require 'setup-shell)
 (require 'sane-defaults)
 (require 'setup-smartparens)
@@ -83,10 +84,10 @@
 (require 'multiple-cursors)
 (require 'idomenu)
 (require 'sr-speedbar)
+(require 'smart-forward)
 
 ;; Setup key bindings
 (require 'key-bindings)
 
-(require 'appearance)
 (require 'my-misc)
 (put 'scroll-left 'disabled nil)

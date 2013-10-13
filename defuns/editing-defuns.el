@@ -1,5 +1,22 @@
 ;; Basic text editing defuns
 
+(defun new-line-dwim ()
+  (interactive)
+  (let ((break-open-pair (or (and (looking-back "{") (looking-at "}"))
+                             (and (looking-back ">") (looking-at "<"))
+                             (and (looking-back "\\[]") (looking-at "\\]")))))
+    (newline)
+    (when break-open-pair
+      (save-excursion
+        (newline)
+        (indent-for-tab-command)))
+    (indent-for-tab-command)))
+
+(defun open-line-and-indent ()
+  (interactive)
+  (newline-and-indent)
+  (end-of-line 0))
+
 (defun open-line-below ()
   (interactive)
   (end-of-line)

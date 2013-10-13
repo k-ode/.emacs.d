@@ -1,3 +1,7 @@
 ls
 ./wordcount.py small.txt
 ls
+ls
+dir
+ls
+git status
