@@ -42,9 +42,6 @@
 ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
-;; Version control is really slow on windows, so disable 
-;; (setq vc-handled-backends nil)
-
 ;; Save point position between sessions
 (require 'saveplace)
 (setq-default save-place t)
@@ -83,7 +80,6 @@
 
 (require 'multiple-cursors)
 (require 'idomenu)
-;;(require 'sr-speedbar)
 (require 'smart-forward)
 
 ;; Setup key bindings

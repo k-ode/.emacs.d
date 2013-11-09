@@ -7,19 +7,13 @@
 ;; Highlight current line
 (global-hl-line-mode 1)
 
-;; Highligt current parenthesis
-;;(show-paren-mode t)
-;;(setq show-paren-style 'parenthesis)
-
 (when window-system
   (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)
   (blink-cursor-mode -1))
 
-;; I really like this theme
 (when is-linux
   (load-theme 'gruber-darker t))
-;;(load-theme 'github t)
 
 (defun theme-light ()
   (interactive)
