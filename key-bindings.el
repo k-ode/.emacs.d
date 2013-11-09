@@ -8,7 +8,8 @@
 (global-set-key (kbd "C-:") 'hippie-expand-lines)
 (global-set-key (kbd "C-,") 'completion-at-point)
 
-(global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
+;;(global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
+(global-set-key (kbd "C-c s") 'project-explorer-open)
 
 ;; I make a lot of mistakes
 (global-set-key (kbd "C-_") 'undo-tree-undo)

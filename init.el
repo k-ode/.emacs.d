@@ -83,7 +83,7 @@
 
 (require 'multiple-cursors)
 (require 'idomenu)
-(require 'sr-speedbar)
+;;(require 'sr-speedbar)
 (require 'smart-forward)
 
 ;; Setup key bindings

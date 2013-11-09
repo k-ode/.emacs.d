@@ -30,7 +30,8 @@
   (load-theme 'solarized-dark t))
 
 (when is-windows
-  (theme-light))
+  ;;(theme-light))
+  (theme-dark))
 
 ;; Clean up clutter in mode line
 (eval-after-load "eldoc" '(diminish 'eldoc-mode))
