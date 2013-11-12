@@ -25,7 +25,7 @@
 
 (when is-windows
   ;;(theme-light))
-  (theme-dark))
+  (load-theme 'gruber-darker t))
 
 ;; Clean up clutter in mode line
 (eval-after-load "eldoc" '(diminish 'eldoc-mode))
