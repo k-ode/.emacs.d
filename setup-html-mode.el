@@ -18,6 +18,7 @@
 (require 'simplezen)
 
 (defun --setup-simplezen ()
+  (require 'simplezen)
   (set (make-local-variable 'yas/fallback-behavior)
        '(apply simplezen-expand-or-indent-for-tab)))
 
