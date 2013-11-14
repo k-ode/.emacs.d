@@ -50,54 +50,59 @@
 ;; Install extensions if they're missing
 (defun init--install-packages ()
   (packages-install
-   '(ace-jump-mode      20130720.... installed  a quick cursor location minor mode for emacs [github]
-  browse-kill-ring   20131031.... installed  interactively insert items from kill-ring [github]
-  cl-lib             0.3          installed  Properly prefixed CL functions and macros
-  coffee-mode        20130618.... installed  Major mode to edit CoffeeScript files in Emacs [github]
-  csharp-mode        
-  css-eldoc          
-  dash                 
-  diminish           
-  epl                  
-  es-lib             
-  expand-region      
-  f                  
-  flx                
-  flx-ido              
-  flycheck           
-  git-commit-mode    
-  git-rebase-mode    
-  ido-at-point       
-  ido-ubiquitous     
-  ido-vertical-mode  
-  idomenu            
-  js2-mode           
-  js2-refactor       
-  less-css-mode      
-  markdown-mode      
-  multi              
-  multiple-cursors   
-  php-mode           
-  pkg-info           
-  popup              
-  project-explorer   
-  projectile         
-  rainbow-mode         
-  s                  
-  scss-mode          
-  simple-httpd       
-  simplezen          
-  skewer-mode        
-  smart-forward      
-  smartparens        
-  smex               
-  smooth-scrolling   
-  solarized-theme    
-  tagedit            
-  undo-tree          
-  yasnippet          
-  zenburn-theme      
+   '(ace-jump-mode   
+     browse-kill-ring   
+     cl-lib             
+     coffee-mode        
+     csharp-mode        
+     css-eldoc          
+     dash                 
+     diminish           
+     epl                  
+     es-lib             
+     expand-region      
+     f                  
+     flx                
+     flx-ido              
+     flycheck           
+     git-commit-mode    
+     git-rebase-mode    
+     ido-at-point       
+     ido-ubiquitous     
+     ido-vertical-mode  
+     idomenu            
+     js2-mode           
+     js2-refactor       
+     less-css-mode      
+     markdown-mode      
+     multi              
+     multiple-cursors   
+     php-mode           
+     pkg-info           
+     popup              
+     project-explorer   
+     projectile         
+     rainbow-mode         
+     s                  
+     scss-mode          
+     simple-httpd       
+     simplezen          
+     skewer-mode        
+     smart-forward      
+     smartparens        
+     smex               
+     smooth-scrolling   
+     solarized-theme    
+     tagedit            
+     undo-tree          
+     yasnippet          
+     zenburn-theme)))
 
+(condition-case nil
+    (init--install-packages)
+  (error
+   (package-refresh-contents)
+   (init--install-packages)))
 
 (require 'appearance)
 (require 'setup-shell)
