@@ -13,9 +13,6 @@
 ;; No splash screen please ... jeez
 (setq inhibit-startup-message t)
 
-;; Theme path
-(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
-
 ;; Set path to dependencies
 (setq site-lisp-dir
       (expand-file-name "site-lisp" user-emacs-directory))
