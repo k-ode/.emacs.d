@@ -3,16 +3,9 @@
 
 (setq mc/cmds-to-run-for-all
       '(
-        js2-mode-show-node
-        sgml-slash
-        sp--self-insert-command
-        tagedit-forward-slurp-tag
-        tagedit-insert-hash
-        tagedit-insert-lt
-        tagedit-insert-quote
         ))
 
 (setq mc/cmds-to-run-once
       '(
-        tagedit-insert-gt
+        mc/mark-next-lines
         ))
