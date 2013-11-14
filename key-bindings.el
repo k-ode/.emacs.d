@@ -80,7 +80,8 @@
 (global-set-key (kbd "M-ä") 'mc/mark-all-dwim)
 (global-set-key (kbd "C-å") 'mc/mark-previous-like-this)
 (global-set-key (kbd "C-ä") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-Ä") 'mc/mark-more-like-this-extqended)
+(global-set-key (kbd "C-Ä") 'mc/mark-more-like-this-extended)
+(global-set-key (kbd "C-+") 'mc/mark-next-lines)
 (global-set-key (kbd "M-å") 'mc/mark-all-in-region)
 
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
