@@ -5,7 +5,7 @@
 ;; Author: Bozhidar Batsov <bozhidar@batsov.com>
 ;; URL: https://github.com/bbatsov/projectile
 ;; Keywords: project, convenience
-;; Version: 20131103.1114
+;; Version: 20131110.1316
 ;; X-Original-Version: 1.0.0-cvs
 ;; Package-Requires: ((s "1.6.0") (dash "1.5.0") (pkg-info "0.4"))
 
@@ -299,7 +299,7 @@ The cache is created both in memory and on the hard drive."
   (interactive)
   (let* ((current-project (projectile-project-root))
          (abs-current-file (buffer-file-name (current-buffer)))
-         (current-file (file-relative-name abs-current-file)))
+         (current-file (file-relative-name abs-current-file current-project)))
     (unless (or (projectile-file-cached-p current-file current-project)
                 (projectile-ignored-directory-p (file-name-directory abs-current-file)))
       (puthash current-project
