@@ -12,6 +12,8 @@
   (tooltip-mode -1)
   (blink-cursor-mode -1))
 
+(require 'gruber-darker-theme)
+
 (when is-linux
   (load-theme 'gruber-darker t))
 
