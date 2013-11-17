@@ -1,13 +1,3 @@
-;; (require 'helm-spotify)
-;; (defun spotify-play ()
-;;   (interactive)
-;;   (shell-command (format "powershell -command Start-Process -FilePath '\"C:\\Program Files (x86)\\Spotify\\spotify.exe\"' -ArgumentList 'spotify:track:6tdp8sdXrXlPV6AZZN2PE8'")))
-
-;; Trying out projectile again
-(require 'projectile)
-(projectile-global-mode)
-(global-set-key (kbd "C-c C-f") 'projectile-find-file)
-
 (require 'project-explorer)
 
 ;; Don't save temporary files in same directory, please

@@ -8,7 +8,6 @@
 (global-set-key (kbd "C-:") 'hippie-expand-lines)
 (global-set-key (kbd "C-,") 'completion-at-point)
 
-;;(global-set-key (kbd "C-c s") 'sr-speedbar-toggle)
 (global-set-key (kbd "C-c s") 'project-explorer-open)
 
 ;; I make a lot of mistakes
@@ -44,12 +43,6 @@
                 (lambda ()
                   (interactive)
                   (ignore-errors (backward-char 5))))
-
-;; Smart forward
-(global-set-key (kbd "M-<up>") 'smart-up)
-(global-set-key (kbd "M-<down>") 'smart-down)
-(global-set-key (kbd "M-<left>") 'smart-backward)
-(global-set-key (kbd "M-<right>") 'smart-forward)
 
 ;; Pull line up
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1)))
@@ -97,17 +90,8 @@
 (global-set-key (kbd "C-c o") 'occur)
 (global-set-key (kbd "C-x C-i") 'idomenu)
 
-;; Magit
-(global-set-key (kbd "C-x m") 'magit-status)
-(autoload 'magit-status "magit")
-
-;; Multi occur
-;;(global-set-key (kbd "") 'multi-occur)
-;;(global-set-key (kbd "") 'multi-occur-in-matching-buffers)
-
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-(global-set-key (kbd "C-c C-f") 'projectile-find-file)
 
 ;; Get recent files
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
