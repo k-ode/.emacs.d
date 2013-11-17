@@ -56,17 +56,8 @@
 (setq undo-tree-mode-lighter "")
 (global-undo-tree-mode)
 
-;; Match pairs!
-;;(electric-pair-mode +1)   
-
 ;; Add parts of each file's directory to the buffer name if not unique
 (require 'uniquify)
 (setq uniquify-buffer-name-style 'forward)
-
-;; Show code that exceeds maximum line length
-(require 'whitespace)
-(setq whitespace-line-column 80) ;; limit line length
-(setq whitespace-style '(face lines-tail))
-(add-hook 'prog-mode-hook 'whitespace-mode)
 
 (provide 'sane-defaults)
