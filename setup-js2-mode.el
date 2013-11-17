@@ -18,8 +18,8 @@
 (setq-default js2-strict-missing-semi-warning nil)
 (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
 
-;; Flycheck crashing emacs on exit atm
-;; (add-hook 'js2-mode-hook (lambda () (flycheck-mode 1)))
+;;(add-hook 'js2-mode-hook (lambda () (flycheck-mode 1)))
+;;(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
 
 (require 'js2-imenu-extras)
 (js2-imenu-extras-setup)
