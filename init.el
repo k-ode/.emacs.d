@@ -24,6 +24,11 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path site-lisp-dir)
 
+;; Load tern
+(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
+(setq tern-command '("tern" "--no-port-file"))
+
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
@@ -46,74 +51,6 @@
 
 ;; Setup packages
 (require 'setup-package)
-
-;;(require 'dash)
-
-;;(unless (file-exists-p "~/.emacs.d/elpa/archives/melpa")
-;;  (package-refresh-contents))
-
-;; (defun packages-install (packages)
-;;   (--each packages
-;; 		  (when (not (package-installed-p it))
-;; 			(package-install it)))
-;;   (delete-other-windows))
-
-;; ;; Install extensions if they're missing
-;; (defun init--install-packages ()
-;;   (packages-install
-;;    '(ace-jump-mode   
-;;      browse-kill-ring   
-;;      cl-lib             
-;;      coffee-mode        
-;;      csharp-mode        
-;;      css-eldoc          
-;;      dash                 
-;;      diminish           
-;;      epl                  
-;;      es-lib             
-;;      expand-region      
-;;      f                  
-;;      flx                
-;;      flx-ido              
-;;      flycheck           
-;;      git-commit-mode    
-;;      git-rebase-mode    
-;;      ido-at-point       
-;;      ido-ubiquitous     
-;;      ido-vertical-mode  
-;;      idomenu            
-;;      js2-mode           
-;;      js2-refactor       
-;;      less-css-mode      
-;;      markdown-mode      
-;;      multi              
-;;      multiple-cursors   
-;;      php-mode           
-;;      pkg-info           
-;;      popup              
-;;      project-explorer   
-;;      projectile         
-;;      rainbow-mode         
-;;      s                  
-;;      scss-mode          
-;;      simple-httpd       
-;;      simplezen          
-;;      skewer-mode        
-;;      smart-forward      
-;;      smartparens        
-;;      smex               
-;;      smooth-scrolling   
-;;      solarized-theme    
-;;      tagedit            
-;;      undo-tree          
-;;      yasnippet          
-;;      zenburn-theme)))
-
-;; (condition-case nil
-;;     (init--install-packages)
-;;   (error
-;;    (package-refresh-contents)
-;;    (init--install-packages)))
 
 (require 'appearance)
 (require 'setup-shell)
