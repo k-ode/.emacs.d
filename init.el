@@ -52,6 +52,59 @@
 ;; Setup packages
 (require 'setup-package)
 
+(defvar my-packages '(ace-jump-mode      
+                      browse-kill-ring   
+                      cl-lib             
+                      coffee-mode        
+                      csharp-mode        
+                      css-eldoc          
+                      dash               
+                      diminish           
+                      epl                
+                      es-lib             
+                      expand-region      
+                      f                  
+                      flx                
+                      flx-ido            
+                      flycheck           
+                      git-commit-mode    
+                      git-rebase-mode    
+                      ido-at-point       
+                      ido-ubiquitous     
+                      ido-vertical-mode  
+                      idomenu            
+                      js2-mode           
+                      js2-refactor       
+                      less-css-mode      
+                      markdown-mode      
+                      multi              
+                      multiple-cursors   
+                      php-mode           
+                      pkg-info           
+                      popup              
+                      project-explorer   
+                      rainbow-mode       
+                      s                  
+                      scss-mode          
+                      simple-httpd       
+                      simplezen          
+                      skewer-mode        
+                      smartparens        
+                      smex               
+                      smooth-scrolling   
+                      solarized-theme    
+                      tagedit            
+                      undo-tree          
+                      yasnippet          
+                      zenburn-theme
+                      clojure-mode
+                      clojure-test-mode
+                      cider))
+
+(dolist (p my-packages)
+  (when (not (package-installed-p p))
+    (package-install p)))
+
 (require 'appearance)
 (require 'setup-shell)
 (require 'sane-defaults)
