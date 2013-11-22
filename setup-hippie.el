@@ -187,8 +187,7 @@ string).  It returns t if a new completion is found, nil otherwise."
 (defun hippie-expand-no-case-fold ()
   (interactive)
   (let ((case-fold-search nil))
-    (interactive)
-    (ido-hippie-expand-with 'hippie-expand)))
+    (hippie-expand nil)))
 
 ;; Create own function to expand lines
 (defun hippie-expand-lines ()
