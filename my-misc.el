@@ -4,8 +4,8 @@
 ;;(setq-default ac-dwim t)
 
 ;; Yasnippets, always
-(eval-after-load "yasnippet"
-  '(setq-default ac-sources (append '(ac-source-yasnippet) ac-sources)))
+;; (eval-after-load "yasnippet"
+;;   '(setq-default ac-sources (append '(ac-source-yasnippet) ac-sources)))
 
 (require 'project-explorer)
 
