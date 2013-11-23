@@ -24,11 +24,6 @@
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path site-lisp-dir)
 
-;; Load tern
-(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
-(autoload 'tern-mode "tern.el" nil t)
-(setq tern-command '("tern" "--no-port-file"))
-
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
@@ -52,7 +47,9 @@
 ;; Setup packages
 (require 'setup-package)
 
-(defvar my-packages '(ace-jump-mode      
+(defvar my-packages '(;;auto-complete
+                      ;;ac-js2
+                      ace-jump-mode      
                       browse-kill-ring   
                       cl-lib             
                       coffee-mode        

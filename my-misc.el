@@ -1,3 +1,12 @@
+;;(require 'auto-complete-config)
+;;(ac-config-default)
+;;(setq-default ac-auto-start nil)
+;;(setq-default ac-dwim t)
+
+;; Yasnippets, always
+(eval-after-load "yasnippet"
+  '(setq-default ac-sources (append '(ac-source-yasnippet) ac-sources)))
+
 (require 'project-explorer)
 
 ;; Don't save temporary files in same directory, please
