@@ -4,12 +4,13 @@
 (global-set-key (kbd "C-x C-c") 'delete-frame)
 
 ;; Completion that uses many different methods to find options.
-(global-set-key (kbd "C-.") 'hippie-expand-no-case-fold)
+(global-set-key (kbd "<C-tab>") 'hippie-expand-no-case-fold)
 (global-set-key (kbd "C-:") 'hippie-expand-lines)
-(global-set-key (kbd "C-,") 'completion-at-point)
-;;(global-set-key (kbd "<C-tab>") 'company-complete)
+(global-set-key (kbd "C-.") 'completion-at-point)
 
 (global-set-key (kbd "C-c s") 'project-explorer-open)
+
+(require 'windmove-default-keybindings)
 
 ;; I make a lot of mistakes
 (global-set-key (kbd "C-_") 'undo-tree-undo)
@@ -24,7 +25,7 @@
 ;; Should be able to eval and replace anywhere
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
 
-;; Be smarter about when a line begins 
+;; Be smarter about when a line begins
 (global-set-key (kbd "C-a") 'smart-line-beginning)
 
 ;; Move more quickly
@@ -48,7 +49,7 @@
 ;; Pull line up
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1)))
 
-;; Clever newlines 
+;; Clever newlines
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
 (global-set-key (kbd "<C-return>") 'open-line-below)
 (global-set-key (kbd "C-o") 'open-line-and-indent)
@@ -98,7 +99,7 @@
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
 ;; Buffer file functions
-(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)   
+(global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
 
 ;; View occurrence in occur mode
