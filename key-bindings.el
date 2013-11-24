@@ -10,8 +10,6 @@
 
 (global-set-key (kbd "C-c s") 'project-explorer-open)
 
-(require 'windmove-default-keybindings)
-
 ;; I make a lot of mistakes
 (global-set-key (kbd "C-_") 'undo-tree-undo)
 (global-set-key (kbd "M-_") 'undo-tree-redo)
