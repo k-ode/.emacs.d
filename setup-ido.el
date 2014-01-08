@@ -24,11 +24,7 @@
 (require 'ido-vertical-mode)
 (ido-vertical-mode)
 
-(defun sd/ido-define-keys ()
-  (define-key ido-completion-map (kbd "C-n") 'ido-next-match)
-  (define-key ido-completion-map (kbd "<down>") 'ido-next-match)
-  (define-key ido-completion-map (kbd "C-p") 'ido-prev-match)
-  (define-key ido-completion-map (kbd "<up>") 'ido-prev-match))
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
 ;; Use ido everywhere
 (require 'ido-ubiquitous)

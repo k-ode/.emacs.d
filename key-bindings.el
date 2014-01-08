@@ -88,7 +88,7 @@
 
 ;; Occur and imenu
 (global-set-key (kbd "C-c o") 'occur)
-(global-set-key (kbd "C-x C-i") 'idomenu)
+(global-set-key (kbd "C-c i") 'imenu-anywhere)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)

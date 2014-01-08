@@ -9,7 +9,7 @@
   (interactive)
   (let ((inhibit-changing-match-data t))
     (skip-syntax-backward " >")
-    (unless (search-forward-regexp "^\\s *$" nil t)
+    (unless (search-backward-regexp "^\\s *$" nil t)
       (goto-char (point-min)))))
 
 (defadvice sgml-delete-tag (after reindent activate)

@@ -47,8 +47,8 @@
 ;; Setup packages
 (require 'setup-package)
 
-(defvar my-packages '(;;auto-complete
-                      ;;ac-js2
+(defvar my-packages '(magit
+                      magit-svn
                       ace-jump-mode      
                       browse-kill-ring   
                       cl-lib             
