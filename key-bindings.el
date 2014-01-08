@@ -70,17 +70,21 @@
 (global-set-key (kbd "C-'") 'er/expand-region)
 
 ;; Multiple cursors
-(global-set-key (kbd "M-ä") 'mc/mark-all-dwim)
-(global-set-key (kbd "C-å") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-ä") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-Ä") 'mc/mark-more-like-this-extended)
-(global-set-key (kbd "C-+") 'mc/mark-next-lines)
-(global-set-key (kbd "M-å") 'mc/mark-all-in-region)
+(global-set-key (kbd "C-c m a") 'mc/mark-all-dwim)
+(global-set-key (kbd "C-c m m") 'mc/mark-more-like-this-extended)
+(global-set-key (kbd "C-ä") 'mc/mark-more-like-this-extended)
+(global-set-key (kbd "C-c m p") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c m n") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-c m l") 'mc/mark-next-lines)
+(global-set-key (kbd "C-c m r") 'mc/mark-all-in-region)
+(global-set-key (kbd "C-c m e") 'mc/edit-lines)
+(global-set-key (kbd "C-c m un") 'mc/unmark-next-like-this)
+(global-set-key (kbd "C-c m up") 'mc/unmark-previous-like-this)
 
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;; Ace jump mode
-(define-key global-map (kbd "C-ö") 'ace-jump-mode)
+(define-key global-map (kbd "C-å") 'ace-jump-mode)
 
 ;; Move lines around
 (global-set-key (kbd "<C-S-down>") 'move-line-down)
@@ -90,8 +94,11 @@
 (global-set-key (kbd "C-c o") 'occur)
 (global-set-key (kbd "C-c i") 'imenu-anywhere)
 
-;; File finding
+;; File findingin
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+
+;; Find file in project
+(global-set-key (kbd "C-x o") 'projectile-find-file)
 
 ;; Get recent files
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)

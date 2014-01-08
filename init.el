@@ -47,7 +47,9 @@
 ;; Setup packages
 (require 'setup-package)
 
-(defvar my-packages '(magit
+(defvar my-packages '(guide-key
+                      projectile
+                      magit
                       magit-svn
                       ace-jump-mode      
                       browse-kill-ring   

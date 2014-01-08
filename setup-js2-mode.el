@@ -1,5 +1,5 @@
 (require 'js2-refactor)
-(js2r-add-keybindings-with-prefix "C-c C-m")
+(js2r-add-keybindings-with-prefix "C-c r")
 
 ;; Indendt case labels on extra level
 (setq-default js2-indent-switch-body t)
