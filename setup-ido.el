@@ -23,6 +23,7 @@
 
 (require 'ido-vertical-mode)
 (ido-vertical-mode)
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
 (defun sd/ido-define-keys ()
   (define-key ido-completion-map (kbd "C-n") 'ido-next-match)

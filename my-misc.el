@@ -1,5 +1,6 @@
 (require 'project-explorer)
 
+(setq fill-column 80)
 ;; Don't save temporary files in same directory, please
 (setq temporary-file-directory "~/.emacs.d/tmp/")
 
