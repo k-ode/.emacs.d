@@ -73,7 +73,8 @@
                       ido-at-point       
                       ido-ubiquitous     
                       ido-vertical-mode  
-                      idomenu            
+                      idomenu
+					  imenu-anywhere
                       js2-mode           
                       js2-refactor       
                       less-css-mode      
