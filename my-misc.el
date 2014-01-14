@@ -1,6 +1,25 @@
+(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
+(autoload 'tern-mode "tern.el" nil t)
+(setq tern-command '("node" "c:/dev/home/kim/.emacs.d/tern/bin/tern"))
+
+(defun my-tern-project-dir ()
+  (and (not (buffer-file-name)) "")
+  (let ((project-dir (file-name-directory (buffer-file-name))))
+    (loop for cur = project-dir then (let ((shorter (file-name-directory (substring cur 0 (1- (length cur))))))
+                                       (and (< (length shorter) (length cur)) shorter))
+          while cur do
+          (when (file-exists-p (expand-file-name ".tern-project" cur))
+            (return (setf project-dir cur))))
+    project-dir))
+
+(defun delete-tern-port-file ()
+  (interactive)
+  (delete-file (expand-file-name ".tern-port" (my-tern-project-dir))))
+
 (require 'project-explorer)
 
 (setq fill-column 80)
+
 ;; Don't save temporary files in same directory, please
 (setq temporary-file-directory "~/.emacs.d/tmp/")
 
