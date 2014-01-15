@@ -78,9 +78,10 @@
 (global-set-key (kbd "C-c m l") 'mc/mark-next-lines)
 (global-set-key (kbd "C-c m r") 'mc/mark-all-in-region)
 (global-set-key (kbd "C-c m e") 'mc/edit-lines)
+(global-set-key (kbd "C-c m d") 'mc/edit-ends-of-lines)
+(global-set-key (kbd "C-c m b") 'mc/edit-beginnings-of-lines)
 (global-set-key (kbd "C-c m un") 'mc/unmark-next-like-this)
 (global-set-key (kbd "C-c m up") 'mc/unmark-previous-like-this)
-
 (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
 
 ;; Ace jump mode
@@ -94,11 +95,12 @@
 (global-set-key (kbd "C-c o") 'occur)
 (global-set-key (kbd "C-c i") 'imenu-anywhere)
 
-;; File findingin
+;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
 
 ;; Find file in project
 (global-set-key (kbd "C-x o") 'projectile-find-file)
+(global-set-key (kbd "C-x p") 'projectile-switch-to-buffer)
 
 ;; Get recent files
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
