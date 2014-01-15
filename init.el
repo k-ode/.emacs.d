@@ -17,12 +17,16 @@
 (setq site-lisp-dir
       (expand-file-name "site-lisp" user-emacs-directory))
 
+(setq user-custom-dir
+      (expand-file-name "user-custom" user-emacs-directory))
+
 (let ((default-directory "~/.emacs.d/site-lisp/"))
       (normal-top-level-add-subdirs-to-load-path))
 
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
 (add-to-list 'load-path site-lisp-dir)
+(add-to-list 'load-path user-custom-dir)
 
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
@@ -71,7 +75,8 @@
                       ido-at-point       
                       ido-ubiquitous     
                       ido-vertical-mode  
-                      idomenu            
+                      idomenu
+					  imenu-anywhere
                       js2-mode           
                       js2-refactor       
                       less-css-mode      

@@ -23,6 +23,7 @@
 
 (require 'ido-vertical-mode)
 (ido-vertical-mode)
+(setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
 (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
