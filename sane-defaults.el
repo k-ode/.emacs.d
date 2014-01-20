@@ -34,6 +34,9 @@
 (add-to-list 'recentf-exclude "\\.ido.last\\'")
 (add-to-list 'recentf-exclude "\\archive-contents\\'")
 
+(savehist-mode 1)
+(setq history-length 1000)
+
 ;; Undo/redo window configuration with C-c <left>/<right>
 (winner-mode 1)
 
