@@ -46,7 +46,7 @@
     ;; (define-key html-mode-map (kbd "M-S") 'tagedit-split-tag)
     ;; (define-key html-mode-map (kbd "M-?") 'tagedit-convolute-tags)
     (define-key html-mode-map (kbd "C-k") 'tagedit-kill)
-    (define-key html-mode-map (kbd "C-S-k") 'tagedit-kill-attribute)
+    (define-key html-mode-map (kbd "C-M-k") 'tagedit-kill-attribute)
     (tagedit-add-experimental-features)
     (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))))
 
