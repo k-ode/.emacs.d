@@ -82,14 +82,14 @@ list of strings, giving the binary name and arguments.")
 
 (defun tern-start-server (c)
   (let* ((default-directory tern-project-dir)
-         (proc (apply #'start-process-shell-command "Tern" nil tern-command))
+         (proc (apply #'start-process "Tern" nil tern-command))
          (all-output ""))
     (set-process-query-on-exit-flag proc nil)
     (set-process-sentinel proc (lambda (_proc _event)
                                  (delete-process proc)
                                  (setf tern-known-port (cons :failed (concat "Could not start Tern server\n" all-output)))
                                  (run-at-time "30 sec" nil
-                                              (lambda' (buf)
+                                              (lambda (buf)
                                                 (with-current-buffer buf
                                                   (when (consp tern-known-port) (setf tern-known-port nil))))
                                               (current-buffer))
