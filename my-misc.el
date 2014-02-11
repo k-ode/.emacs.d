@@ -1,3 +1,7 @@
+;; Human readable dired
+(setq-default dired-listing-switches "-alhv")
+(require 'dired-details)
+(dired-details-install)
 (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
 (autoload 'tern-mode "tern.el" nil t)
 
