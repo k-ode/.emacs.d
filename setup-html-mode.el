@@ -46,11 +46,11 @@
     ;; (define-key html-mode-map (kbd "M-S") 'tagedit-split-tag)
     ;; (define-key html-mode-map (kbd "M-?") 'tagedit-convolute-tags)
     (define-key html-mode-map (kbd "C-k") 'tagedit-kill)
-    (define-key html-mode-map (kbd "C-M-k") 'tagedit-kill-attribute)
+    ;;(define-key html-mode-map (kbd "C-M-k") 'tagedit-kill-attribute)
     (tagedit-add-experimental-features)
     (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))))
 
-;; after delting a tag, indent properly
+;; after deleting a tag, indent properly
 (defadvice sgml-delete-tag (after reindent activate)
   (indent-region (point-min) (point-max)))
 
