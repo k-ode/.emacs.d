@@ -163,18 +163,9 @@ httpServer.listen(port, "127.0.0.1", function() {
     var portFile = path.resolve(projectDir, portFileName);
     fs.writeFileSync(portFile, String(port), "utf8");
     process.on("exit", function() {
-        try {
-            var cur = Number(fs.readFileSync(portFile, "utf8"));
-            if (cur == port) fs.unlinkSync(portFile);
-        // var size = fs.statSync(portFile).size,
-        //     fd = fs.openSync(portFile, 'r'),
-        //     buffer = new Buffer(size);
-        // fs.readSync(fd, buffer, 0, size, 0);
-        // var cur = Number(buffer.toString('utf8'));
-        // if (cur == port) {
-        //   fs.closeSync(fd);
-        //   fs.unlinkSync(portFile);
-        // }
+      try {
+        var cur = Number(fs.readFileSync(portFile, "utf8"));
+        if (cur == port) fs.unlinkSync(portFile);
       } catch(e) {}
     });
   }

@@ -3,7 +3,10 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        hippie-expand-no-case-fold
         sp--self-insert-command
+        tagedit-forward-slurp-tag
+        tagedit-insert-lt
         ))
 
 (setq mc/cmds-to-run-once
