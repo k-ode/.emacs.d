@@ -85,7 +85,8 @@
                       multiple-cursors   
                       php-mode           
                       pkg-info           
-                      popup              
+                      popup
+                      powerline
                       project-explorer   
                       rainbow-mode       
                       s                  

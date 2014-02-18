@@ -1,3 +1,6 @@
+(require 'powerline)
+(powerline-default-theme)
+
 (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
 (autoload 'tern-mode "tern.el" nil t)
 (setq tern-command '("node" "c:/dev/home/kim/.emacs.d/tern/bin/tern"))
