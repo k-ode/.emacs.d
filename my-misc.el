@@ -1,11 +1,6 @@
 (require 'powerline)
 (powerline-default-theme)
 
-;; Human readable dired
-(setq-default dired-listing-switches "-alhv")
-(require 'dired-details)
-(dired-details-install)
-
 ;; I prefer to read files side by side
 (setq ediff-split-window-function (quote split-window-horizontally))
 

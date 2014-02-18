@@ -51,7 +51,9 @@
 ;; Setup packages
 (require 'setup-package)
 
-(defvar my-packages '(guide-key
+(defvar my-packages '(dired-details+
+                      dired-details
+                      guide-key
                       projectile
                       magit
                       magit-svn
