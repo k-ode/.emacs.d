@@ -9,6 +9,7 @@
 (global-set-key (kbd "C-.") 'completion-at-point)
 
 (global-set-key (kbd "C-c s") 'project-explorer-open)
+(global-set-key (kbd "C-c C-f") 'projectile-find-file)
 
 ;; I make a lot of mistakes
 (global-set-key (kbd "C-_") 'undo-tree-undo)

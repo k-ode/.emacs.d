@@ -1,9 +1,7 @@
 (require 'powershell-mode)
 
-;; Human readable dired
-(setq-default dired-listing-switches "-alhv")
-(require 'dired-details)
-(dired-details-install)
+(require 'powerline)
+(powerline-default-theme)
 
 ;; I prefer to read files side by side
 (setq ediff-split-window-function (quote split-window-horizontally))
