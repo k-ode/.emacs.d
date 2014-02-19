@@ -1,3 +1,5 @@
+(require 'powershell-mode)
+
 ;; Human readable dired
 (setq-default dired-listing-switches "-alhv")
 (require 'dired-details)
