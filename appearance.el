@@ -12,21 +12,8 @@
   (tooltip-mode -1)
   (blink-cursor-mode -1))
 
-(require 'gruber-darker-theme)
-
-(when is-linux
-  (load-theme 'gruber-darker t))
-
-(defun theme-light ()
-  (interactive)
-  (load-theme 'solarized-light t))
-
-(defun theme-dark ()
-  (interactive)
-  (load-theme 'solarized-dark t))
-
-(when is-windows
-  (load-theme 'gruber-darker t))
+;;(require 'gruber-darker-theme)
+;;(load-theme 'gruber-darker t)
 
 ;; Clean up clutter in mode line
 (eval-after-load "eldoc" '(diminish 'eldoc-mode))

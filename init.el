@@ -99,11 +99,9 @@
                       smartparens        
                       smex               
                       smooth-scrolling   
-                      solarized-theme    
                       tagedit            
                       undo-tree          
                       yasnippet          
-                      zenburn-theme
                       clojure-mode
                       clojure-test-mode
                       cider))
