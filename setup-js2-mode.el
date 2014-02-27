@@ -18,7 +18,7 @@
 (setq-default js2-strict-missing-semi-warning nil)
 (setq-default js2-strict-trailing-comma-warning t) ;; jshint does not warn about this now for some reason
 
-;;(add-hook 'js2-mode-hook (lambda () (flycheck-mode 1)))
+(add-hook 'js2-mode-hook (lambda () (flycheck-mode t)))
 ;;(add-hook 'js2-mode-hook (lambda () (tern-mode t)))
 
 (require 'js2-imenu-extras)
@@ -41,5 +41,8 @@
 ;; steal back alt-j
 (define-key js2-mode-map (kbd "M-j") '(lambda () (interactive) (join-line -1)))
 (define-key js2-mode-map (kbd "M-n") '(lambda () (interactive) (js2-line-break)))
+
+;; Don't use C-c C-f, which is already taken by projectile find file in project
+(define-key js2-mode-map (kbd "C-c C-f") nil)
 
 (provide 'setup-js2-mode)
