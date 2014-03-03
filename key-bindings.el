@@ -9,6 +9,7 @@
 (global-set-key (kbd "C-.") 'completion-at-point)
 
 (global-set-key (kbd "C-c s") 'project-explorer-open)
+(global-set-key (kbd "C-c C-f") 'projectile-find-file)
 
 ;; I make a lot of mistakes
 (global-set-key (kbd "C-_") 'undo-tree-undo)
@@ -27,19 +28,25 @@
 (global-set-key (kbd "C-a") 'smart-line-beginning)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-n") (lambda () (interactive) (ignore-errors (next-line 5))))
-(global-set-key (kbd "C-S-p") (lambda () (interactive) (ignore-errors (previous-line 5))))
-(global-set-key (kbd "C-S-f") (lambda () (interactive) (ignore-errors (forward-char 5))))
-(global-set-key (kbd "C-S-b") (lambda () (interactive) (ignore-errors (backward-char 5))))
+(global-set-key (kbd "C-S-n")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (next-line 5))))
+(global-set-key (kbd "C-S-p")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (previous-line 5))))
+(global-set-key (kbd "C-S-f")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (forward-char 5))))
+(global-set-key (kbd "C-S-b")
+                (lambda ()
+                  (interactive)
+                  (ignore-errors (backward-char 5))))
 
 ;; Pull line up
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1)))
-
-(global-set-key (kbd "C-w") 'kill-region-or-backward-word)
-
-(global-set-key (kbd "M-w") 'save-region-or-current-line)
-(global-set-key (kbd "s-w") 'save-region-or-current-line)
-(global-set-key (kbd "M-W") (lambda () (interactive) (save-region-or-current-line 1)))
 
 ;; Clever newlines
 (global-set-key (kbd "<C-S-return>") 'open-line-above)
@@ -85,11 +92,16 @@
 (global-set-key (kbd "<C-S-down>") 'move-line-down)
 (global-set-key (kbd "<C-S-up>") 'move-line-up)
 
-;; Imenu
-(global-set-key (kbd "C-c C-i") 'imenu-anywhere)
+;; Occur and imenu
+(global-set-key (kbd "C-c o") 'occur)
+(global-set-key (kbd "C-c i") 'imenu-anywhere)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+
+;; Find file in project
+(global-set-key (kbd "C-x o") 'projectile-find-file)
+(global-set-key (kbd "C-x p") 'projectile-switch-to-buffer)
 
 ;; Get recent files
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
@@ -108,17 +120,5 @@
 
 ;; Eval buffer
 (global-set-key (kbd "C-c C-k") 'eval-buffer)
-
-;; Occur
-(global-set-key (kbd "M-s m") 'multi-occur)
-(global-set-key (kbd "M-s M") 'multi-occur-in-matching-buffers)
-(global-set-key (kbd "C-c o") 'occur)
-
-;; Find files by name and display results in dired
-(global-set-key (kbd "M-s f") 'find-name-dired)
-
-;; Project management
-(global-set-key (kbd "C-x o") 'projectile-find-file)
-(global-set-key (kbd "C-x p") 'projectile-switch-to-buffer)
 
 (provide 'key-bindings)
