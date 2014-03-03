@@ -51,7 +51,8 @@
 ;; Setup packages
 (require 'setup-package)
 
-(defvar my-packages '(dired-details+
+(defvar my-packages '(ibuffer-vc
+                      dired-details+
                       dired-details
                       guide-key
                       projectile
