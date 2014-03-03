@@ -3,10 +3,16 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        dired-do-redisplay
+        dired-next-line
+        dired-previous-line
         hippie-expand-no-case-fold
+        multiple-cursors-mode
         sp--self-insert-command
         tagedit-forward-slurp-tag
         tagedit-insert-lt
+        tagedit-kill
+        yas-expand
         ))
 
 (setq mc/cmds-to-run-once
