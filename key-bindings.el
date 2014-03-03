@@ -36,7 +36,7 @@
 ;; Pull line up
 (global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1)))
 
-(global-set-key (kbd "C-w") 'kill-region-or-backward-word)
+(global-set-key (kbd "<C-backspace>") 'kill-region-or-backward-word)
 
 (global-set-key (kbd "M-w") 'save-region-or-current-line)
 (global-set-key (kbd "s-w") 'save-region-or-current-line)
