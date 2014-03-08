@@ -71,7 +71,7 @@
 
   function updateText(file, text, srv) {
     file.text = text;
-    file.ast = infer.parse(text, srv.passes, {directSourceFile: file});
+    file.ast = infer.parse(text, srv.passes, {directSourceFile: file, allowReturnOutsideFunction: true});
     file.lineOffsets = null;
   }
 
@@ -107,7 +107,7 @@
     },
     delFile: function(name) {
       for (var i = 0, f; i < this.files.length; ++i) if ((f = this.files[i]).name == name) {
-        clearFile(this, f);
+        clearFile(this, f, null, true);
         this.files.splice(i--, 1);
         return;
       }
@@ -236,9 +236,9 @@
     }
   }
 
-  function clearFile(srv, file, newText) {
+  function clearFile(srv, file, newText, purge) {
     if (file.scope) {
-      infer.withContext(srv.cx, function() {
+      if (purge) infer.withContext(srv.cx, function() {
         // FIXME try to batch purges into a single pass (each call needs
         // to traverse the whole graph)
         infer.purgeTypes(file.name);
@@ -371,7 +371,7 @@
       var scopeEnd = infer.scopeAt(realFile.ast, pos + text.length, realFile.scope);
       var scope = file.scope = scopeDepth(scopeStart) < scopeDepth(scopeEnd) ? scopeEnd : scopeStart;
       infer.markVariablesDefinedBy(scopeStart, file.name, pos, pos + file.text.length);
-      file.ast = infer.parse(file.text, srv.passes, {directSourceFile: file});
+      file.ast = infer.parse(file.text, srv.passes, {directSourceFile: file, allowReturnOutsideFunction: true});
       infer.analyze(file.ast, file.name, scope, srv.passes);
       infer.purgeMarkedVariables(scopeStart);
 

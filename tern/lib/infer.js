@@ -119,7 +119,17 @@
       return canonicalType(this.types);
     },
 
+    computedPropType: function() {
+      if (!this.propertyOf || !this.propertyOf.hasProp("<i>")) return null;
+      var computedProp = this.propertyOf.getProp("<i>");
+      if (computedProp == this) return null;
+      return computedProp.getType();
+    },
+      
     makeupType: function() {
+      var computed = this.computedPropType();
+      if (computed) return computed;
+
       if (!this.forward) return null;
       for (var i = this.forward.length - 1; i >= 0; --i) {
         var hint = this.forward[i].typeHint();
@@ -163,6 +173,8 @@
         var prop = this.forward[i].propHint();
         if (prop) f(prop, null, 0);
       }
+      var computed = this.computedPropType();
+      if (computed) computed.gatherProperties(f);
     }
   });
 
@@ -193,8 +205,6 @@
         if (!tp.retval.isEmpty()) ++score;
       } else if (objs) {
         score = tp.name ? 100 : 2;
-      } else if (prims) {
-        score = 1;
       }
       if (score >= maxScore) { maxScore = score; maxTp = tp; }
     }
@@ -226,7 +236,8 @@
     },
     propHint: function() { return this.prop; },
     propagatesTo: function() {
-      return {target: this.target, pathExt: "." + this.prop};
+      if (this.prop == "<i>" || !/[^\w_]/.test(this.prop))
+        return {target: this.target, pathExt: "." + this.prop};
     }
   });
 
@@ -354,7 +365,7 @@
     typeHint: function() { return this.other; }
   });
 
-  var IfObj = constraint("target", {
+  var IfObj = exports.IfObj = constraint("target", {
     addType: function(t, weight) {
       if (t instanceof Obj) this.target.addType(t, weight);
     },
@@ -381,6 +392,7 @@
 
   var Type = exports.Type = function() {};
   Type.prototype = extend(ANull, {
+    constructor: Type,
     propagate: function(c, w) { c.addType(this, w); },
     hasType: function(other) { return other == this; },
     isEmpty: function() { return false; },
@@ -390,6 +402,7 @@
 
   var Prim = exports.Prim = function(proto, name) { this.name = name; this.proto = proto; };
   Prim.prototype = extend(Type.prototype, {
+    constructor: Prim,
     toString: function() { return this.name; },
     getProp: function(prop) {return this.proto.hasProp(prop) || ANull;},
     gatherProperties: function(f, depth) {
@@ -409,6 +422,7 @@
     this.origin = cx.curOrigin;
   };
   Obj.prototype = extend(Type.prototype, {
+    constructor: Obj,
     toString: function(maxDepth) {
       if (!maxDepth && this.name) return this.name;
       var props = [], etc = false;
@@ -443,6 +457,7 @@
         this.maybeUnregProtoPropHandler();
       } else {
         av = new AVal;
+        av.propertyOf = this;
       }
 
       this.props[prop] = av;
@@ -455,7 +470,9 @@
       var found = this.hasProp(prop, true) || (this.maybeProps && this.maybeProps[prop]);
       if (found) return found;
       if (prop == "__proto__" || prop == "✖") return ANull;
-      return this.ensureMaybeProps()[prop] = new AVal;
+      var av = this.ensureMaybeProps()[prop] = new AVal;
+      av.propertyOf = this;
+      return av;
     },
     broadcastProp: function(prop, val, local) {
       if (local) {
@@ -531,6 +548,7 @@
     this.retval = retval;
   };
   Fn.prototype = extend(Obj.prototype, {
+    constructor: Fn,
     toString: function(maxDepth) {
       if (maxDepth) maxDepth--;
       var str = "fn(";
@@ -578,6 +596,7 @@
     if (contentType) contentType.propagate(content);
   };
   Arr.prototype = extend(Obj.prototype, {
+    constructor: Arr,
     toString: function(maxDepth) {
       return "[" + toString(this.getProp("<i>").getType(), maxDepth, this) + "]";
     }
@@ -670,6 +689,7 @@
     this.prev = prev;
   };
   Scope.prototype = extend(Obj.prototype, {
+    constructor: Scope,
     defVar: function(name, originNode) {
       for (var s = this; ; s = s.proto) {
         var found = s.props[name];
