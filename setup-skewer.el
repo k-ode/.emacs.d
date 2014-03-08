@@ -3,6 +3,10 @@
 (require 'skewer-html)
 (require 'skewer-css)
 
+(add-hook 'js2-mode-hook 'skewer-mode)
+(add-hook 'css-mode-hook 'skewer-css-mode)
+(add-hook 'html-mode-hook 'skewer-html-mode)
+
 (defun skewer-start ()
   (interactive)
   (let ((httpd-port 8023))
