@@ -13,25 +13,6 @@
         (indent-for-tab-command)))
     (indent-for-tab-command)))
 
-(defun open-line-and-indent ()
-  (interactive)
-  (newline-and-indent)
-  (end-of-line 0)
-  (indent-for-tab-command))
-
-(defun open-line-below ()
-  (interactive)
-  (end-of-line)
-  (newline)
-  (indent-for-tab-command))
-
-(defun open-line-above ()
-  (interactive)
-  (beginning-of-line)
-  (newline)
-  (forward-line -1)
-  (indent-for-tab-command))
-
 (defun move-line-down ()
   (interactive)
   (let ((col (current-column)))

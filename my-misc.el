@@ -1,3 +1,21 @@
+;; Wanna use enter as newline and indent
+(defun my-coding-config ()
+  (local-set-key (kbd "RET") 'comment-indent-new-line)
+  (local-set-key (kbd "<S-return>") 'newline)
+  )
+
+(mapc
+ (lambda (language-mode-hook)
+   (add-hook language-mode-hook 'my-coding-config))
+ '(css-mode-hook
+   emacs-lisp-mode-hook
+   js2-mode-hook
+   less-mode-hook
+   html-mode-hook
+   ))
+
+(require 'smart-forward)
+
 (add-hook 'ibuffer-hook
           (lambda ()
             (ibuffer-vc-set-filter-groups-by-vc-root)

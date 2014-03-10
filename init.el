@@ -51,7 +51,8 @@
 ;; Setup packages
 (require 'setup-package)
 
-(defvar my-packages '(ibuffer-vc
+(defvar my-packages '(smart-forward
+                      ibuffer-vc
                       dired-details+
                       dired-details
                       guide-key

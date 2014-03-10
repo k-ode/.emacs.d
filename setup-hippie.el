@@ -176,14 +176,22 @@ string).  It returns t if a new completion is found, nil otherwise."
   `(call-interactively
     (lambda (&optional selection)
       (interactive
-       (let ((options (hippie-expand-completions ,hippie-expand-function)))
+       (let ((options (hippie-expand-completions ,hippie-expand-function))
+             (input (if (region-active-p)
+                        (buffer-substring-no-properties (region-beginning) (region-end))
+                      (thing-at-point 'word))))
          (if options
-             (list (ido-completing-read "Complete: " options)))))
-      (if selection
+             (list (ido-completing-read "" options nil nil input)))))
+      (if selection       
           (he-substitute-string selection t)
-        (message "No expansion found")))))
+        (message "No match")))))
 
-;; Don't case-fold when expanding with hippe
+(defun ido-hippie-expand ()
+  "Offer ido-based completion for the word at point."
+  (interactive)
+  (ido-hippie-expand-with 'hippie-expand))
+
+;; Ignore case when expanding with hippie
 (defun hippie-expand-no-case-fold ()
   (interactive)
   (let ((case-fold-search nil))
