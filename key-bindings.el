@@ -6,14 +6,15 @@
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "<C-tab>") 'hippie-expand-no-case-fold)
 (global-set-key (kbd "C-:") 'hippie-expand-lines)
+(global-set-key (kbd "C-,") 'ido-hippie-expand)
 (global-set-key (kbd "C-.") 'completion-at-point)
 
 (global-set-key (kbd "C-c s") 'project-explorer-open)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; I make a lot of mistakes
-(global-set-key (kbd "C-_") 'undo-tree-undo)
-(global-set-key (kbd "M-_") 'undo-tree-redo)
+(global-set-key (kbd "C--") 'undo-tree-undo)
+(global-set-key (kbd "M--") 'undo-tree-redo)
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
@@ -28,30 +29,23 @@
 (global-set-key (kbd "C-a") 'smart-line-beginning)
 
 ;; Move more quickly
-(global-set-key (kbd "C-S-n")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (next-line 5))))
-(global-set-key (kbd "C-S-p")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (previous-line 5))))
-(global-set-key (kbd "C-S-f")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (forward-char 5))))
-(global-set-key (kbd "C-S-b")
-                (lambda ()
-                  (interactive)
-                  (ignore-errors (backward-char 5))))
+(global-set-key (kbd "C-S-f") (lambda () (interactive) (ignore-errors (forward-char 5))))
+(global-set-key (kbd "C-S-n") (lambda () (interactive) (ignore-errors (next-line 5))))
+(global-set-key (kbd "C-S-p") (lambda () (interactive) (ignore-errors (previous-line 5))))
+(global-set-key (kbd "C-S-b") (lambda () (interactive) (ignore-errors (backward-char 5))))
 
 ;; Pull line up
-(global-set-key (kbd "M-j") (lambda () (interactive) (join-line -1)))
+(global-set-key (kbd "M-j") (lambda ()
+                              (interactive)
+                              (join-line -1)
+                              (indent-for-tab-command)))
+
+(global-set-key (kbd "<C-backspace>") 'kill-region-or-backward-word)
+
+(global-set-key (kbd "M-w") 'save-region-or-current-line)
+(global-set-key (kbd "M-W") (lambda () (interactive) (save-region-or-current-line 1)))
 
 ;; Clever newlines
-(global-set-key (kbd "<C-S-return>") 'open-line-above)
-(global-set-key (kbd "<C-return>") 'open-line-below)
-(global-set-key (kbd "C-o") 'open-line-and-indent)
 (global-set-key (kbd "<M-return>") 'new-line-dwim)
 
 ;; Comment/uncomment block
@@ -59,7 +53,8 @@
 (global-set-key (kbd "C-c u") 'uncomment-region)
 
 ;; Yank and indent
-(global-set-key (kbd "C-S-y") 'yank-unindented)
+(global-set-key (kbd "C-y") 'yank-unindented)
+(global-set-key (kbd "C-S-y") 'yank)
 
 ;; Browse kill ring
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
@@ -92,16 +87,11 @@
 (global-set-key (kbd "<C-S-down>") 'move-line-down)
 (global-set-key (kbd "<C-S-up>") 'move-line-up)
 
-;; Occur and imenu
-(global-set-key (kbd "C-c o") 'occur)
-(global-set-key (kbd "C-c i") 'imenu-anywhere)
+;; Imenu
+(global-set-key (kbd "C-c C-i") 'imenu-anywhere)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
-
-;; Find file in project
-(global-set-key (kbd "C-x o") 'projectile-find-file)
-(global-set-key (kbd "C-x p") 'projectile-switch-to-buffer)
 
 ;; Get recent files
 (global-set-key (kbd "C-x f") 'recentf-ido-find-file)
@@ -110,15 +100,25 @@
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
 (global-set-key (kbd "C-x C-k") 'delete-current-buffer-file)
 
-;; View occurrence in occur mode
-(define-key occur-mode-map (kbd "v") 'occur-mode-display-occurrence)
-(define-key occur-mode-map (kbd "n") 'next-line)
-(define-key occur-mode-map (kbd "p") 'previous-line)
-
 ;; Show only line numbers when using goto
 (global-set-key [remap goto-line] 'goto-line-with-feedback)
 
 ;; Eval buffer
 (global-set-key (kbd "C-c C-k") 'eval-buffer)
+
+;; Occur
+(global-set-key (kbd "C-c o") 'occur)
+
+;; Find files by name and display results in dired
+(global-set-key (kbd "M-s f") 'find-name-dired)
+
+;; Project management
+(global-set-key (kbd "C-x o") 'projectile-find-file)
+(global-set-key (kbd "C-x p") 'projectile-switch-to-buffer)
+
+(global-set-key (kbd "M-<up>") 'smart-up)
+(global-set-key (kbd "M-<down>") 'smart-down)
+(global-set-key (kbd "M-<left>") 'smart-backward)
+(global-set-key (kbd "M-<right>") 'smart-forward)
 
 (provide 'key-bindings)

@@ -39,7 +39,9 @@
                         nil)))))
 
 ;; steal back alt-j
-(define-key js2-mode-map (kbd "M-j") '(lambda () (interactive) (join-line -1)))
+(define-key js2-mode-map (kbd "M-j") '(lambda () (interactive)
+                                        (join-line -1)
+                                        (indent-for-tab-command)))
 (define-key js2-mode-map (kbd "M-n") '(lambda () (interactive) (js2-line-break)))
 
 ;; Don't use C-c C-f, which is already taken by projectile find file in project

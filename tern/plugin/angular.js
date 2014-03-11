@@ -57,7 +57,7 @@
     return mod.injector ? mod.injector.get(name) : infer.ANull;
   }
 
-  function applyWithInjection(mod, fnType, node) {
+  function applyWithInjection(mod, fnType, node, asNew) {
     var deps = [];
     if (node.type == "FunctionExpression") {
       for (var i = 0; i < node.params.length; ++i)
@@ -75,7 +75,14 @@
         fnType = last.body.scope.fnType;
     }
     var result = new infer.AVal;
-    fnType.propagate(new infer.IsCallee(infer.cx().topScope, deps, null, result));
+    if (asNew) {
+      var self = new infer.AVal;
+      fnType.propagate(new infer.IsCtor(self));
+      self.propagate(result, 90);
+      fnType.propagate(new infer.IsCallee(self, deps, null, new infer.IfObj(result)));
+    } else {
+      fnType.propagate(new infer.IsCallee(infer.cx().topScope, deps, null, result));
+    }
     return result;
   }
 
@@ -91,6 +98,15 @@
     var mod = self.getType();
     if (mod && argNodes && argNodes.length > 1) {
       var result = applyWithInjection(mod, args[1], argNodes[1]);
+      if (mod.injector && argNodes[0].type == "Literal")
+        mod.injector.set(argNodes[0].value, result, argNodes[0].angularDoc, argNodes[0]);
+    }
+  });
+
+  infer.registerFunction("angular_regFieldNew", function(self, args, argNodes) {
+    var mod = self.getType();
+    if (mod && argNodes && argNodes.length > 1) {
+      var result = applyWithInjection(mod, args[1], argNodes[1], true);
       if (mod.injector && argNodes[0].type == "Literal")
         mod.injector.set(argNodes[0].value, result, argNodes[0].angularDoc, argNodes[0]);
     }
@@ -349,7 +365,9 @@
         prototype: {
           then: "fn(successCallback: fn(value: ?), errorCallback: fn(reason: ?), notifyCallback: fn(value: ?)) -> +Promise",
           "catch": "fn(errorCallback: fn(reason: ?))",
-          "finally": "fn(callback: fn()) -> +Promise"
+          "finally": "fn(callback: fn()) -> +Promise",
+          success: "fn(callback: fn(data: ?, status: number, headers: ?, config: ?)) -> +Promise",
+          error: "fn(callback: fn(data: ?, status: number, headers: ?, config: ?)) -> +Promise"
         }
       },
       Deferred: {
@@ -446,7 +464,13 @@
         $http: {
           "!type": "fn(config: ?) -> service.$q",
           "!url": "http://docs.angularjs.org/api/ng.$http",
-          "!doc": "Facilitates communication with remote HTTP servers."
+          "!doc": "Facilitates communication with remote HTTP servers.",
+          "delete": "fn(url: string, config?: ?) -> +Promise",
+          get: "fn(url: string, config?: ?) -> +Promise",
+          head: "fn(url: string, config?: ?) -> +Promise",
+          jsonp: "fn(url: string, config?: ?) -> +Promise",
+          post: "fn(url: string, data: ?, config?: ?) -> +Promise",
+          put: "fn(url: string, data: ?, config?: ?) -> +Promise"
         },
         $interpolate: {
           "!type": "fn(text: string, mustHaveExpression?: bool, trustedContext?: string) -> fn(context: ?) -> string",
@@ -726,14 +750,14 @@
           },
           service: {
             "!type": "fn(name: string, constructor: fn()) -> !this",
-            "!effects": ["custom angular_regFieldCall"],
+            "!effects": ["custom angular_regFieldNew"],
             "!url": "http://docs.angularjs.org/api/AUTO.$provide#provider",
             "!doc": "Register a provider for a service."
           },
           value: {
             "!type": "fn(name: string, object: ?) -> !this",
             "!effects": ["custom angular_regField"],
-            "!url": "http://docs.angularjs.org/api/AUTO.$provide#value",
+            "!url": "http://docs.angularjs.org/api/AUTO.$providevalue",
             "!doc": "A short hand for configuring services if the $get method is a constant."
           }
         },
