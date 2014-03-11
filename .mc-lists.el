@@ -8,6 +8,7 @@
         dired-previous-line
         hippie-expand-no-case-fold
         multiple-cursors-mode
+        skip-to-next-blank-line
         sp--self-insert-command
         tagedit-forward-slurp-tag
         tagedit-insert-lt
