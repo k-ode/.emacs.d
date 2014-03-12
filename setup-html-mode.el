@@ -12,6 +12,19 @@
     (unless (search-backward-regexp "^\\s *$" nil t)
       (goto-char (point-min)))))
 
+(defun html-wrap-in-tag (beg end)
+  (interactive "r")
+  (let ((oneline? (= (line-number-at-pos beg) (line-number-at-pos end))))
+    (deactivate-mark)
+    (goto-char end)
+    (unless oneline? (newline-and-indent))
+    (insert "</div>")
+    (goto-char beg)
+    (insert "<div>")
+    (unless oneline? (newline-and-indent))
+    (indent-region beg (+ end 11))
+    (goto-char (+ beg 4))))
+
 (defadvice sgml-delete-tag (after reindent activate)
   (indent-region (point-min) (point-max)))
 
@@ -46,7 +59,8 @@
     ;; (define-key html-mode-map (kbd "M-S") 'tagedit-split-tag)
     ;; (define-key html-mode-map (kbd "M-?") 'tagedit-convolute-tags)
     (define-key html-mode-map (kbd "C-k") 'tagedit-kill)
-    ;;(define-key html-mode-map (kbd "C-M-k") 'tagedit-kill-attribute)
+    (define-key html-mode-map (kbd "M-k") 'tagedit-kill-attribute)
+    (define-key html-mode-map (kbd "C-c C-w") 'html-wrap-in-tag)
     (tagedit-add-experimental-features)
     (add-hook 'html-mode-hook (lambda () (tagedit-mode 1)))))
 
