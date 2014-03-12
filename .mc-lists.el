@@ -9,6 +9,7 @@
         hippie-expand-no-case-fold
         kill-region
         multiple-cursors-mode
+        skip-to-next-blank-line
         sp--self-insert-command
         tagedit-forward-slurp-tag
         tagedit-insert-lt
