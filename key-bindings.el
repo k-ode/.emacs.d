@@ -114,7 +114,8 @@
 
 ;; Project management
 (global-set-key (kbd "C-x o") 'projectile-find-file)
-(global-set-key (kbd "C-x p") 'projectile-switch-to-buffer)
+(global-set-key (kbd "C-x p") 'projectile-recentf)
+(global-set-key (kbd "C-x å") 'projectile-project-buffers)
 
 (global-set-key (kbd "M-<up>") 'smart-up)
 (global-set-key (kbd "M-<down>") 'smart-down)
