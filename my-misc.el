@@ -34,8 +34,6 @@
               " "
               filename-and-process)))
 
-(require 'powershell-mode)
-
 (require 'powerline)
 (powerline-default-theme)
 
