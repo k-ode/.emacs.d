@@ -1,6 +1,7 @@
 auto-save-list/
 eshell/
 elpa/
+project-explorer-cache/
 backups/
 tmp/
 .places
@@ -16,4 +17,4 @@ ido.last
 /projectile.cache
 /user-custom
 /history
-/project-explorer-cache/
+
