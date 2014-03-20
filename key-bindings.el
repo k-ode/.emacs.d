@@ -53,8 +53,8 @@
 (global-set-key (kbd "C-c u") 'uncomment-region)
 
 ;; Yank and indent
-(global-set-key (kbd "C-y") 'yank-unindented)
-(global-set-key (kbd "C-S-y") 'yank)
+(global-set-key (kbd "C-y") 'yank)
+(global-set-key (kbd "C-S-y") 'yank-unindented)
 
 ;; Browse kill ring
 (global-set-key (kbd "C-x C-y") 'browse-kill-ring)
