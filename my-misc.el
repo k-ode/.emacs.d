@@ -1,6 +1,6 @@
 ;; Wanna use enter as newline and indent
 (defun my-coding-config ()
-  (local-set-key (kbd "RET") 'comment-indent-new-line)
+  (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key (kbd "<S-return>") 'newline)
   )
 
