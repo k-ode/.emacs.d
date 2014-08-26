@@ -7,11 +7,18 @@
         dired-next-line
         dired-previous-line
         hippie-expand-no-case-fold
+        js2-down-mouse-3
+        js2-mode-show-node
         kill-region
+        mouse-save-then-kill
         multiple-cursors-mode
         skip-to-next-blank-line
+        smart-line-beginning
         sp--self-insert-command
         tagedit-forward-slurp-tag
+        tagedit-insert-dot
+        tagedit-insert-exclamation-mark
+        tagedit-insert-gt
         tagedit-insert-lt
         tagedit-kill
         yas-expand
@@ -20,4 +27,5 @@
 (setq mc/cmds-to-run-once
       '(
         mc/mark-next-lines
+        wgrep-change-to-wgrep-mode
         ))

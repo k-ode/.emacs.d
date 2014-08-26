@@ -60,7 +60,7 @@
                       magit
                       magit-svn
                       ace-jump-mode      
-                      browse-kill-ring   
+                      ;;browse-kill-ring   
                       cl-lib             
                       coffee-mode        
                       csharp-mode        
@@ -106,7 +106,8 @@
                       yasnippet          
                       clojure-mode
                       clojure-test-mode
-                      cider))
+                      cider
+                      wgrep))
 
 (dolist (p my-packages)
   (when (not (package-installed-p p))

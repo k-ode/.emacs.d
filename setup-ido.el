@@ -18,8 +18,8 @@
 (setq ido-use-faces nil)
 
 ;; Ido at point
-(require 'ido-at-point)
-(ido-at-point-mode)
+;;(require 'ido-at-point)
+;;(ido-at-point-mode)
 
 (require 'ido-vertical-mode)
 (ido-vertical-mode)

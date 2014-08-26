@@ -27,6 +27,7 @@
 (eval-after-load "projectile" '(diminish 'projectile-mode))
 (eval-after-load "guide-key" '(diminish 'guide-key-mode))
 (eval-after-load "magit" '(diminish 'magit-auto-revert-mode))
+(eval-after-load "company" '(diminish 'company-mode))
 
 (eval-after-load "js2-mode"
   '(defadvice js2-mode (after js2-rename-modeline activate)

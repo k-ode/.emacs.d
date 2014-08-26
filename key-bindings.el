@@ -6,8 +6,8 @@
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "<C-tab>") 'hippie-expand-no-case-fold)
 (global-set-key (kbd "C-:") 'hippie-expand-lines)
-(global-set-key (kbd "C-,") 'ido-hippie-expand)
-(global-set-key (kbd "C-.") 'completion-at-point)
+(global-set-key (kbd "C-.") 'company-complete)
+(global-set-key (kbd "C-,") 'completion-at-point)
 
 (global-set-key (kbd "C-c s") 'project-explorer-open)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
@@ -57,7 +57,7 @@
 (global-set-key (kbd "C-S-y") 'yank-unindented)
 
 ;; Browse kill ring
-(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
+;;(global-set-key (kbd "C-x C-y") 'browse-kill-ring)
 
 ;; Turn on the menu bar for exploring new modes
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
@@ -89,6 +89,7 @@
 
 ;; Imenu
 (global-set-key (kbd "C-c C-i") 'imenu-anywhere)
+(global-set-key (kbd "C-c i") 'imenu-anywhere)
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
@@ -105,6 +106,10 @@
 
 ;; Eval buffer
 (global-set-key (kbd "C-c C-k") 'eval-buffer)
+
+(global-set-key (kbd "C-c b") 'create-scratch-buffer)
+
+;; Key 
 
 ;; Occur
 (global-set-key (kbd "C-c o") 'occur)

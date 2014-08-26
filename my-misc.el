@@ -1,8 +1,32 @@
+(global-set-key (kbd "C-h C-m") 'discover-my-major)
+
+(require 'company)
+(require 'omnisharp)
+
+(add-hook 'after-init-hook 'global-company-mode)
+
+(setq company-minimum-prefix-length 2
+      company-selection-wrap-around t
+      company-show-numbers t
+      company-tooltip-align-annotations t
+      company-require-match nil
+      company-dabbrev-downcase nil)
+
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-omnisharp))
+
+(define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
+
+;;(add-to-list 'company-backends 'company-tern)
+
+(require 'wgrep)
+
+(setq debug-on-error nil)
+
 ;; Wanna use enter as newline and indent
 (defun my-coding-config ()
   (local-set-key (kbd "RET") 'newline-and-indent)
-  (local-set-key (kbd "<S-return>") 'newline)
-  )
+  (local-set-key (kbd "<S-return>") 'newline))
 
 (mapc
  (lambda (language-mode-hook)
@@ -11,8 +35,7 @@
    emacs-lisp-mode-hook
    js2-mode-hook
    less-mode-hook
-   html-mode-hook
-   ))
+   html-mode-hook))
 
 (require 'smart-forward)
 

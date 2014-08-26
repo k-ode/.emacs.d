@@ -44,7 +44,4 @@
                                         (indent-for-tab-command)))
 (define-key js2-mode-map (kbd "M-n") '(lambda () (interactive) (js2-line-break)))
 
-;; Don't use C-c C-f, which is already taken by projectile find file in project
-(define-key js2-mode-map (kbd "C-c C-f") nil)
-
 (provide 'setup-js2-mode)
