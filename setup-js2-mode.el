@@ -1,10 +1,12 @@
-(require 'js2-refactor)
+(require 'js2-mode)
+(require-package 'js2-refactor)
+
 (js2r-add-keybindings-with-prefix "C-c r")
 
 ;; Indendt case labels on extra level
 (setq-default js2-indent-switch-body t)
 ;; Globals
-(setq-default js2-global-externs '("module" "require" "jQuery" "$" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "console" "JSON" "angular" "moment"))
+(setq-default js2-global-externs '("module" "require" "jQuery" "$" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "console" "JSON" "angular" "moment" "opto" "op"))
 ;; Delay in seconds before re-parsing
 (setq-default js2-idle-timer-delay 0.1)
 ;; js2-line-break sets + at the end

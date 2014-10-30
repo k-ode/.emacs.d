@@ -107,15 +107,15 @@
     hasType: function(type) {
       return this.types.indexOf(type) > -1;
     },
-    isEmpty: function() { return this.types.length == 0; },
+    isEmpty: function() { return this.types.length === 0; },
     getFunctionType: function() {
       for (var i = this.types.length - 1; i >= 0; --i)
         if (this.types[i] instanceof Fn) return this.types[i];
     },
 
     getType: function(guess) {
-      if (this.types.length == 0 && guess !== false) return this.makeupType();
-      if (this.types.length == 1) return this.types[0];
+      if (this.types.length === 0 && guess !== false) return this.makeupType();
+      if (this.types.length === 1) return this.types[0];
       return canonicalType(this.types);
     },
 
@@ -268,7 +268,7 @@
   }
   var IsCallee = exports.IsCallee = constraint("self, args, argNodes, retval", {
     init: function() {
-      Constraint.prototype.init();
+      Constraint.prototype.init.call(this);
       this.disabled = cx.disabledComputing;
     },
     addType: function(fn, weight) {
@@ -298,7 +298,7 @@
 
   var HasMethodCall = constraint("propName, args, argNodes, retval", {
     init: function() {
-      Constraint.prototype.init();
+      Constraint.prototype.init.call(this);
       this.disabled = cx.disabledComputing;
     },
     addType: function(obj, weight) {
@@ -680,7 +680,7 @@
     if (cx.origins.indexOf(origin) < 0) cx.origins.push(origin);
   };
 
-  var baseMaxWorkDepth = 20, reduceMaxWorkDepth = .0001;
+  var baseMaxWorkDepth = 20, reduceMaxWorkDepth = 0.0001;
   function withWorklist(f) {
     if (cx.workList) return f(cx.workList);
 
@@ -930,7 +930,9 @@
 
       for (var i = 0; i < node.properties.length; ++i) {
         var prop = node.properties[i], key = prop.key, name;
-        if (key.type == "Identifier") {
+        if (prop.value.name == "✖") {
+          continue;
+        } else if (key.type == "Identifier") {
           name = key.name;
         } else if (typeof key.value == "string") {
           name = key.value;

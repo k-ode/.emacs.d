@@ -5,14 +5,11 @@
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 
-;;(setq global-auto-revert-non-file-buffers t)
-;;(setq auto-revert-verbose nil)
-
 ;; Answering just y or n is enough
 (defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; Smooth scroll
-(require 'smooth-scrolling)
+(require-package 'smooth-scrolling)
 
 ;; Set default encoding to utf-8
 (prefer-coding-system 'utf-8)
@@ -56,6 +53,7 @@
 (setq org-src-fontify-natively t)
 
 ;; Represent undo-history as an actual tree (visualize with C-x u)
+(require-package 'undo-tree)
 (setq undo-tree-mode-lighter "")
 (global-undo-tree-mode)
 

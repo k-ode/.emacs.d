@@ -12,8 +12,11 @@
         kill-region
         mouse-save-then-kill
         multiple-cursors-mode
+        save-region-or-current-line
+        sgml-delete-tag
         skip-to-next-blank-line
         smart-line-beginning
+        smex
         sp--self-insert-command
         tagedit-forward-slurp-tag
         tagedit-insert-dot
@@ -21,11 +24,14 @@
         tagedit-insert-gt
         tagedit-insert-lt
         tagedit-kill
+        yank-rectangle
         yas-expand
         ))
 
 (setq mc/cmds-to-run-once
       '(
+        beginning-of-buffer
+        delete-window
         mc/mark-next-lines
         wgrep-change-to-wgrep-mode
         ))

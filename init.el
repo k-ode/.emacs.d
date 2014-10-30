@@ -10,9 +10,6 @@
 (setq is-windows (equal system-type 'windows-nt))
 (setq is-linux (equal system-type 'gnu/linux))
 
-;; No splash screen please ... jeez
-(setq inhibit-startup-message t)
-
 ;; Set path to dependencies
 (setq site-lisp-dir
       (expand-file-name "site-lisp" user-emacs-directory))
@@ -21,7 +18,7 @@
       (expand-file-name "user-custom" user-emacs-directory))
 
 (let ((default-directory "~/.emacs.d/site-lisp/"))
-      (normal-top-level-add-subdirs-to-load-path))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;; Set up load path
 (add-to-list 'load-path user-emacs-directory)
@@ -31,6 +28,12 @@
 ;; Keep emacs Custom-settings in separate file
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file)
+
+;; Setup packages
+(require 'setup-package)
+
+;; No splash screen please ... jeez
+(setq inhibit-startup-message t)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)
@@ -44,74 +47,9 @@
 (setq vc-make-backup-files t)
 
 ;; Save point position between sessions
-(require 'saveplace)
+(require-package 'saveplace)
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
-
-;; Setup packages
-(require 'setup-package)
-
-(defvar my-packages '(smart-forward
-                      ibuffer-vc
-                      dired-details+
-                      dired-details
-                      guide-key
-                      projectile
-                      magit
-                      magit-svn
-                      ace-jump-mode      
-                      ;;browse-kill-ring   
-                      cl-lib             
-                      coffee-mode        
-                      csharp-mode        
-                      css-eldoc          
-                      dash               
-                      diminish           
-                      epl                
-                      es-lib             
-                      expand-region      
-                      f                  
-                      flx                
-                      flx-ido            
-                      flycheck           
-                      git-commit-mode    
-                      git-rebase-mode    
-                      ido-at-point       
-                      ido-ubiquitous     
-                      ido-vertical-mode  
-                      idomenu
-					  imenu-anywhere
-                      js2-mode           
-                      ;;js2-refactor       
-                      less-css-mode      
-                      markdown-mode      
-                      multi              
-                      multiple-cursors   
-                      php-mode           
-                      pkg-info           
-                      popup
-                      powerline
-                      project-explorer   
-                      rainbow-mode       
-                      s                  
-                      scss-mode          
-                      simple-httpd       
-                      simplezen          
-                      skewer-mode        
-                      smartparens        
-                      smex               
-                      smooth-scrolling   
-                      tagedit            
-                      undo-tree          
-                      yasnippet          
-                      clojure-mode
-                      clojure-test-mode
-                      cider
-                      wgrep))
-
-(dolist (p my-packages)
-  (when (not (package-installed-p p))
-    (package-install p)))
 
 (require 'appearance)
 (require 'setup-shell)
@@ -120,6 +58,7 @@
 
 ;; Setup extensions
 (eval-after-load 'js2-mode '(require 'setup-js2-mode))
+(eval-after-load 'json-mode '(require 'setup-json-mode))
 (eval-after-load 'org '(require 'setup-org))
 ;; Autoload skewer when asked for
 (autoload 'skewer-start "setup-skewer" nil t)
@@ -143,11 +82,13 @@
   (when (file-regular-p file)
     (load file)))
 
-(require 'multiple-cursors)
-(require 'idomenu)
+(require-package 'multiple-cursors)
+(require-package 'idomenu)
 
 ;; Setup key bindings
 (require 'key-bindings)
 
 (require 'my-misc)
+(require 'setup-company)
+
 (put 'scroll-left 'disabled nil)

@@ -1,5 +1,5 @@
 ;; Interactively do things
-(require 'ido)
+(require-package 'ido)
 (ido-mode t)
 (setq ido-enable-prefix nil
        ido-enable-flex-matching t
@@ -12,7 +12,7 @@
       
 (set-default 'imenu-auto-rescan t)
 
-(require 'flx-ido)
+(require-package 'flx-ido)
 (flx-ido-mode 1)
 ;; disable ido faces to see flx highlights
 (setq ido-use-faces nil)
@@ -21,14 +21,14 @@
 ;;(require 'ido-at-point)
 ;;(ido-at-point-mode)
 
-(require 'ido-vertical-mode)
+(require-package 'ido-vertical-mode)
 (ido-vertical-mode)
 (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
 (setq ido-vertical-define-keys 'C-n-C-p-up-down-left-right)
 
 ;; Use ido everywhere
-(require 'ido-ubiquitous)
+(require-package 'ido-ubiquitous)
 (ido-ubiquitous-mode 1)
 
 (defun recentf-ido-find-file ()
