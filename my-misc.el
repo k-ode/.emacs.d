@@ -3,9 +3,6 @@
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 
 (require 'omnisharp)
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-omnisharp))
-
 ;; (add-to-list 'company-backends 'company-tern)
 ;; (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
 ;; (autoload 'tern-mode "tern.el" nil t)
