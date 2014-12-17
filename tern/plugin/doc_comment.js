@@ -12,11 +12,17 @@
 })(function(infer, tern, comment, acorn, walk) {
   "use strict";
 
-  tern.registerPlugin("doc_comment", function(server) {
+  var WG_MADEUP = 1, WG_STRONG = 101;
+
+  tern.registerPlugin("doc_comment", function(server, options) {
     server.jsdocTypedefs = Object.create(null);
     server.on("reset", function() {
       server.jsdocTypedefs = Object.create(null);
     });
+    server._docComment = {
+      weight: options && options.strong ? WG_STRONG : undefined,
+      fullDocs: options && options.fullDocs
+    };
 
     return {
       passes: {
@@ -38,9 +44,20 @@
       },
       ObjectExpression: function(node) {
         for (var i = 0; i < node.properties.length; ++i)
-          attachComments(node.properties[i].key);
+          attachComments(node.properties[i]);
+      },
+      CallExpression: function(node) {
+        if (isDefinePropertyCall(node)) attachComments(node);
       }
     });
+  }
+
+  function isDefinePropertyCall(node) {
+    return node.callee.type == "MemberExpression" &&
+      node.callee.object.name == "Object" &&
+      node.callee.property.name == "defineProperty" &&
+      node.arguments.length >= 3 &&
+      typeof node.arguments[1].value == "string";
   }
 
   function postInfer(ast, scope) {
@@ -65,10 +82,19 @@
       },
       ObjectExpression: function(node, scope) {
         for (var i = 0; i < node.properties.length; ++i) {
-          var prop = node.properties[i], key = prop.key;
-          if (key.commentsBefore)
-            interpretComments(prop, key.commentsBefore, scope,
-                              node.objType.getProp(key.name));
+          var prop = node.properties[i];
+          if (prop.commentsBefore)
+            interpretComments(prop, prop.commentsBefore, scope,
+                              node.objType.getProp(prop.key.name));
+        }
+      },
+      CallExpression: function(node, scope) {
+        if (node.commentsBefore && isDefinePropertyCall(node)) {
+          var type = infer.expressionType({node: node.arguments[0], state: scope}).getType();
+          if (type && type instanceof infer.Obj) {
+            var prop = type.props[node.arguments[1].value];
+            if (prop) interpretComments(node, node.commentsBefore, scope, prop);
+          }
         }
       }
     }, infer.searchVisitor, scope);
@@ -86,18 +112,26 @@
 
   function interpretComments(node, comments, scope, aval, type) {
     jsdocInterpretComments(node, scope, aval, comments);
+    var cx = infer.cx();
 
     if (!type && aval instanceof infer.AVal && aval.types.length) {
       type = aval.types[aval.types.length - 1];
-      if (!(type instanceof infer.Obj) || type.origin != infer.cx().curOrigin || type.doc)
+      if (!(type instanceof infer.Obj) || type.origin != cx.curOrigin || type.doc)
         type = null;
     }
 
-    var first = comments[0], dot = first.search(/\.\s/);
-    if (dot > 5) first = first.slice(0, dot + 1);
-    first = first.trim().replace(/\s*\n\s*\*\s*|\s{1,}/g, " ");
-    if (aval instanceof infer.AVal) aval.doc = first;
-    if (type) type.doc = first;
+    var result = comments[comments.length - 1];
+    if (cx.parent._docComment.fullDocs) {
+      result = result.trim().replace(/\n[ \t]*\* ?/g, "\n");
+    } else {
+      var dot = result.search(/\.\s/);
+      if (dot > 5) result = result.slice(0, dot + 1);
+      result = result.trim().replace(/\s*\n\s*\*\s*|\s{1,}/g, " ");
+    }
+    result = result.replace(/^\s*\*+\s*/, "");
+
+    if (aval instanceof infer.AVal) aval.doc = result;
+    if (type) type.doc = result;
   }
 
   // Parses a subset of JSDoc-style comments in order to include the
@@ -116,7 +150,7 @@
   }
 
   function parseLabelList(scope, str, pos, close) {
-    var labels = [], types = [];
+    var labels = [], types = [], madeUp = false;
     for (var first = true; ; first = false) {
       pos = skipSpace(str, pos);
       if (first && str.charAt(pos) == close) break;
@@ -129,6 +163,7 @@
       var type = parseType(scope, str, pos);
       if (!type) return null;
       pos = type.end;
+      madeUp = madeUp || type.madeUp;
       types.push(type.type);
       pos = skipSpace(str, pos);
       var next = str.charAt(pos);
@@ -136,12 +171,12 @@
       if (next == close) break;
       if (next != ",") return null;
     }
-    return {labels: labels, types: types, end: pos};
+    return {labels: labels, types: types, end: pos, madeUp: madeUp};
   }
 
   function parseType(scope, str, pos) {
     pos = skipSpace(str, pos);
-    var type;
+    var type, madeUp = false;
 
     if (str.indexOf("function(", pos) == pos) {
       var args = parseLabelList(scope, str, pos + 9, ")"), ret = infer.ANull;
@@ -153,12 +188,14 @@
         if (!retType) return null;
         pos = retType.end;
         ret = retType.type;
+        madeUp = retType.madeUp;
       }
       type = new infer.Fn(null, infer.ANull, args.types, args.labels, ret);
     } else if (str.charAt(pos) == "[") {
       var inner = parseType(scope, str, pos + 1);
       if (!inner) return null;
       pos = skipSpace(str, inner.end);
+      madeUp = inner.madeUp;
       if (str.charAt(pos) != "]") return null;
       ++pos;
       type = new infer.Arr(inner.type);
@@ -172,6 +209,7 @@
         fields.types[i].propagate(field);
       }
       pos = fields.end;
+      madeUp = fields.madeUp;
     } else {
       var start = pos;
       if (!acorn.isIdentifierStart(str.charCodeAt(pos))) return null;
@@ -187,6 +225,7 @@
           var inAngles = parseType(scope, str, pos + 2);
           if (!inAngles) return null;
           pos = skipSpace(str, inAngles.end);
+          madeUp = inAngles.madeUp;
           if (str.charAt(pos++) != ">") return null;
           inner = inAngles.type;
         }
@@ -197,10 +236,12 @@
           var key = parseType(scope, str, pos + 2);
           if (!key) return null;
           pos = skipSpace(str, key.end);
+          madeUp = madeUp || key.madeUp;
           if (str.charAt(pos++) != ",") return null;
           var val = parseType(scope, str, pos);
           if (!val) return null;
           pos = skipSpace(str, val.end);
+          madeUp = key.madeUp || val.madeUp;
           if (str.charAt(pos++) != ">") return null;
           val.type.propagate(type.defProp("<i>"));
         }
@@ -209,12 +250,18 @@
                acorn.isIdentifierChar(str.charCodeAt(pos))) ++pos;
         var path = str.slice(start, pos);
         var cx = infer.cx(), defs = cx.parent && cx.parent.jsdocTypedefs, found;
-        if (defs && (path in defs))
+        if (defs && (path in defs)) {
           type = defs[path];
-        else if (found = infer.def.parsePath(path, scope).getType())
-          type = maybeInstance(found, path); 
-        else
-          type = infer.ANull;
+        } else if (found = infer.def.parsePath(path, scope).getType()) {
+          type = maybeInstance(found, path);
+        } else {
+          if (!cx.jsdocPlaceholders) cx.jsdocPlaceholders = Object.create(null);
+          if (!(path in cx.jsdocPlaceholders))
+            type = cx.jsdocPlaceholders[path] = new infer.Obj(null, path);
+          else
+            type = cx.jsdocPlaceholders[path];
+          madeUp = true;
+        }
       }
     }
 
@@ -223,7 +270,7 @@
       ++pos;
       isOptional = true;
     }
-    return {type: type, end: pos, isOptional: isOptional};
+    return {type: type, end: pos, isOptional: isOptional, madeUp: madeUp};
   }
 
   function maybeInstance(type, path) {
@@ -253,7 +300,7 @@
       var decl = /(?:\n|$|\*)\s*@(type|param|arg(?:ument)?|returns?|this)\s+(.*)/g, m;
       while (m = decl.exec(comment)) {
         if (m[1] == "this" && (parsed = parseType(scope, m[2], 0))) {
-          self = parsed.type;
+          self = parsed;
           foundOne = true;
           continue;
         }
@@ -263,14 +310,14 @@
 
         switch(m[1]) {
         case "returns": case "return":
-          ret = parsed.type; break;
+          ret = parsed; break;
         case "type":
-          type = parsed.type; break;
+          type = parsed; break;
         case "param": case "arg": case "argument":
-          var name = m[2].slice(parsed.end).match(/^\s*(\S+)/);
-          if (!name) continue;
-          var argname = name[1] + (parsed.isOptional ? "?" : "");
-          (args || (args = Object.create(null)))[argname] = parsed.type;
+            var name = m[2].slice(parsed.end).match(/^\s*(\[?)\s*([^\]\s]+)\s*(\]?).*/);
+            if (!name) continue;         
+            var argname = name[2] + (parsed.isOptional || (name[1] === '[' && name[3] === ']') ? "?" : "");
+          (args || (args = Object.create(null)))[argname] = parsed;
           break;
         }
       }
@@ -291,6 +338,11 @@
     }
   }
 
+  function propagateWithWeight(type, target) {
+    var weight = infer.cx().parent._docComment.weight;
+    type.type.propagate(target, weight || (type.madeUp ? WG_MADEUP : undefined));
+  }
+
   function applyType(type, self, args, ret, node, aval) {
     var fn;
     if (node.type == "VariableDeclaration") {
@@ -301,6 +353,7 @@
     } else if (node.type == "AssignmentExpression") {
       if (node.right.type == "FunctionExpression")
         fn = node.right.body.scope.fnType;
+    } else if (node.type == "CallExpression") {
     } else { // An object property
       if (node.value.type == "FunctionExpression") fn = node.value.body.scope.fnType;
     }
@@ -310,12 +363,12 @@
         var name = fn.argNames[i], known = args[name];
         if (!known && (known = args[name + "?"]))
           fn.argNames[i] += "?";
-        if (known) known.propagate(fn.args[i]);
+        if (known) propagateWithWeight(known, fn.args[i]);
       }
-      if (ret) ret.propagate(fn.retval);
-      if (self) self.propagate(fn.self);
+      if (ret) propagateWithWeight(ret, fn.retval);
+      if (self) propagateWithWeight(self, fn.self);
     } else if (type) {
-      type.propagate(aval);
+      propagateWithWeight(type, aval);
     }
   };
 });

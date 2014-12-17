@@ -82,7 +82,7 @@
 
     propagate: function(target, weight) {
       if (target == ANull || (target instanceof Type)) return;
-      if (weight && weight < WG_DEFAULT) target = new Muffle(target, weight);
+      if (weight && weight != WG_DEFAULT) target = new Muffle(target, weight);
       (this.forward || (this.forward = [])).push(target);
       var types = this.types;
       if (types.length) withWorklist(function(add) {
@@ -107,15 +107,15 @@
     hasType: function(type) {
       return this.types.indexOf(type) > -1;
     },
-    isEmpty: function() { return this.types.length == 0; },
+    isEmpty: function() { return this.types.length === 0; },
     getFunctionType: function() {
       for (var i = this.types.length - 1; i >= 0; --i)
         if (this.types[i] instanceof Fn) return this.types[i];
     },
 
     getType: function(guess) {
-      if (this.types.length == 0 && guess !== false) return this.makeupType();
-      if (this.types.length == 1) return this.types[0];
+      if (this.types.length === 0 && guess !== false) return this.makeupType();
+      if (this.types.length === 1) return this.types[0];
       return canonicalType(this.types);
     },
 
@@ -268,7 +268,7 @@
   }
   var IsCallee = exports.IsCallee = constraint("self, args, argNodes, retval", {
     init: function() {
-      Constraint.prototype.init();
+      Constraint.prototype.init.call(this);
       this.disabled = cx.disabledComputing;
     },
     addType: function(fn, weight) {
@@ -298,7 +298,7 @@
 
   var HasMethodCall = constraint("propName, args, argNodes, retval", {
     init: function() {
-      Constraint.prototype.init();
+      Constraint.prototype.init.call(this);
       this.disabled = cx.disabledComputing;
     },
     addType: function(obj, weight) {
@@ -680,7 +680,7 @@
     if (cx.origins.indexOf(origin) < 0) cx.origins.push(origin);
   };
 
-  var baseMaxWorkDepth = 20, reduceMaxWorkDepth = .0001;
+  var baseMaxWorkDepth = 20, reduceMaxWorkDepth = 0.0001;
   function withWorklist(f) {
     if (cx.workList) return f(cx.workList);
 
@@ -888,14 +888,15 @@
     case "in": case "instanceof": return true;
     }
   }
-  function literalType(val) {
-    switch (typeof val) {
+  function literalType(node) {
+    if (node.regex) return getInstance(cx.protos.RegExp);
+    switch (typeof node.value) {
     case "boolean": return cx.bool;
     case "number": return cx.num;
     case "string": return cx.str;
     case "object":
     case "function":
-      if (!val) return ANull;
+      if (!node.value) return ANull;
       return getInstance(cx.protos.RegExp);
     }
   }
@@ -930,17 +931,23 @@
 
       for (var i = 0; i < node.properties.length; ++i) {
         var prop = node.properties[i], key = prop.key, name;
+        if (prop.value.name == "✖") continue;
+        
         if (key.type == "Identifier") {
           name = key.name;
         } else if (typeof key.value == "string") {
           name = key.value;
-        } else {
+        }
+        if (!name || prop.kind == "set") {
           infer(prop.value, scope, c, ANull);
           continue;
         }
-        var val = obj.defProp(name, key);
+
+        var val = obj.defProp(name, key), out = val;
         val.initializer = true;
-        infer(prop.value, scope, c, val, name);
+        if (prop.kind == "get")
+          out = new IsCallee(obj, [], null, val);
+        infer(prop.value, scope, c, out, name);
       }
       return obj;
     }),
@@ -1085,7 +1092,7 @@
       return scope.fnType ? scope.fnType.self : cx.topScope;
     }),
     Literal: ret(function(node) {
-      return literalType(node.value);
+      return literalType(node);
     })
   };
 
@@ -1332,13 +1339,12 @@
       return scope.fnType ? scope.fnType.self : cx.topScope;
     },
     Literal: function(node) {
-      return literalType(node.value);
+      return literalType(node);
     }
   };
 
   function findType(node, scope) {
-    var found = typeFinder[node.type](node, scope);
-    return found;
+    return typeFinder[node.type](node, scope);
   }
 
   var searchVisitor = exports.searchVisitor = walk.make({
@@ -1376,13 +1382,17 @@
   }, searchVisitor);
 
   exports.findExpressionAt = function(ast, start, end, defaultScope, filter) {
-    var test = filter || function(_t, node) {return typeFinder.hasOwnProperty(node.type);};
+    var test = filter || function(_t, node) {
+      if (node.type == "Identifier" && node.name == "✖") return false;
+      return typeFinder.hasOwnProperty(node.type);
+    };
     return walk.findNodeAt(ast, start, end, test, searchVisitor, defaultScope || cx.topScope);
   };
 
   exports.findExpressionAround = function(ast, start, end, defaultScope, filter) {
     var test = filter || function(_t, node) {
       if (start != null && node.start > start) return false;
+      if (node.type == "Identifier" && node.name == "✖") return false;
       return typeFinder.hasOwnProperty(node.type);
     };
     return walk.findNodeAround(ast, end, test, searchVisitor, defaultScope || cx.topScope);
@@ -1390,6 +1400,73 @@
 
   exports.expressionType = function(found) {
     return findType(found.node, found.state);
+  };
+
+  // Finding the expected type of something, from context
+
+  exports.parentNode = function(child, ast) {
+    var stack = [];
+    function c(node, st, override) {
+      if (node.start <= child.start && node.end >= child.end) {
+        var top = stack[stack.length - 1];
+        if (node == child) throw {found: top};
+        if (top != node) stack.push(node);
+        walk.base[override || node.type](node, st, c)
+        if (top != node) stack.pop();
+      }
+    }
+    try {
+      c(ast, null);
+    } catch (e) {
+      if (e.found) return e.found;
+      throw e;
+    }
+  };
+
+  var findTypeFromContext = {
+    ArrayExpression: function(parent, _, get) { return get(parent, true).getProp("<i>"); },
+    ObjectExpression: function(parent, node, get) {
+      for (var i = 0; i < parent.properties.length; ++i) {
+        var prop = node.properties[i];
+        if (prop.value == node)
+          return get(parent, true).getProp(prop.key.name);
+      }
+    },
+    UnaryExpression: function(parent) { return unopResultType(parent.operator); },
+    UpdateExpression: function() { return cx.num; },
+    BinaryExpression: function(parent) { return binopIsBoolean(parent.operator) ? cx.bool : cx.num; },
+    AssignmentExpression: function(parent, _, get) { return get(parent.left); },
+    LogicalExpression: function(parent, node, get) { return get(parent, true); },
+    ConditionalExpression: function(parent, node, get) {
+      if (parent.consequent == node || parent.alternate == node) return get(parent, true);
+    },
+    NewExpression: function(parent, node, get) {
+      return this.CallExpression(parent, node, get);
+    },
+    CallExpression: function(parent, node, get) {
+      for (var i = 0, argPos; i < parent.arguments.length; i++) {
+        var arg = parent.arguments[i];
+        if (arg == node) {
+          var calleeType = get(parent.callee).getType();
+          if (calleeType instanceof Fn)
+            return calleeType.args[i];
+          break;
+        }
+      }
+    }
+  };
+
+  exports.typeFromContext = function(ast, found) {
+    var parent = exports.parentNode(found.node, ast), contextType;
+    var type = null;
+    if (findTypeFromContext.hasOwnProperty(parent.type)) {
+      type = findTypeFromContext[parent.type](parent, found.node, function(node, fromContext) {
+        var obj = {node: node, state: found.state};
+        var tp = fromContext ? exports.typeFromContext(ast, obj) : exports.expressionType(obj);
+        return tp || ANull;
+      });
+    }
+    return type || exports.expressionType(found);
   };
 
   // Flag used to indicate that some wild guessing was used to produce

@@ -1,23 +1,28 @@
-(global-set-key (kbd "C-h C-m") 'discover-my-major)
-
-(require 'company)
-(require 'omnisharp)
-
-(add-hook 'after-init-hook 'global-company-mode)
-
-(setq company-minimum-prefix-length 2
-      company-selection-wrap-around t
-      company-show-numbers t
-      company-tooltip-align-annotations t
-      company-require-match nil
-      company-dabbrev-downcase nil)
-
-(eval-after-load 'company
-  '(add-to-list 'company-backends 'company-omnisharp))
+(setq web-mode-indent-style 4)
 
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 
-;;(add-to-list 'company-backends 'company-tern)
+(require 'omnisharp)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-omnisharp))
+
+;; (add-to-list 'company-backends 'company-tern)
+;; (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
+;; (autoload 'tern-mode "tern.el" nil t)
+
+(defun my-tern-project-dir ()
+  (and (not (buffer-file-name)) "")
+  (let ((project-dir (file-name-directory (buffer-file-name))))
+    (loop for cur = project-dir then (let ((shorter (file-name-directory (substring cur 0 (1- (length cur))))))
+                                       (and (< (length shorter) (length cur)) shorter))
+          while cur do
+          (when (file-exists-p (expand-file-name ".tern-project" cur))
+            (return (setf project-dir cur))))
+    project-dir))
+
+(defun delete-tern-port-file ()
+  (interactive)
+  (delete-file (expand-file-name ".tern-port" (my-tern-project-dir))))
 
 (require 'wgrep)
 
@@ -63,23 +68,6 @@
 ;; I prefer to read files side by side
 (setq ediff-split-window-function (quote split-window-horizontally))
 
-(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
-(autoload 'tern-mode "tern.el" nil t)
-
-(defun my-tern-project-dir ()
-  (and (not (buffer-file-name)) "")
-  (let ((project-dir (file-name-directory (buffer-file-name))))
-    (loop for cur = project-dir then (let ((shorter (file-name-directory (substring cur 0 (1- (length cur))))))
-                                       (and (< (length shorter) (length cur)) shorter))
-          while cur do
-          (when (file-exists-p (expand-file-name ".tern-project" cur))
-            (return (setf project-dir cur))))
-    project-dir))
-
-(defun delete-tern-port-file ()
-  (interactive)
-  (delete-file (expand-file-name ".tern-port" (my-tern-project-dir))))
-
 (require 'project-explorer)
 
 (setq fill-column 80)
@@ -87,8 +75,11 @@
 (require 'projectile)
 (projectile-global-mode)
 
+(require-package 'discover)
+(global-discover-mode 1)
+
 (require 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c r" "C-c m" "C-c !"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c m" "C-c r" "C-c !"))
 (setq guide-key/recursive-key-sequence-flag t)
 
 (guide-key-mode 1)
@@ -106,6 +97,7 @@
   (setq c-basic-offset 4)
   (use-local-map nil)
   (c-set-offset 'substatement-open 0))
+
 (add-hook 'csharp-mode-hook 'my-csarhp-mode-fn t)
 
 (provide 'my-misc)
