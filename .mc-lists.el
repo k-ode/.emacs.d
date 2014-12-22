@@ -20,10 +20,13 @@
         sp--self-insert-command
         tagedit-forward-slurp-tag
         tagedit-insert-dot
+        tagedit-insert-equal
         tagedit-insert-exclamation-mark
         tagedit-insert-gt
         tagedit-insert-lt
         tagedit-kill
+        wdired-finish-edit
+        wgrep-finish-edit
         yank-rectangle
         yas-expand
         ))
@@ -32,6 +35,7 @@
       '(
         beginning-of-buffer
         delete-window
+        ido-switch-buffer
         mc/mark-next-lines
         wgrep-change-to-wgrep-mode
         ))

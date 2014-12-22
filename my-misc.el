@@ -1,19 +1,12 @@
+(setq projectile-indexing-method 'alien)
+(setq projectile-enable-caching t)
+
+(turn-on-eldoc-mode)
+
 (setq web-mode-indent-style 4)
-
-(require 'company)
-
-(add-hook 'after-init-hook 'global-company-mode)
-
-(setq company-minimum-prefix-length 2
-      company-selection-wrap-around t
-      company-show-numbers t
-      company-tooltip-align-annotations t
-      company-require-match nil
-      company-dabbrev-downcase nil)
 
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 
-(add-to-list 'company-backends 'company-tern)
 (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
 (autoload 'tern-mode "tern.el" nil t)
 
@@ -47,7 +40,8 @@
    emacs-lisp-mode-hook
    js2-mode-hook
    less-mode-hook
-   html-mode-hook))
+   html-mode-hook
+   csharp-mode-hook))
 
 (require 'smart-forward)
 
@@ -98,11 +92,24 @@
 (when (fboundp 'windmove-default-keybindings)
   (windmove-default-keybindings))
 
+(make-variable-buffer-local 'font-lock-type-face)
+(copy-face 'font-lock-type-face 'csharp-type-face)
+(set-face-foreground 'csharp-type-face "2aa889")
+
+(require 'company)
+(require 'omnisharp)
 ;; EXTRACT THIS
 (defun my-csarhp-mode-fn ()
   "function that runs when cshar-mode is initialized."
+  (setq font-lock-type-face 'csharp-type-face)  
+  (add-to-list 'company-backends 'company-omnisharp)
+  (make-variable-buffer-local 'company-minimum-prefix-length)
+  (setq company-minimum-prefix-length 0)
+  (make-variable-buffer-local 'company-idle-delay)
+  (setq company-idle-delay 0.3)
   (setq c-basic-offset 4)
-  (use-local-map nil)
+  (omnisharp-mode)
+  ;;(use-local-map nil)
   (c-set-offset 'substatement-open 0))
 (add-hook 'csharp-mode-hook 'my-csarhp-mode-fn t)
 
