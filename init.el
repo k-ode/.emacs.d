@@ -66,8 +66,8 @@
 (require 'setup-smartparens)
 
 ;; Setup extensions
-(eval-after-load 'js2-mode '(require 'setup-js2-mode))
-(eval-after-load 'json-mode '(require 'setup-json-mode))
+(require 'setup-js2-mode)
+(require 'setup-json-mode)
 (eval-after-load 'org '(require 'setup-org))
 ;; Autoload skewer when asked for
 (autoload 'skewer-start "setup-skewer" nil t)
