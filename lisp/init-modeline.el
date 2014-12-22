@@ -1,7 +1,3 @@
-;; (require 'gruber-darker-theme)
-;; (load-theme 'gruber-darker t)
-(require 'gotham-theme)
-
 ;; Clean up clutter in mode line
 (eval-after-load "eldoc" '(diminish 'eldoc-mode))
 (eval-after-load "tagedit" '(diminish 'tagedit-mode))
@@ -16,10 +12,7 @@
 (eval-after-load "magit" '(diminish 'magit-auto-revert-mode))
 (eval-after-load "company" '(diminish 'company-mode))
 
-(eval-after-load "js2-mode"
-  '(defadvice js2-mode (after js2-rename-modeline activate)
-     (setq mode-name "JS2")))
-(defadvice emacs-lisp-mode (after elisp-rename-modeline activate)
-  (setq mode-name "ELisp"))
+(require 'powerline)
+(powerline-default-theme)
 
-(provide 'appearance)
+(provide 'init-modeline)

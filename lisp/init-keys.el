@@ -83,10 +83,10 @@
 ;; Ace jump mode
 (define-key global-map (kbd "C-å") 'ace-jump-mode)
 
+;; Move lines around
 (require-package 'move-text)
 (global-set-key (kbd "<C-S-up>") 'move-text-up)
 (global-set-key (kbd "<C-S-down>") 'move-text-down)
-;; Move lines around
 
 ;; Imenu
 (global-set-key (kbd "C-c C-i") 'imenu-anywhere)
@@ -110,22 +110,10 @@
 
 (global-set-key (kbd "C-c b") 'create-scratch-buffer)
 
-;; Key 
-
 ;; Occur
 (global-set-key (kbd "C-c o") 'occur)
 
-;; Find files by name and display results in dired
-(global-set-key (kbd "M-s f") 'find-name-dired)
-
 ;; Project management
 (global-set-key (kbd "C-x o") 'projectile-find-file)
-(global-set-key (kbd "C-x p") 'projectile-recentf)
-(global-set-key (kbd "C-x å") 'projectile-project-buffers)
 
-(global-set-key (kbd "M-<up>") 'smart-up)
-(global-set-key (kbd "M-<down>") 'smart-down)
-(global-set-key (kbd "M-<left>") 'smart-backward)
-(global-set-key (kbd "M-<right>") 'smart-forward)
-
-(provide 'key-bindings)
+(provide 'init-keys)

@@ -16,3 +16,5 @@
       company-dabbrev-downcase nil)
 
 (add-to-list 'company-backends 'company-tern)
+
+(provide 'init-company)

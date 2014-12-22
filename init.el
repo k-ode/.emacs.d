@@ -24,20 +24,27 @@
 (add-to-list 'load-path user-custom-dir)
 
 ;; Keep emacs Custom-settings in separate file
-(setq custom-file (expand-file-name "lisp/custom.el" user-emacs-directory))
+(setq custom-file (expand-file-name "lisp/init-custom.el" user-emacs-directory))
 (load custom-file)
 
 ;; Setup packages
 (require 'setup-package)
 
+(require 'init-themes)
 (require 'init-gui-frames)
 (require 'init-editing-utils)
 (require 'init-misc)
 (require 'init-sessions)
 (require 'init-locales)
 (require 'init-windows)
+(require 'init-modeline)
 (require 'init-uniquify)
 (require 'init-org)
+(require 'init-lisp)
+(require 'init-css)
+(require 'init-csharp)
+(require 'init-company)
+(require 'init-project)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)
@@ -55,7 +62,6 @@
 (setq-default save-place t)
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
-(require 'appearance)
 (require 'setup-shell)
 (require 'setup-smartparens)
 
@@ -76,9 +82,6 @@
 (require 'setup-flycheck)
 (require 'setup-css)
 
-;; Map files to modes
-(require 'mode-mappings)
-
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
 (dolist (file (directory-files defuns-dir t "\\w+"))
@@ -89,9 +92,6 @@
 (require-package 'idomenu)
 
 ;; Setup key bindings
-(require 'key-bindings)
-
-(require 'my-misc)
-(require 'setup-company)
+(require 'init-keys)
 
 (put 'scroll-left 'disabled nil)
