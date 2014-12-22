@@ -1,3 +1,6 @@
 [submodule "tern"]
 	path = tern
 	url = https://github.com/marijnh/tern.git
+[submodule "omnisharp-server"]
+	path = omnisharp-server
+	url = https://github.com/OmniSharp/omnisharp-server.git
