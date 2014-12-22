@@ -1,8 +1,3 @@
-;; Turn off mouse interface early in startup to avoid momentary display
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
 (defmacro after-load (feature &rest body)
   "After FEATURE is loaded, evaluate BODY."
   (declare (indent defun)))
@@ -11,6 +6,9 @@
 (setq is-linux (equal system-type 'gnu/linux))
 
 ;; Set path to dependencies
+(setq lisp-dir
+      (expand-file-name "lisp" user-emacs-directory))
+
 (setq site-lisp-dir
       (expand-file-name "site-lisp" user-emacs-directory))
 
@@ -36,8 +34,14 @@
 ;; Setup packages
 (require 'setup-package)
 
-;; No splash screen please ... jeez
-(setq inhibit-startup-message t)
+(require 'init-gui-frames)
+(require 'init-editing-utils)
+(require 'init-misc)
+(require 'init-sessions)
+(require 'init-locales)
+(require 'init-windows)
+(require 'init-uniquify)
+(require 'init-org)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)
@@ -57,7 +61,6 @@
 
 (require 'appearance)
 (require 'setup-shell)
-(require 'sane-defaults)
 (require 'setup-smartparens)
 
 ;; Setup extensions

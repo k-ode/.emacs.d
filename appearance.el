@@ -1,17 +1,3 @@
-;; No annyoing end of file sound
-(setq visible-bell t)
-
-;; No blinking cursor
-(blink-cursor-mode -1)
-
-;; Highlight current line
-(global-hl-line-mode 1)
-
-(when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
-  (tooltip-mode -1)
-  (blink-cursor-mode -1))
-
 ;; (require 'gruber-darker-theme)
 ;; (load-theme 'gruber-darker t)
 (require 'gotham-theme)

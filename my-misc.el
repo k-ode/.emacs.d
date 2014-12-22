@@ -1,14 +1,14 @@
 (setq projectile-indexing-method 'alien)
 (setq projectile-enable-caching t)
-
+(add-hook 'after-init-hook 'global-company-mode)
 (turn-on-eldoc-mode)
-
 (setq web-mode-indent-style 4)
-
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 
-(add-to-list 'load-path "~/.emacs.d/tern/emacs/")
-(autoload 'tern-mode "tern.el" nil t)
+(require 'omnisharp)
+;; (add-to-list 'company-backends 'company-tern)
+;; (add-to-list 'load-path "~/.emacs.d/tern/emacs/")
+;; (autoload 'tern-mode "tern.el" nil t)
 
 (defun my-tern-project-dir ()
   (and (not (buffer-file-name)) "")
@@ -111,6 +111,7 @@
   (omnisharp-mode)
   ;;(use-local-map nil)
   (c-set-offset 'substatement-open 0))
+
 (add-hook 'csharp-mode-hook 'my-csarhp-mode-fn t)
 
 (provide 'my-misc)
