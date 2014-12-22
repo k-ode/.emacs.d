@@ -5,8 +5,8 @@
 
 ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "<C-tab>") 'hippie-expand-no-case-fold)
-(global-set-key (kbd "C-:") 'hippie-expand-lines)
 (global-set-key (kbd "C-.") 'company-complete)
+(global-set-key (kbd "C-:") 'hippie-expand-lines)
 (global-set-key (kbd "C-,") 'completion-at-point)
 
 (global-set-key (kbd "C-c s") 'project-explorer-open)
@@ -83,9 +83,10 @@
 ;; Ace jump mode
 (define-key global-map (kbd "C-å") 'ace-jump-mode)
 
+(require-package 'move-text)
+(global-set-key (kbd "<C-S-up>") 'move-text-up)
+(global-set-key (kbd "<C-S-down>") 'move-text-down)
 ;; Move lines around
-(global-set-key (kbd "<C-S-down>") 'move-line-down)
-(global-set-key (kbd "<C-S-up>") 'move-line-up)
 
 ;; Imenu
 (global-set-key (kbd "C-c C-i") 'imenu-anywhere)
