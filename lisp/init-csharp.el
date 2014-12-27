@@ -1,7 +1,6 @@
 (autoload 'csharp-mode "csharp-mode" "C# Mode" t)
 (setq auto-mode-alist (append '(("\\.cs$" . csharp-mode))
                               auto-mode-alist))
-
 (setq auto-mode-alist (append '(("\\.aspx$" . html-mode))
                               auto-mode-alist))
 (setq auto-mode-alist (append '(("\\.ascx$" . html-mode))
@@ -12,10 +11,10 @@
 ;; Reduce font locked keywords in chsarp mode
 (make-variable-buffer-local 'font-lock-type-face)
 (copy-face 'font-lock-type-face 'csharp-type-face)
-(set-face-foreground 'csharp-type-face "2aa889")
+(set-face-foreground 'csharp-type-face "#2aa889")
 
 (require-package 'company)
-(require-package 'omnisharp)
+(require 'omnisharp)
 
 (defun csharp-mode-fn ()
   ;;(use-local-map nil)
