@@ -15,6 +15,8 @@
       company-require-match nil
       company-dabbrev-downcase nil)
 
+(require-package 'company-tern)
+
 (add-to-list 'company-backends 'company-tern)
 
 (provide 'init-company)

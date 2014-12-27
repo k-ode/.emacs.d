@@ -54,7 +54,7 @@
 (global-discover-mode 1)
 
 (require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c m" "C-c r" "C-c !"))
+(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c C-m" "C-c !"))
 (setq guide-key/recursive-key-sequence-flag t)
 
 (guide-key-mode 1)
