@@ -30,6 +30,7 @@
 ;; Setup packages
 (require 'setup-package)
 
+(require 'init-modeline)
 (require 'init-themes)
 (require 'init-gui-frames)
 (require 'init-editing-utils)
@@ -37,7 +38,6 @@
 (require 'init-sessions)
 (require 'init-locales)
 (require 'init-windows)
-(require 'init-modeline)
 (require 'init-uniquify)
 (require 'init-org)
 (require 'init-lisp)
