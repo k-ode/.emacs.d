@@ -1,7 +1,3 @@
-(defmacro after-load (feature &rest body)
-  "After FEATURE is loaded, evaluate BODY."
-  (declare (indent defun)))
-
 (setq is-windows (equal system-type 'windows-nt))
 (setq is-linux (equal system-type 'gnu/linux))
 
@@ -28,6 +24,7 @@
 (load custom-file)
 
 ;; Setup packages
+(require 'init-utils)
 (require 'setup-package)
 
 (require 'init-modeline)
@@ -45,6 +42,8 @@
 (require 'init-csharp)
 (require 'init-company)
 (require 'init-project)
+(require 'init-javascript)
+(require 'init-tern)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)
@@ -66,7 +65,6 @@
 (require 'setup-smartparens)
 
 ;; Setup extensions
-(require 'setup-js2-mode)
 (require 'setup-json-mode)
 (eval-after-load 'org '(require 'setup-org))
 ;; Autoload skewer when asked for
@@ -74,13 +72,11 @@
 ;;(autoload 'skewer-demo "setup-skewer" nil t)
 
 (require 'setup-html-mode)
-(require 'setup-js-mode)
 (require 'setup-dired)
 (require 'setup-ido)
 (require 'setup-hippie)
 (require 'setup-yasnippet)
 (require 'setup-flycheck)
-(require 'setup-css)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))

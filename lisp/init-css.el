@@ -3,7 +3,7 @@
   (dolist (hook '(css-mode-hook html-mode-hook))
     (add-hook hook 'rainbow-mode)))
 
-(requre-package 'less-css-mode)
+(require-package 'less-css-mode)
 (add-hook 'less-mode-hook (lambda () (flycheck-mode t)))
 
 (require-package 'scss-mode)
