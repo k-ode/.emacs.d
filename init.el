@@ -67,9 +67,6 @@
 ;; Setup extensions
 (require 'setup-json-mode)
 (eval-after-load 'org '(require 'setup-org))
-;; Autoload skewer when asked for
-(autoload 'skewer-start "setup-skewer" nil t)
-;;(autoload 'skewer-demo "setup-skewer" nil t)
 
 (require 'setup-html-mode)
 (require 'setup-dired)

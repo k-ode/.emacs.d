@@ -37,6 +37,9 @@
 
 (add-hook 'sgml-mode-hook '--setup-simplezen)
 
+(after-load 'skewer-mode
+  (add-hook 'html-mode-hook 'skewer-html-mode))
+
 (add-hook 'html-mode-hook
 		  (lambda()
 			(setq sgml-basic-offset 4)))

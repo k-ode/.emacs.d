@@ -3,6 +3,9 @@
   (dolist (hook '(css-mode-hook html-mode-hook))
     (add-hook hook 'rainbow-mode)))
 
+(after-load 'skewer-mode
+  (add-hook 'css-mode-hook 'skewer-css-mode))
+
 (require-package 'less-css-mode)
 (add-hook 'less-mode-hook (lambda () (flycheck-mode t)))
 
