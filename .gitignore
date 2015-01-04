@@ -4,6 +4,7 @@ elpa/
 project-explorer-cache/
 backups/
 tmp/
+server/
 .places
 bookmarks
 url
