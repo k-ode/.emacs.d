@@ -116,4 +116,6 @@
 ;; Project management
 (global-set-key (kbd "C-x o") 'projectile-find-file)
 
+(global-set-key (kbd "M-,") 'pop-tag-mark)
+
 (provide 'init-keys)
