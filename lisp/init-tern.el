@@ -2,8 +2,10 @@
   (setq tern-command (list "node" (expand-file-name "tern/bin/tern" user-emacs-directory))))
 
 (after-load 'tern
+  ;;(delete-tern-port-file)
   (require-package 'company-tern)
-  (add-to-list 'company-backends 'company-tern))
+  (add-to-list 'company-backends 'company-tern)
+  (add-hook 'js2-mode-hook 'tern-mode))
 
 (defun my-tern-project-dir ()
   (and (not (buffer-file-name)) "")
@@ -15,8 +17,20 @@
             (return (setf project-dir cur))))
     project-dir))
 
+(defun get-tern-port-file ()
+  (expand-file-name ".tern-port" (my-tern-project-dir)))
+
 (defun delete-tern-port-file ()
   (interactive)
-  (delete-file (expand-file-name ".tern-port" (my-tern-project-dir))))
+  (delete-file (get-tern-port-file)))
+
+(defun restart-tern ()
+  (interactive)
+  (tern-mode 0)
+  (when (process-status "Tern")
+    (kill-process "Tern"))
+  (when (file-exists-p (get-tern-port-file))
+    (delete-tern-port-file))
+  (tern-mode 1))
 
 (provide 'init-tern)
