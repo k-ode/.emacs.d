@@ -30,4 +30,12 @@
 
 (add-hook 'csharp-mode-hook 'csharp-mode-fn t)
 
+(define-key omnisharp-mode-map (kbd "M-.") 'omnisharp-go-to-definition)
+(define-key omnisharp-mode-map (kbd "C-c C-r") 'omnisharp-rename)
+(define-key omnisharp-mode-map (kbd "C-c C-c") 'omnisharp-current-type-information)
+(define-key omnisharp-mode-map (kbd "C-c C-d") 'omnisharp-current-type-documentation)
+(define-key omnisharp-mode-map (kbd "C-c i") 'omnisharp-navigate-to-current-file-member)
+(define-key omnisharp-mode-map (kbd "C-c C-i") 'omnisharp-helm-find-symbols)
+(define-key omnisharp-mode-map (kbd "<f12>") 'omnisharp-helm-find-usages)
+
 (provide 'init-csharp)

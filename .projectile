@@ -4,6 +4,7 @@
 -/eshell
 -projectile*
 -/tern
+-/omnisharp-server
 -/url
 -/tmp
 -bookmarks
