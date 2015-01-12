@@ -1,3 +1,5 @@
+(setq electric-indent-mode nil)
+
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
 
@@ -13,6 +15,7 @@
 
 ;; Wanna use enter as newline and indent
 (defun my-coding-config ()
+  (local-set-key (kbd ""))
   (local-set-key (kbd "RET") 'newline-and-indent)
   (local-set-key (kbd "<S-return>") 'newline))
 
