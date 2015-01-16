@@ -23,6 +23,12 @@
 (setq custom-file (expand-file-name "lisp/init-custom.el" user-emacs-directory))
 (load custom-file)
 
+;; Load tern
+(setq tern-dir
+      (expand-file-name "tern/emacs" user-emacs-directory))
+(add-to-list 'load-path tern-dir)
+(autoload 'tern-mode "tern.el" nil t)
+
 ;; Setup packages
 (require 'init-utils)
 (require 'setup-package)

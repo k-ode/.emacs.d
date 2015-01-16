@@ -7,3 +7,6 @@
 [submodule "site-lisp/omnisharp-emacs"]
 	path = site-lisp/omnisharp-emacs
 	url = https://github.com/kimgronqvist/omnisharp-emacs.git
+[submodule "site-lisp/company-tern"]
+	path = site-lisp/company-tern
+	url = https://github.com/proofit404/company-tern.git

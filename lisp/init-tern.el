@@ -1,9 +1,7 @@
-(when (maybe-require-package 'tern)
-  (setq tern-command (list "node" (expand-file-name "tern/bin/tern" user-emacs-directory) "--persistent")))
-
 (after-load 'tern
   ;;(delete-tern-port-file)
-  (require-package 'company-tern)
+  (setq tern-command (list "node" (expand-file-name "tern/bin/tern" user-emacs-directory) "--strip-crs"))
+  (require 'company-tern)
   (add-to-list 'company-backends 'company-tern)
   (add-hook 'js2-mode-hook 'tern-mode))
 
