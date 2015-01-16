@@ -1,3 +1,14 @@
+(defun opto-build ()
+  (interactive)
+  (save-window-excursion
+    (async-shell-command "msbuild.exe c:/opto/OPTOV6/trunk/OPTOV6Html5.sln")))
+
+(defun opto-run-tests ()
+  (interactive)
+  (async-shell-command "cd c:/opto/OPTOV6/trunk/ServerHtml5/Web/ && npm test"))
+
+(global-set-key (kbd "<f5>") 'opto-build)
+
 (autoload 'csharp-mode "csharp-mode" "C# Mode" t)
 (setq auto-mode-alist (append '(("\\.cs$" . csharp-mode))
                               auto-mode-alist))
@@ -9,16 +20,16 @@
                               auto-mode-alist))
 
 ;; Reduce font locked keywords in chsarp mode
-(make-variable-buffer-local 'font-lock-type-face)
-(copy-face 'font-lock-type-face 'csharp-type-face)
-(set-face-foreground 'csharp-type-face "#2aa889")
+;; (make-variable-buffer-local 'font-lock-type-face)
+;; (copy-face 'font-lock-type-face 'csharp-type-face)
+;; (set-face-foreground 'csharp-type-face "#2aa889")
 
 (require-package 'company)
 (require 'omnisharp)
 
 (defun csharp-mode-fn ()
   ;;(use-local-map nil)
-  (setq font-lock-type-face 'csharp-type-face)  
+  ;;(setq font-lock-type-face 'csharp-type-face)  
   (add-to-list 'company-backends 'company-omnisharp)
   (make-variable-buffer-local 'company-minimum-prefix-length)
   (setq company-minimum-prefix-length 0)
