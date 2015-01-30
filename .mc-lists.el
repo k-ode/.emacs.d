@@ -6,6 +6,7 @@
         dired-do-redisplay
         dired-next-line
         dired-previous-line
+        electric-newline-and-maybe-indent
         hippie-expand-no-case-fold
         js2-down-mouse-3
         js2-mode-show-node
