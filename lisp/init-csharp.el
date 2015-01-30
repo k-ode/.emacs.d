@@ -1,14 +1,3 @@
-(defun opto-build ()
-  (interactive)
-  (save-window-excursion
-    (async-shell-command "msbuild.exe c:/opto/OPTOV6/trunk/OPTOV6Html5.sln")))
-
-(defun opto-run-tests ()
-  (interactive)
-  (async-shell-command "cd c:/opto/OPTOV6/trunk/ServerHtml5/Web/ && npm test"))
-
-(global-set-key (kbd "<f5>") 'opto-build)
-
 (autoload 'csharp-mode "csharp-mode" "C# Mode" t)
 (setq auto-mode-alist (append '(("\\.cs$" . csharp-mode))
                               auto-mode-alist))
@@ -40,6 +29,11 @@
   (c-set-offset 'substatement-open 0))
 
 (add-hook 'csharp-mode-hook 'csharp-mode-fn t)
+
+;; Steal back alt-j
+(define-key omnisharp-mode-map (kbd "M-j") '(lambda () (interactive)
+                                        (join-line -1)
+                                        (indent-for-tab-command)))
 
 (define-key omnisharp-mode-map (kbd "M-.") 'omnisharp-go-to-definition)
 (define-key omnisharp-mode-map (kbd "C-c C-r") 'omnisharp-rename)

@@ -60,8 +60,8 @@
   (define-key js2-mode-map (kbd "C-c C-m t") 'js2r-unwrap)
   (define-key js2-mode-map (kbd "C-c C-m v") 'js2r-log-this)
   (define-key js2-mode-map (kbd "C-c C-m w") 'js2r-forward-slurp)
-  (define-key js2-mode-map (kbd "C-c C-m x") 'js2r-forward-barf)
-
+  (define-key js2-mode-map (kbd "C-c C-m x") 'js2r-forward-barf) 
+  (define-key js2-mode-map (kbd "C-c C-m y") 'js2r-expand-object)
   (define-key js2-mode-map (kbd "C-k") 'js2r-kill)
   
   (js2-imenu-extras-setup))
