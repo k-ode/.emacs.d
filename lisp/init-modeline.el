@@ -11,7 +11,7 @@
 (eval-after-load "guide-key" '(diminish 'guide-key-mode))
 (eval-after-load "magit" '(diminish 'magit-auto-revert-mode))
 (eval-after-load "company" '(diminish 'company-mode))
-
+ 
 (require 'powerline)
 (powerline-default-theme)
 

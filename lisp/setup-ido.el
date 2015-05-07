@@ -7,7 +7,8 @@
        ido-max-prospects 10
        ido-auto-merge-work-directories-length -1
        ido-case-fold nil
-       ido-create-new-buffer 'always)
+       ido-create-new-buffer 'always
+       flx-ido-threshold 1000)
        ;;ido-use-virtual-buffers t)
       
 (set-default 'imenu-auto-rescan t)

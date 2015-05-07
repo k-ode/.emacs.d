@@ -25,6 +25,7 @@
   (make-variable-buffer-local 'company-idle-delay)
   (setq company-idle-delay 0.3)
   (setq c-basic-offset 4)
+  (subword-mode)
   (omnisharp-mode)
   (c-set-offset 'substatement-open 0))
 
