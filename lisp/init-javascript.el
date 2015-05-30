@@ -5,8 +5,15 @@
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
 (add-to-list 'auto-mode-alist '("\\.jshintrc$" . js-mode))
 
-(add-hook 'js-mode-hook (lambda () (flycheck-mode t)))
-(add-hook 'js2-mode-hook (lambda () (flycheck-mode t)))
+(add-hook 'js-mode-hook
+          (lambda ()
+            (flycheck-mode t)
+            (subword-mode)))
+
+(add-hook 'js2-mode-hook
+          (lambda ()
+            (flycheck-mode t)
+            (subword-mode)))
 
 (eval-after-load "js2-mode"
   '(defadvice js2-mode (after js2-rename-modeline activate)
@@ -91,44 +98,9 @@
                                         (match-end 1) "\u0192")
                         nil)))))
 
-;; ---------------------------------------------------------------------------
-;; Run and interact with an inferior JS via js-comint.el
-;; ---------------------------------------------------------------------------
-
-(setenv "NODE_NO_READLINE" "1")
-
-(setq inferior-js-program-command "node --interactive")
-
-(defvar inferior-js-minor-mode-map (make-sparse-keymap))
-(define-key inferior-js-minor-mode-map "\C-x\C-e" 'js-send-last-sexp)
-(define-key inferior-js-minor-mode-map "\C-\M-x" 'js-send-last-sexp-and-go)
-(define-key inferior-js-minor-mode-map "\C-cb" 'js-send-buffer)
-(define-key inferior-js-minor-mode-map "\C-c\C-b" 'js-send-buffer-and-go)
-(define-key inferior-js-minor-mode-map "\C-cl" 'js-load-file-and-go)
-
-(define-minor-mode inferior-js-keys-mode
-  "Bindings for communicating with an inferior js interpreter."
-  nil " InfJS" inferior-js-minor-mode-map)
-
-(dolist (hook '(js2-mode-hook js-mode-hook))
-  (add-hook hook 'inferior-js-keys-mode))
-
-;; ---------------------------------------------------------------------------
-;; Alternatively, use skewer-mode
-;; ---------------------------------------------------------------------------
-
-;; Run (httpd-start)
-;;
-;; Bookmarklet to load skewer:
-;;
-;;     javascript:(function(){var d=document ;var s=d.createElement('script');s.src='http://localhost:8023/skewer';d.body.appendChild(s);})()
-;;
-
 (require-package 'skewer-mode)
 
 (after-load 'skewer-mode
-  (add-hook 'js2-mode-hook 'skewer-mode)
-  (add-hook 'skewer-mode-hook
-            (lambda () (inferior-js-keys-mode -1))))
+  (add-hook 'js2-mode-hook 'skewer-mode))
 
 (provide 'init-javascript)
