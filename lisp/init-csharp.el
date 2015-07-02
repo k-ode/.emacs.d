@@ -1,4 +1,3 @@
-(require 'csharp-mode)
 
 (autoload 'csharp-mode "csharp-mode" "C# Mode" t)
 (setq auto-mode-alist (append '(("\\.cs$" . csharp-mode))

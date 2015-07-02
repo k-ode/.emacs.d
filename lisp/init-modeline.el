@@ -10,8 +10,8 @@
 (eval-after-load "projectile" '(diminish 'projectile-mode))
 (eval-after-load "guide-key" '(diminish 'guide-key-mode))
 (eval-after-load "company" '(diminish 'company-mode))
- 
-(require 'powerline)
-(powerline-default-theme)
+
+;;(require 'powerline)
+;;(powerline-default-theme)
 
 (provide 'init-modeline)
