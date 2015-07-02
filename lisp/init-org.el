@@ -1,7 +1,7 @@
 ;; Truncate task
 (setq org-clock-heading-function
       (lambda ()
-        (substring (nth 4 (org-heading-components)) 0 16)))
+        (s-left 8 (nth 4 (org-heading-components)))))
 
 ;; Org-mode is silly
 (setq org-replace-disputed-keys t)

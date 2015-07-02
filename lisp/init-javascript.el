@@ -1,5 +1,4 @@
 (require-package 'js2-mode)
-(require-package 'js-comint)
 
 (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
 (add-to-list 'auto-mode-alist '("\\.json$" . json-mode))
@@ -67,7 +66,7 @@
   (define-key js2-mode-map (kbd "C-c C-m t") 'js2r-unwrap)
   (define-key js2-mode-map (kbd "C-c C-m v") 'js2r-log-this)
   (define-key js2-mode-map (kbd "C-c C-m w") 'js2r-forward-slurp)
-  (define-key js2-mode-map (kbd "C-c C-m x") 'js2r-forward-barf) 
+  (define-key js2-mode-map (kbd "C-c C-m x") 'js2r-forward-barf)
   (define-key js2-mode-map (kbd "C-c C-m y") 'js2r-expand-object)
   (define-key js2-mode-map (kbd "C-k") 'js2r-kill)
   
@@ -102,5 +101,15 @@
 
 (after-load 'skewer-mode
   (add-hook 'js2-mode-hook 'skewer-mode))
+
+(defun skewer-reload ()
+  (interactive)
+  (if (skewer-mode)
+      (skewer-eval "location.reload()")))
+(global-set-key (kbd "<f6>") 'skewer-reload)
+
+(defun skewer-auto-reload ()
+  (interactive)
+  (add-hook 'after-save-hook 'skewer-reload nil 'make-it-local))
 
 (provide 'init-javascript)

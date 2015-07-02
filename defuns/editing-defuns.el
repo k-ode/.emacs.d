@@ -26,32 +26,47 @@ the current position of point, then move it to the beginning of the line."
 
 (require 'dash)
 
-(defvar yank-indent-modes '(prog-mode
-                            sgml-mode
-                            js2-mode)
-  "Modes in which to indent regions that are yanked (or yank-popped)")
+(defcustom kg-indent-sensitive-modes
+  '(conf-mode coffee-mode haml-mode python-mode slim-mode yaml-mode)
+  "Modes for which auto-indenting is suppressed."
+  :type 'list
+  :group 'kg)
 
-(defvar yank-advised-indent-threshold 1000
-  "Threshold (# chars) over which indentation does not automatically occur.")
+(defcustom kg-yank-indent-modes '(LaTeX-mode TeX-mode)
+  "Modes in which to indent regions that are yanked (or yank-popped).
+Only modes that don't derive from `prog-mode' should be listed here."
+  :type 'list
+  :group 'kg)
 
+(defcustom kg-yank-indent-threshold 1000
+  "Threshold (# chars) over which indentation does not automatically occur."
+  :type 'number
+  :group 'kg)
+
+(defmacro advise-commands (advice-name commands class &rest body)
+  "Apply advice named ADVICE-NAME to multiple COMMANDS.
+The body of the advice is in BODY."
+  `(progn
+     ,@(mapcar (lambda (command)
+                 `(defadvice ,command (,class ,(intern (concat (symbol-name command) "-" advice-name)) activate)
+                    ,@body))
+               commands)))
+
+;; automatically indenting yanked text if in programming-modes
 (defun yank-advised-indent-function (beg end)
   "Do indentation, as long as the region isn't too large."
-  (if (<= (- end beg) yank-advised-indent-threshold)
+  (if (<= (- end beg) kg-yank-indent-threshold)
       (indent-region beg end nil)))
 
-(defadvice yank (after yank-indent activate)
-  "If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
-  (if (and (not (ad-get-arg 0))
-           (--any? (derived-mode-p it) yank-indent-modes))
-      (let ((transient-mark-mode nil))
-        (yank-advised-indent-function (region-beginning) (region-end)))))
-
-(defadvice yank-pop (after yank-pop-indent activate)
-  "If current mode is one of 'yank-indent-modes, indent yanked text (with prefix arg don't indent)."
-  (if (and (not (ad-get-arg 0))
-           (member major-mode yank-indent-modes))
-      (let ((transient-mark-mode nil))
-        (yank-advised-indent-function (region-beginning) (region-end)))))
+(advise-commands "indent" (yank yank-pop) after
+                 "If current mode is one of `kg-yank-indent-modes',
+indent yanked text (with prefix arg don't indent)."
+                 (if (and (not (ad-get-arg 0))
+                          (not (member major-mode kg-indent-sensitive-modes))
+                          (or (derived-mode-p 'prog-mode)
+                              (member major-mode kg-yank-indent-modes)))
+                     (let ((transient-mark-mode nil))
+                       (yank-advised-indent-function (region-beginning) (region-end)))))
 
 (defun yank-unindented ()
   (interactive)

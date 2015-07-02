@@ -50,6 +50,7 @@
 (require 'init-project)
 (require 'init-javascript)
 (require 'init-tern)
+(require 'init-hydra)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)

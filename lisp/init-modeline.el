@@ -9,7 +9,6 @@
 (eval-after-load "skewer-css" '(diminish 'skewer-css-mode))
 (eval-after-load "projectile" '(diminish 'projectile-mode))
 (eval-after-load "guide-key" '(diminish 'guide-key-mode))
-(eval-after-load "magit" '(diminish 'magit-auto-revert-mode))
 (eval-after-load "company" '(diminish 'company-mode))
  
 (require 'powerline)

@@ -44,5 +44,6 @@
         delete-window
         ido-switch-buffer
         mc/mark-next-lines
+        mouse-buffer-menu
         wgrep-change-to-wgrep-mode
         ))

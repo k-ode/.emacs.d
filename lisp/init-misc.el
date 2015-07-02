@@ -1,3 +1,8 @@
+(add-hook 'css-mode-hook #'aggressive-indent-mode)
+(add-hook 'less-css-mode-hook #'aggressive-indent-mode)
+
+(setq ag-highlight-search t)
+
 (defun comment-box-fill (b e)
   "Draw a box comment around the region but arrange for the region
 to extend to at least the fill column. Place the point after the
@@ -10,7 +15,7 @@ comment box."
     (comment-box b e 1)
     (goto-char e)
     (set-marker e nil)))
-
+ 
 (setq electric-indent-mode nil)
 
 ;; Auto refresh buffers
@@ -65,11 +70,11 @@ comment box."
 
 (setq fill-column 80)
 
-(require-package 'guide-key)
-(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c C-m" "C-c !"))
-(setq guide-key/recursive-key-sequence-flag t)
+;; (require-package 'guide-key)
+;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c C-m" "C-c !"))
+;; (setq guide-key/recursive-key-sequence-flag t)
 
-(guide-key-mode 1)
+;; (guide-key-mode 1)
 
 ;; Don't save temporary files in same directory, please
 (setq temporary-file-directory "~/.emacs.d/tmp/")

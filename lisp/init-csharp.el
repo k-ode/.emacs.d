@@ -1,3 +1,5 @@
+(require 'csharp-mode)
+
 (autoload 'csharp-mode "csharp-mode" "C# Mode" t)
 (setq auto-mode-alist (append '(("\\.cs$" . csharp-mode))
                               auto-mode-alist))
@@ -23,7 +25,7 @@
   (make-variable-buffer-local 'company-minimum-prefix-length)
   (setq company-minimum-prefix-length 0)
   (make-variable-buffer-local 'company-idle-delay)
-  (setq company-idle-delay 0.3)
+  (setq company-idle-delay 0.2)
   (setq c-basic-offset 4)
   (subword-mode)
   (omnisharp-mode)
@@ -43,5 +45,7 @@
 (define-key omnisharp-mode-map (kbd "C-c i") 'omnisharp-navigate-to-current-file-member)
 (define-key omnisharp-mode-map (kbd "C-c C-i") 'omnisharp-helm-find-symbols)
 (define-key omnisharp-mode-map (kbd "<f12>") 'omnisharp-helm-find-usages)
+
+(global-set-key (kbd "<f5>") 'omnisharp-build-in-emacs)
 
 (provide 'init-csharp)
