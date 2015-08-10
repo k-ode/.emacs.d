@@ -1,3 +1,11 @@
+;;; init.el --- Emacs configuration of Kim Grönqvist
+
+;;; Commentary:
+
+;; Emacs configuration of Kim Grönqvist.
+
+;;; Code:
+
 (setq is-windows (equal system-type 'windows-nt))
 (setq is-linux (equal system-type 'gnu/linux))
 
@@ -33,6 +41,8 @@
 (require 'init-utils)
 (require 'setup-package)
 
+(require 'use-package)
+
 (require 'init-modeline)
 (require 'init-themes)
 (require 'init-gui-frames)
@@ -47,10 +57,13 @@
 (require 'init-css)
 (require 'init-csharp)
 (require 'init-company)
-(require 'init-project)
 (require 'init-javascript)
 (require 'init-tern)
-(require 'init-hydra)
+(require 'init-helm)
+(require 'init-which-key)
+(require 'init-projectile)
+(require 'init-project-explorer)
+(require 'init-flycheck)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)
@@ -69,18 +82,16 @@
 (setq save-place-file (expand-file-name ".places" user-emacs-directory))
 
 (require 'setup-shell)
-(require 'setup-smartparens)
+(require 'init-smartparens)
 
 ;; Setup extensions
 (require 'setup-json-mode)
 (eval-after-load 'org '(require 'setup-org))
 
 (require 'setup-html-mode)
-(require 'setup-dired)
-(require 'setup-ido)
-(require 'setup-hippie)
-(require 'setup-yasnippet)
-(require 'setup-flycheck)
+(require 'init-dired)
+(require 'init-hippie)
+(require 'init-yasnippet)
 
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
@@ -95,3 +106,62 @@
 (require 'init-keys)
 
 (put 'scroll-left 'disabled nil)
+
+(use-package company-statistics         ; Sort company candidates by statistics
+  :ensure t
+  :defer t
+  :init (with-eval-after-load 'company
+          (company-statistics-mode)))
+
+(use-package anzu                       ; Position/matches count for isearch
+  :ensure t
+  :init (global-anzu-mode)
+  :config (setq anzu-cons-mode-line-p nil)
+  :diminish anzu-mode)
+
+(use-package which-func                 ; Current function name in header line
+  :init (which-function-mode)
+  :config
+  (setq which-func-unknown "" ; The default is really boring…
+        which-func-format
+        `((:propertize (" \u0192 " which-func-current)
+                       local-map ,which-func-keymap
+                       face which-func
+                       mouse-face mode-line-highlight
+                       help-echo "mouse-1: go to beginning\n\
+mouse-2: toggle rest visibility\n\
+mouse-3: go to end"))))
+
+(setq-default header-line-format
+              '(which-func-mode ("" which-func-format " "))
+              mode-line-format
+              '("%e" mode-line-front-space
+                ;; Standard info about the current buffer
+                mode-line-mule-info
+                mode-line-client
+                mode-line-modified
+                mode-line-remote
+                mode-line-frame-identification
+                mode-line-buffer-identification " " mode-line-position
+                (projectile-mode projectile-mode-line)
+                (vc-mode (:propertize (:eval vc-mode) face italic))
+                " "
+                (flycheck-mode flycheck-mode-line) ; Flycheck status
+                (isearch-mode " ")
+                (anzu-mode (:eval                  ; isearch pos/matches
+                            (when (> anzu--total-matched 0)
+                              (anzu--update-mode-line))))
+                (multiple-cursors-mode mc/mode-line) ; Number of cursors
+                ;; And the modes, which we don't really care for anyway
+                " " mode-line-misc-info mode-line-modes mode-line-end-spaces)
+              mode-line-remote
+              '(:eval
+                (when-let (host (file-remote-p default-directory 'host))
+                          (propertize (concat "@" host) 'face
+                                      '(italic warning))))
+              ;; Remove which func from the mode line, since we have it in the
+              ;; header line
+              mode-line-misc-info
+              (assq-delete-all 'which-func-mode mode-line-misc-info))
+
+;;; init.el ends here

@@ -70,12 +70,6 @@ comment box."
 
 (setq fill-column 80)
 
-;; (require-package 'guide-key)
-;; (setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-c p" "C-c C-m" "C-c !"))
-;; (setq guide-key/recursive-key-sequence-flag t)
-
-;; (guide-key-mode 1)
-
 ;; Don't save temporary files in same directory, please
 (setq temporary-file-directory "~/.emacs.d/tmp/")
 

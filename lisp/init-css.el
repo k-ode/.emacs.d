@@ -7,7 +7,6 @@
   (add-hook 'css-mode-hook 'skewer-css-mode))
 
 (require-package 'less-css-mode)
-(add-hook 'less-css-mode-hook (lambda () (flycheck-mode t)))
 
 (require-package 'scss-mode)
 (autoload 'scss-mode "scss-mode")

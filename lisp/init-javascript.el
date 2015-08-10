@@ -6,12 +6,10 @@
 
 (add-hook 'js-mode-hook
           (lambda ()
-            (flycheck-mode t)
             (subword-mode)))
 
 (add-hook 'js2-mode-hook
           (lambda ()
-            (flycheck-mode t)
             (subword-mode)))
 
 (eval-after-load "js2-mode"
