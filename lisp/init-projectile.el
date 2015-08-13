@@ -8,7 +8,8 @@
                            face bold))
     (setq projectile-completion-system 'helm)
     (setq projectile-indexing-method 'alien)
-    (setq projectile-enable-caching t))
+    (setq projectile-enable-caching t)
+    (bind-key "C-x o" #'projectile-find-file))
   :diminish projectile-mode)
 
 (provide 'init-projectile)

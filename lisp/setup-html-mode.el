@@ -44,6 +44,13 @@
 		  (lambda()
 			(setq sgml-basic-offset 4)))
 
+(setq auto-mode-alist (append '(("\\.aspx$" . html-mode))
+                              auto-mode-alist))
+(setq auto-mode-alist (append '(("\\.ascx$" . html-mode))
+                              auto-mode-alist))
+(setq auto-mode-alist (append '(("\\.cshtml$" . html-mode))
+                              auto-mode-alist))
+
 (eval-after-load "sgml-mode"
  '(progn
     ;; don't include equal sign in symbols

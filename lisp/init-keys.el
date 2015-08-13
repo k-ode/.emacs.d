@@ -7,7 +7,6 @@
 (global-set-key (kbd "C-.") 'company-complete)
 (global-set-key (kbd "C-,") 'completion-at-point)
 
-(global-set-key (kbd "C-c s") 'project-explorer-open)
 (global-set-key (kbd "C-x C-b") 'ibuffer)
 
 ;; I make a lot of mistakes
@@ -102,7 +101,6 @@
 (global-set-key (kbd "C-c o") 'occur)
 
 ;; Project management
-(global-set-key (kbd "C-x o") 'projectile-find-file)
 
 (global-set-key (kbd "M-,") 'pop-tag-mark)
 

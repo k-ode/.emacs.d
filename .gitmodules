@@ -10,3 +10,6 @@
 [submodule "site-lisp/company-tern"]
 	path = site-lisp/company-tern
 	url = https://github.com/proofit404/company-tern.git
+[submodule "omnisharp-roslyn"]
+	path = omnisharp-roslyn
+	url = https://github.com/OmniSharp/omnisharp-roslyn

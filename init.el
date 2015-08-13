@@ -86,7 +86,7 @@
 
 ;; Setup extensions
 (require 'setup-json-mode)
-(eval-after-load 'org '(require 'setup-org))
+(eval-after-load 'org '(require 'init-org))
 
 (require 'setup-html-mode)
 (require 'init-dired)

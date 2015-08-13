@@ -11,7 +11,22 @@
   :init (global-flycheck-mode)
   :config
   ;; Only check buffer syntax when saving file or enabling mode
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))          
+  (progn (setq flycheck-check-syntax-automatically '(mode-enabled save))
+
+          (defun lunaryorn-discard-undesired-html-tidy-error (err)
+  "Discard ERR if it is undesired.
+Tidy is very verbose, so we prevent Flycheck from highlighting
+most errors from HTML Tidy."
+  ;; A non-nil result means to inhibit further processing (i.e. highlighting)
+  ;; of the error
+  (and (eq (flycheck-error-checker err) 'html-tidy)
+       ;; Only allow warnings about missing tags, or unexpected end tags being
+       ;; discarded
+       (not (string-match-p (rx (or "missing </" "discarding"))
+                            (flycheck-error-message err)))))
+          (add-hook 'flycheck-process-error-functions
+                      #'lunaryorn-discard-undesired-html-tidy-error))
+  
   :diminish (flycheck-mode . " Ⓢ"))
 
 (provide 'init-flycheck)
