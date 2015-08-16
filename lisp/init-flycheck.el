@@ -8,7 +8,9 @@
          ("C-c e f" . flycheck-first-error)
          ("C-c e w" . flycheck-copy-errors-as-kill)
          ("C-c t f" . flycheck-mode))
-  :init (global-flycheck-mode)
+  :init (progn
+          (global-flycheck-mode)
+          (setq flycheck-global-modes '(js2-mode html-mode less-css-mode)))
   :config
   ;; Only check buffer syntax when saving file or enabling mode
   (progn (setq flycheck-check-syntax-automatically '(mode-enabled save))
