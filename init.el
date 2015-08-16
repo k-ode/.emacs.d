@@ -64,6 +64,7 @@
 (require 'init-projectile)
 (require 'init-project-explorer)
 (require 'init-flycheck)
+(require 'init-rainbow-mode)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)

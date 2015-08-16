@@ -1,21 +1,16 @@
-;;; Colourise CSS colour literals
-(when (maybe-require-package 'rainbow-mode)
-  (dolist (hook '(css-mode-hook html-mode-hook))
-    (add-hook hook 'rainbow-mode)))
+(use-package less-css-mode
+  :ensure t)
 
-(after-load 'skewer-mode
-  (add-hook 'css-mode-hook 'skewer-css-mode))
+(use-package scss-mode
+  :ensure t
+  :init (autoload 'scss-mode "scss-mode")
+  :config (progn
+            (add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
+            (setq scss-compile-at-save nil)))
 
-(require-package 'less-css-mode)
-
-(require-package 'scss-mode)
-(autoload 'scss-mode "scss-mode")
-(add-to-list 'auto-mode-alist '("\\.scss$" . scss-mode))
-
-(require-package 'css-eldoc)
-(autoload 'turn-on-css-eldoc "css-eldoc")
-(add-hook 'css-mode-hook 'turn-on-css-eldoc)
-
-(setq scss-compile-at-save nil)
+(use-package css-eldoc
+  :ensure t
+  :init (autoload 'turn-on-css-eldoc "css-eldoc")
+  :config (add-hook 'css-mode-hook #'turn-on-css-eldoc))
 
 (provide 'init-css)
