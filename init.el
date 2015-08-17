@@ -6,6 +6,26 @@
 
 ;;; Code:
 
+;; Please don't load outdated byte code
+(setq load-prefer-newer t)
+
+(require 'package)
+(setq package-enable-at-startup nil)
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+
+(package-initialize)
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+
+(eval-when-compile
+  (require 'use-package))
+
+(require 'bind-key)
+(require 'diminish)
+
 (setq is-windows (equal system-type 'windows-nt))
 (setq is-linux (equal system-type 'gnu/linux))
 
@@ -27,30 +47,41 @@
 (add-to-list 'load-path site-lisp-dir)
 (add-to-list 'load-path user-custom-dir)
 
-;; Keep emacs Custom-settings in separate file
+;; Keep emacs custom-settings in separate file
 (setq custom-file (expand-file-name "lisp/init-custom.el" user-emacs-directory))
 (load custom-file)
 
-;; Load tern
+;; Load tern dir
 (setq tern-dir
       (expand-file-name "tern/emacs" user-emacs-directory))
 (add-to-list 'load-path tern-dir)
-(autoload 'tern-mode "tern.el" nil t)
 
-;; Setup packages
-(require 'init-utils)
-(require 'setup-package)
+;; Turn off mouse interface early in startup to avoid momentary display
+(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
+(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
+(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 
-(require 'use-package)
+;; No splash screen please ... jeez
+(setq inhibit-startup-message t)
+;; Don't need text in scratch
+(setq initial-scratch-message "")
 
-(require 'init-modeline)
+(when window-system
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (tooltip-mode -1)
+  (blink-cursor-mode -1))
+
+;; Functions (load all files in defuns-dir)
+(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
+(dolist (file (directory-files defuns-dir t "\\w+"))
+  (when (file-regular-p file)
+    (load file)))
+
 (require 'init-themes)
-(require 'init-gui-frames)
-(require 'init-editing-utils)
+(require 'init-undo-tree)
 (require 'init-misc)
 (require 'init-sessions)
 (require 'init-locales)
-(require 'init-windows)
 (require 'init-uniquify)
 (require 'init-org)
 (require 'init-lisp)
@@ -78,35 +109,81 @@
 (setq vc-make-backup-files t)
 
 ;; Save point position between sessions
-(require-package 'saveplace)
-(setq-default save-place t)
-(setq save-place-file (expand-file-name ".places" user-emacs-directory))
+(use-package saveplace
+  :init (setq-default save-place t)
+  :config (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
 
 (require 'setup-shell)
 (require 'init-smartparens)
 
 ;; Setup extensions
-(require 'setup-json-mode)
 (eval-after-load 'org '(require 'init-org))
 
-(require 'setup-html-mode)
+(require 'init-html)
 (require 'init-dired)
 (require 'init-hippie)
 (require 'init-yasnippet)
 
-;; Functions (load all files in defuns-dir)
-(setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
-(dolist (file (directory-files defuns-dir t "\\w+"))
-  (when (file-regular-p file)
-    (load file)))
+(use-package idomenu
+  :ensure t)
 
-(require-package 'multiple-cursors)
-(require-package 'idomenu)
+(use-package multiple-cursors
+  :ensure t
+  :bind (("C-ä" . mc/mark-more-like-this-extended)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+
+;; Undo/redo window configuration with C-c <left>/<right>
+(use-package winner-mode
+  :defer t
+  :init (winner-mode 1))
+
+;; Change window quickly with S-left and S-right
+(when (fboundp 'windmove-default-keybindings)
+  (windmove-default-keybindings))
+
+(use-package smooth-scrolling
+  :ensure t)
+
+;; Remove text in active region if inserting text
+(use-package delsel
+  :defer t
+  :init (delete-selection-mode))
+
+(use-package hl-line                    ; Highlight the current line
+  :init (global-hl-line-mode 1))
+
+(use-package subword                    ; Subword/superword editing
+  :defer t
+  :diminish subword-mode)
 
 ;; Setup key bindings
 (require 'init-keys)
 
+(use-package move-text
+  :ensure t
+  :bind (("<C-S-up>" . move-text-up)
+         ("<C-S-down>" . move-text-down)))
+
 (put 'scroll-left 'disabled nil)
+
+;; Don't break lines
+(setq-default truncate-lines t)
+
+;; No annyoing end of file sound
+(setq visible-bell t)
+
+;; Show column number
+(column-number-mode 1)
+
+;; Show me empty lines after buffer end
+(set-default 'indicate-empty-lines t)
+
+;; Never insert tabs
+(set-default 'indent-tabs-mode nil)
+
+;; Up-down case is confusing, apparently.
+(put 'downcase-region 'disabled nil)
+(put 'upcase-region 'disabled nil)
 
 (use-package company-statistics         ; Sort company candidates by statistics
   :ensure t
