@@ -1,6 +1,3 @@
-(add-hook 'css-mode-hook #'aggressive-indent-mode)
-(add-hook 'less-css-mode-hook #'aggressive-indent-mode)
-
 (setq ag-highlight-search t)
 
 (defun comment-box-fill (b e)
