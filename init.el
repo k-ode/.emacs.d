@@ -209,19 +209,6 @@
   :config (setq anzu-cons-mode-line-p nil)
   :diminish anzu-mode)
 
-(use-package which-func                 ; Current function name in header line
-  :init (which-function-mode)
-  :config
-  (setq which-func-unknown "" ; The default is really boring…
-        which-func-format
-        `((:propertize (" \u0192 " which-func-current)
-                       local-map ,which-func-keymap
-                       face which-func
-                       mouse-face mode-line-highlight
-                       help-echo "mouse-1: go to beginning\n\
-mouse-2: toggle rest visibility\n\
-mouse-3: go to end"))))
-
 (setq-default mode-line-format
               '("%e" mode-line-front-space
                 ;; Standard info about the current buffer
