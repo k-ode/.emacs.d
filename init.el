@@ -129,7 +129,11 @@
 
 (use-package multiple-cursors
   :ensure t
-  :bind (("C-ä" . mc/mark-more-like-this-extended)
+  :bind (("M-ä" . mc/mark-all-dwim)
+         ("C-ä" . mc/mark-next-like-this)
+         ("C-å" . mc/mark-previous-like-this)
+         ("C-Ä" . mc/mark-more-like-this-extended)
+         ("M-å" . mc/mark-all-in-region)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 ;; Undo/redo window configuration with C-c <left>/<right>
@@ -185,6 +189,14 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+;; Just save the files
+(setq compilation-ask-about-save nil)
+
+(use-package focus-autosave-mode        ; Save buffers when focus is lost
+  :ensure t
+  :init (focus-autosave-mode)
+  :diminish focus-autosave-mode)
+
 (use-package company-statistics         ; Sort company candidates by statistics
   :ensure t
   :defer t
@@ -210,9 +222,7 @@
 mouse-2: toggle rest visibility\n\
 mouse-3: go to end"))))
 
-(setq-default header-line-format
-              '(which-func-mode ("" which-func-format " "))
-              mode-line-format
+(setq-default mode-line-format
               '("%e" mode-line-front-space
                 ;; Standard info about the current buffer
                 mode-line-mule-info
