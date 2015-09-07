@@ -7,7 +7,8 @@
   :config (progn (helm-autoresize-mode 1)
                  (setq helm-autoresize-max-height 30)
                  (setq helm-autoresize-min-height 30)
-                 (setq helm-split-window-in-side-p t))
+                 (setq helm-split-window-in-side-p t)
+                 (setq helm-truncate-lines t))
   :diminish helm-mode)
 
 (use-package helm-misc                  ; Misc helm commands
