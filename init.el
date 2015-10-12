@@ -96,6 +96,7 @@
 (require 'init-project-explorer)
 (require 'init-flycheck)
 (require 'init-rainbow-mode)
+(require 'init-ido)
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)
@@ -191,11 +192,6 @@
 
 ;; Just save the files
 (setq compilation-ask-about-save nil)
-
-(use-package focus-autosave-mode        ; Save buffers when focus is lost
-  :ensure t
-  :init (focus-autosave-mode)
-  :diminish focus-autosave-mode)
 
 (use-package company-statistics         ; Sort company candidates by statistics
   :ensure t

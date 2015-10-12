@@ -13,11 +13,7 @@
 (global-set-key (kbd "C--") 'undo-tree-undo)
 (global-set-key (kbd "M--") 'undo-tree-redo)
 
-;;(global-set-key (kbd "M-x") 'smex)
-;;(global-set-key (kbd "M-X") 'smex-major-mode-commands)
-;;(global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)
-
-(global-set-key (kbd "C-x C-m") 'smex)
+(global-set-key (kbd "M-x") 'smex)
 
 ;; Should be able to eval and replace anywhere
 (global-set-key (kbd "C-c C-e") 'eval-and-replace)
@@ -64,6 +60,7 @@
 
 ;; File finding
 (global-set-key (kbd "C-x M-f") 'ido-find-file-other-window)
+(global-set-key (kbd "C-x f") 'recentf-ido-find-file)
 
 ;; Buffer file functions
 (global-set-key (kbd "C-x C-r") 'rename-current-buffer-file)
@@ -80,8 +77,7 @@
 ;; Occur
 (global-set-key (kbd "C-c o") 'occur)
 
-;; Project management
-
+;; Project management 
 (global-set-key (kbd "M-,") 'pop-tag-mark)
 
 (provide 'init-keys)
