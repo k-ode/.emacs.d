@@ -98,6 +98,7 @@
     (define-key js2-refactor-mode-map (kbd "C-c r S") 'js2r-split-var-declaration)
     (define-key js2-refactor-mode-map (kbd "C-c r u") 'js2r-unwrap)
     (define-key js2-refactor-mode-map (kbd "C-c r l") 'js2r-log-this)
+    (define-key js2-refactor-mode-map (kbd "C-c r d") 'js2r-debug-this)
     (define-key js2-refactor-mode-map (kbd "C-c r w") 'js2r-forward-slurp)
     (define-key js2-refactor-mode-map (kbd "C-c r W") 'js2r-forward-barf)
     (define-key js2-refactor-mode-map (kbd "C-k") 'js2r-kill))

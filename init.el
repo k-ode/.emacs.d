@@ -131,10 +131,8 @@
 (use-package multiple-cursors
   :ensure t
   :bind (("M-ä" . mc/mark-all-dwim)
-         ("C-ä" . mc/mark-next-like-this)
-         ("C-å" . mc/mark-previous-like-this)
-         ("C-Ä" . mc/mark-more-like-this-extended)
-         ("M-å" . mc/mark-all-in-region)
+         ("C-'" . mc/mark-next-like-this)
+         ("C-ö" . mc/mark-previous-like-this)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
 
 ;; Undo/redo window configuration with C-c <left>/<right>

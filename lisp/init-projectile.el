@@ -9,7 +9,8 @@
     (setq projectile-completion-system 'ido)
     (setq projectile-indexing-method 'alien)
     (setq projectile-enable-caching t)
-    (bind-key "C-x o" #'projectile-find-file))
+    (bind-key "C-x o" #'projectile-find-file)
+    (bind-key "<f5>" #'projectile-compile-project))
   :diminish projectile-mode)
 
 (provide 'init-projectile)

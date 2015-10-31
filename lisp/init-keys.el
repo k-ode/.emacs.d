@@ -53,7 +53,7 @@
 (global-set-key (kbd "C-<f10>") 'menu-bar-mode)
 
 ;; Expand region
-(global-set-key (kbd "C-'") 'er/expand-region)
+(global-set-key (kbd "C-ä") 'er/expand-region)
 
 ;; Ace jump mode
 (define-key global-map (kbd "C-å") 'ace-jump-mode)

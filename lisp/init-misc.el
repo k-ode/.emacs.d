@@ -1,3 +1,20 @@
+(prodigy-define-service
+  :name "OptoWebsite Gulp"
+  :command "gulp"
+  :cwd "c:/opto/ConrabInternalApplications/trunk/OptoWebsite/OptoWebsite"
+  :tags '(work)
+  :kill-signal 'sigkill
+  :kill-process-buffer-on-stop t)
+
+(prodigy-define-service
+  :name "OptoV6 OmniSharp"
+  :command "Omnisharp"
+  :args '("-s" "C:/opto/OPTOV6/trunk/OPTOV6Html5.sln" "-p" "3000")
+  :cwd "C:\home\.emacs.d\omnisharp-roslyn\scripts"
+  :tags '(work)
+  :kill-signal 'sigkill
+  :kill-process-buffer-on-stop t)
+
 (setq ag-highlight-search t)
 
 (defun comment-box-fill (b e)
