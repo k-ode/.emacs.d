@@ -45,5 +45,6 @@
         ido-switch-buffer
         mc/mark-next-lines
         mouse-buffer-menu
+        sgml-maybe-name-self
         wgrep-change-to-wgrep-mode
         ))
