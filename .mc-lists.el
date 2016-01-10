@@ -13,6 +13,7 @@
         js2-mode-show-node
         js2r-kill
         kill-region
+        mc/mark-previous-lines
         mouse-save-then-kill
         multiple-cursors-mode
         org-beginning-of-line
