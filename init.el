@@ -13,6 +13,8 @@
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
 
+(setq package-check-signature nil)
+
 (package-initialize)
 
 ;; Bootstrap `use-package'
@@ -131,9 +133,10 @@
 (use-package multiple-cursors
   :ensure t
   :bind (("M-ä" . mc/mark-all-dwim)
-         ("C-'" . mc/mark-next-like-this)
-         ("C-ö" . mc/mark-previous-like-this)
-         ("C-S-<mouse-1>" . mc/add-cursor-on-click)))
+         ("C-'" . mc/mark-more-like-this-extended)
+         ("C-S-<mouse-1>" . mc/add-cursor-on-click)
+         ("C-<" . mc/next-like-this)
+         ("C->" . mc/mark-previous-like-this)))
 
 ;; Undo/redo window configuration with C-c <left>/<right>
 (use-package winner-mode

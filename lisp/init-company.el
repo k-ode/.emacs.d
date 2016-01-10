@@ -3,7 +3,9 @@
   :init (global-company-mode)
   :config
   (progn
-    (setq company-minimum-prefix-length 2
+    (define-key company-active-map (kbd "<tab>") nil)
+    (setq company-minimum-prefix-length 1
+          company-idle-delay 0.03
           company-selection-wrap-around t
           company-show-numbers t
           company-tooltip-align-annotations t
