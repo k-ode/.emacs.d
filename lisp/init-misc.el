@@ -15,6 +15,15 @@
   :kill-signal 'sigkill
   :kill-process-buffer-on-stop t)
 
+(prodigy-define-service
+  :name "Mongodb"
+  :command "mongod"
+  :args '("-dbpath" "C:/home/bin/mongodb")
+  :cwd "C:\home\bin\mongodb"
+  :tags '(work)
+  :kill-signal 'sigkill
+  :kill-process-buffer-on-stop t)
+
 (setq ag-highlight-search t)
 
 (defun comment-box-fill (b e)
