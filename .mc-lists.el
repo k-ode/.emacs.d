@@ -13,6 +13,7 @@
         js2-mode-show-node
         js2r-kill
         kill-region
+        kill-region-or-backward-word
         mc/mark-previous-lines
         mouse-save-then-kill
         multiple-cursors-mode
@@ -25,6 +26,8 @@
         smart-line-beginning
         smex
         sp--self-insert-command
+        subword-left
+        subword-right
         tagedit-forward-slurp-tag
         tagedit-insert-dot
         tagedit-insert-equal

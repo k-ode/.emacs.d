@@ -9,6 +9,12 @@
 ;; Please don't load outdated byte code
 (setq load-prefer-newer t)
 
+(require 'server)
+(setq server-use-tcp t)
+(defun server-ensure-safe-dir (dir) "Noop" t) 
+(unless (server-running-p)
+  (server-start))
+
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -102,13 +108,15 @@
 
 ;; Stop creating auto save files
 (setq auto-save-default nil)
+;; Stop creating lock files
+(setq create-lockfiles nil)
 
-;; Write backup files to own directory
+;; ;; Write backup files to own directory
 (setq backup-directory-alist
       `(("." . ,(expand-file-name
                  (concat user-emacs-directory "backups")))))
 
-;; Make backups of files, even when they're in version control
+;; ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
 
 ;; Save point position between sessions
@@ -135,7 +143,7 @@
   :bind (("M-ä" . mc/mark-all-dwim)
          ("C-'" . mc/mark-more-like-this-extended)
          ("C-S-<mouse-1>" . mc/add-cursor-on-click)
-         ("C-<" . mc/next-like-this)
+         ("C-<" . mc/mark-next-like-this)
          ("C->" . mc/mark-previous-like-this)))
 
 ;; Undo/redo window configuration with C-c <left>/<right>
@@ -206,34 +214,34 @@
   :config (setq anzu-cons-mode-line-p nil)
   :diminish anzu-mode)
 
-(setq-default mode-line-format
-              '("%e" mode-line-front-space
-                ;; Standard info about the current buffer
-                mode-line-mule-info
-                mode-line-client
-                mode-line-modified
-                mode-line-remote
-                mode-line-frame-identification
-                mode-line-buffer-identification " " mode-line-position
-                (projectile-mode projectile-mode-line)
-                (vc-mode (:propertize (:eval vc-mode) face italic))
-                " "
-                (flycheck-mode flycheck-mode-line) ; Flycheck status
-                (isearch-mode " ")
-                (anzu-mode (:eval                  ; isearch pos/matches
-                            (when (> anzu--total-matched 0)
-                              (anzu--update-mode-line))))
-                (multiple-cursors-mode mc/mode-line) ; Number of cursors
-                ;; And the modes, which we don't really care for anyway
-                " " mode-line-misc-info mode-line-modes mode-line-end-spaces)
-              mode-line-remote
-              '(:eval
-                (when-let (host (file-remote-p default-directory 'host))
-                          (propertize (concat "@" host) 'face
-                                      '(italic warning))))
-              ;; Remove which func from the mode line, since we have it in the
-              ;; header line
-              mode-line-misc-info
-              (assq-delete-all 'which-func-mode mode-line-misc-info))
+;; (setq-default mode-line-format
+;;               '("%e" mode-line-front-space
+;;                 ;; Standard info about the current buffer
+;;                 mode-line-mule-info
+;;                 mode-line-client
+;;                 mode-line-modified
+;;                 mode-line-remote
+;;                 mode-line-frame-identification
+;;                 mode-line-buffer-identification " " mode-line-position
+;;                 (projectile-mode projectile-mode-line)
+;;                 (vc-mode (:propertize (:eval vc-mode) face italic))
+;;                 " "
+;;                 (flycheck-mode flycheck-mode-line) ; Flycheck status
+;;                 (isearch-mode " ")
+;;                 (anzu-mode (:eval                  ; isearch pos/matches
+;;                             (when (> anzu--total-matched 0)
+;;                               (anzu--update-mode-line))))
+;;                 (multiple-cursors-mode mc/mode-line) ; Number of cursors
+;;                 ;; And the modes, which we don't really care for anyway
+;;                 " " mode-line-misc-info mode-line-modes mode-line-end-spaces)
+;;               mode-line-remote
+;;               '(:eval
+;;                 (when-let (host (file-remote-p default-directory 'host))
+;;                           (propertize (concat "@" host) 'face
+;;                                       '(italic warning))))
+;;               ;; Remove which func from the mode line, since we have it in the
+;;               ;; header line
+;;               mode-line-misc-info
+;;               (assq-delete-all 'which-func-mode mode-line-misc-info))
 
 ;;; init.el ends here

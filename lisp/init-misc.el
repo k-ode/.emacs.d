@@ -1,3 +1,5 @@
+(setq markdown-command "pandoc")
+
 (prodigy-define-service
   :name "OptoWebsite Gulp"
   :command "gulp"
@@ -7,10 +9,10 @@
   :kill-process-buffer-on-stop t)
 
 (prodigy-define-service
-  :name "OptoV6 OmniSharp"
-  :command "Omnisharp"
-  :args '("-s" "C:/opto/OPTOV6/trunk/OPTOV6Html5.sln" "-p" "3000")
-  :cwd "C:\home\.emacs.d\omnisharp-roslyn\scripts"
+  :name "OptoV6 Webpack"
+  :command "npm"
+  :args '("run" "dev")
+  :cwd "c:/opto/Core/Code/ServerHtml5/Web"
   :tags '(work)
   :kill-signal 'sigkill
   :kill-process-buffer-on-stop t)
