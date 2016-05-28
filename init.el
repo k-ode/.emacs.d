@@ -93,6 +93,24 @@
 
 (setq electric-indent-mode nil)
 
+(define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
+
+(setq debug-on-error nil)
+
+;; Wanna use enter as newline and indent in programming modes
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (local-set-key (kbd "RET") 'newline-and-indent)
+            (local-set-key (kbd "<S-return>") 'newline)))
+
+;; I prefer to read files side by side
+(setq ediff-split-window-function (quote split-window-horizontally))
+
+(setq fill-column 80)
+
+;; Don't save temporary files in same directory, please
+(setq temporary-file-directory "~/.emacs.d/tmp/")
+
 (use-package autorevert                 ; Auto-revert buffers of changed files
   :init (global-auto-revert-mode)
   :config
@@ -113,7 +131,6 @@
 
 (require 'init-themes)
 (require 'init-undo-tree)
-(require 'init-misc)
 (require 'init-locales)
 (require 'init-uniquify)
 (require 'init-org)
@@ -433,5 +450,11 @@
   :defer t
   :config
   (setq markdown-command "pandoc"))
+
+(use-package web-mode
+  :ensure t
+  :defer t
+  :config
+  (setq web-mode-indent-style 4))
 
 ;;; init.el ends here
