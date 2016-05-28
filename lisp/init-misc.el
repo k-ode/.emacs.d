@@ -1,5 +1,3 @@
-(setq markdown-command "pandoc")
- 
 (setq web-mode-indent-style 4)
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 

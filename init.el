@@ -93,8 +93,13 @@
 
 (setq electric-indent-mode nil)
 
-;; Auto refresh buffers
-(global-auto-revert-mode 1)
+(use-package autorevert                 ; Auto-revert buffers of changed files
+  :init (global-auto-revert-mode)
+  :config
+  (setq auto-revert-verbose nil         ; Shut up, please!
+        ;; Revert Dired buffers, too
+        global-auto-revert-non-file-buffers t)
+  :diminish auto-revert-mode)
 
 ;; Answering just y or n is enough
 (defalias 'yes-or-no-p 'y-or-n-p)
@@ -422,5 +427,11 @@
 
 (use-package wgrep
   :ensure t)
+
+(use-package markdown-mode
+  :ensure t
+  :defer t
+  :config
+  (setq markdown-command "pandoc"))
 
 ;;; init.el ends here
