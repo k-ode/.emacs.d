@@ -88,7 +88,6 @@
 (require 'init-themes)
 (require 'init-undo-tree)
 (require 'init-misc)
-(require 'init-sessions)
 (require 'init-locales)
 (require 'init-uniquify)
 (require 'init-org)
@@ -101,7 +100,6 @@
 (require 'init-helm)
 (require 'init-which-key)
 (require 'init-projectile)
-(require 'init-project-explorer)
 (require 'init-flycheck)
 (require 'init-rainbow-mode)
 (require 'init-ido)
@@ -118,6 +116,29 @@
 
 ;; ;; Make backups of files, even when they're in version control
 (setq vc-make-backup-files t)
+
+(setq history-length 1000               ; Store more history
+      use-dialog-box nil                ; Never use dialogs for minibuffer input
+      )
+
+(use-package savehist                   ; Save minibuffer history
+  :init (savehist-mode t)
+  :config (setq savehist-save-minibuffer-history t
+                savehist-autosave-interval 180))
+
+(use-package recentf                    ; Save recently visited files
+  :init (recentf-mode)
+  :config
+  (setq recentf-max-saved-items 200
+        recentf-max-menu-items 15
+        ;; Cleanup recent files only when Emacs is idle, but not when the mode
+        ;; is enabled, because that unnecessarily slows down Emacs. My Emacs
+        ;; idles often enough to have the recent files list clean up regularly
+        recentf-auto-cleanup 300
+        recentf-exclude (list "/\\.git/.*\\'" ; Git contents
+                              "/elpa/.*\\'" ; Package files
+                              ;; And all other kinds of boring files
+                              #'ignoramus-boring-p)))
 
 ;; Save point position between sessions
 (use-package saveplace
@@ -138,18 +159,33 @@
 (use-package idomenu
   :ensure t)
 
+(use-package beacon
+  :ensure t
+  :init (beacon-mode 1)
+  :diminish beacon-mode)
+
+(use-package expand-region              ; Expand region by semantic units
+  :ensure t
+  :bind (("C-c v" . er/expand-region)))
+
 (use-package multiple-cursors
   :ensure t
-  :bind (("M-ä" . mc/mark-all-dwim)
-         ("C-'" . mc/mark-more-like-this-extended)
-         ("C-S-<mouse-1>" . mc/add-cursor-on-click)
-         ("C-<" . mc/mark-next-like-this)
-         ("C->" . mc/mark-previous-like-this)))
+  :bind (("C-S-<mouse-1>" . mc/add-cursor-on-click)
+         ("C-c o <SPC>" . mc/vertical-align-with-space)
+         ("C-c o a"     . mc/vertical-align)
+         ("C-c o e"     . mc/mark-more-like-this-extended)
+         ("C-c o h"     . mc/mark-all-like-this-dwim)
+         ("C-c o l"     . mc/edit-lines)
+         ("C-c o n"     . mc/mark-next-like-this)
+         ("C-c o p"     . mc/mark-previous-like-this)
+         ("C-c o r"     . vr/mc-mark)
+         ("C-c o C-a"   . mc/edit-beginnings-of-lines)
+         ("C-c o C-e"   . mc/edit-ends-of-lines)
+         ("C-c o C-s"   . mc/mark-all-in-region)))
 
 ;; Undo/redo window configuration with C-c <left>/<right>
 (use-package winner-mode
-  :defer t
-  :init (winner-mode 1))
+  :init (winner-mode))
 
 ;; Change window quickly with S-left and S-right
 (when (fboundp 'windmove-default-keybindings)
@@ -214,34 +250,121 @@
   :config (setq anzu-cons-mode-line-p nil)
   :diminish anzu-mode)
 
-;; (setq-default mode-line-format
-;;               '("%e" mode-line-front-space
-;;                 ;; Standard info about the current buffer
-;;                 mode-line-mule-info
-;;                 mode-line-client
-;;                 mode-line-modified
-;;                 mode-line-remote
-;;                 mode-line-frame-identification
-;;                 mode-line-buffer-identification " " mode-line-position
-;;                 (projectile-mode projectile-mode-line)
-;;                 (vc-mode (:propertize (:eval vc-mode) face italic))
-;;                 " "
-;;                 (flycheck-mode flycheck-mode-line) ; Flycheck status
-;;                 (isearch-mode " ")
-;;                 (anzu-mode (:eval                  ; isearch pos/matches
-;;                             (when (> anzu--total-matched 0)
-;;                               (anzu--update-mode-line))))
-;;                 (multiple-cursors-mode mc/mode-line) ; Number of cursors
-;;                 ;; And the modes, which we don't really care for anyway
-;;                 " " mode-line-misc-info mode-line-modes mode-line-end-spaces)
-;;               mode-line-remote
-;;               '(:eval
-;;                 (when-let (host (file-remote-p default-directory 'host))
-;;                           (propertize (concat "@" host) 'face
-;;                                       '(italic warning))))
-;;               ;; Remove which func from the mode line, since we have it in the
-;;               ;; header line
-;;               mode-line-misc-info
-;;               (assq-delete-all 'which-func-mode mode-line-misc-info))
+(use-package magit                      ; The one and only Git frontend
+  :ensure t
+  :bind (("C-c g c" . magit-clone)
+         ("C-c g s" . magit-status)
+         ("C-c g b" . magit-blame)
+         ("C-c g l" . magit-log-buffer-file)
+         ("C-c g p" . magit-pull))
+  :config
+  ;; Shut up, Magit
+  (setq magit-save-repository-buffers 'dontask
+        magit-refs-show-commit-count 'all
+        ;; Use separate buffers for one-file logs so that we don't need to reset
+        ;; the filter everytime for full log view
+        magit-log-buffer-file-locked t
+        ;; This is creepy, Magit
+        magit-revision-show-gravatars nil))
+
+(use-package git-commit                 ; Git commit message mode
+  :ensure t
+  :defer t
+  :config
+  ;; Oh, really?  Come on… I know what I'm doing…
+  (remove-hook 'git-commit-finish-query-functions
+               #'git-commit-check-style-conventions))
+
+(use-package highlight-symbol           ; Highlighting and commands for symbols
+  :ensure t
+  :defer t
+  :bind
+  (("C-c s %" . highlight-symbol-query-replace)
+   ("C-c s n" . highlight-symbol-next-in-defun)
+   ("C-c s p" . highlight-symbol-prev-in-defun))
+  ;; Navigate occurrences of the symbol under point with M-n and M-p, and
+  ;; highlight symbol occurrences
+  :init
+  (dolist (fn '(highlight-symbol-nav-mode highlight-symbol-mode))
+    (add-hook 'prog-mode-hook fn))
+  :config
+  (setq highlight-symbol-idle-delay 0.4     ; Highlight almost immediately
+        highlight-symbol-on-navigation-p t) ; Highlight immediately after
+                                        ; navigation
+  :diminish highlight-symbol-mode)
+
+(use-package helm-ag
+  :ensure t
+  :bind (("C-c s p" . helm-projectile-ag))
+  :defer t)
+
+(use-package ibuffer                    ; Better buffer list
+  :bind (([remap list-buffers] . ibuffer))
+  ;; Show VC Status in ibuffer
+  :config
+  (setq ibuffer-formats
+        '((mark modified read-only vc-status-mini " "
+                (name 18 18 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " "
+                (vc-status 16 16 :left)
+                " "
+                filename-and-process)
+          (mark modified read-only " "
+                (name 18 18 :left :elide)
+                " "
+                (size 9 -1 :right)
+                " "
+                (mode 16 16 :left :elide)
+                " " filename-and-process)
+          (mark " " (name 16 -1) " " filename))))
+
+(use-package ibuffer-vc                 ; Group buffers by VC project and status
+  :ensure t
+  :defer t
+  :init (add-hook 'ibuffer-hook
+                  (lambda ()
+                    (ibuffer-vc-set-filter-groups-by-vc-root)
+                    (unless (eq ibuffer-sorting-mode 'alphabetic)
+                      (ibuffer-do-sort-by-alphabetic)))))
+
+(use-package ibuffer-projectile         ; Group buffers by Projectile project
+  :ensure t
+  :disabled t
+  :defer t
+  :init (add-hook 'ibuffer-hook #'ibuffer-projectile-set-filter-groups))
+
+(use-package ace-window                 ; Fast window switching
+  :ensure t
+  :bind (("C-c w w" . ace-window)))
+
+(use-package ignoramus                  ; Ignore uninteresting files everywhere
+  :ensure t
+  :config 
+  (ignoramus-setup))
+
+(use-package avy-jump                   ; Jump to characters in buffers
+  :ensure avy
+  :bind (("C-c j w" . avy-goto-word-1)
+         ("C-c j l" . avy-goto-line)
+         ("C-c j b" . avy-pop-mark)
+         ("C-c j j" . avy-goto-char-2)))
+
+(use-package newcomment                 ; Built-in comment features
+  :bind (("C-c c d" . comment-dwim)
+         ("C-c c l" . comment-line)
+         ("C-c c r" . comment-region)))
+
+(use-package elisp-mode                 ; Emacs Lisp editing
+  :defer t
+  :interpreter ("emacs" . emacs-lisp-mode)
+  :bind (:map emacs-lisp-mode-map
+              ("C-c m e r" . eval-region)
+              ("C-c m e b" . eval-buffer)
+              ("C-c m e e" . eval-last-sexp)
+              ("C-c m e f" . eval-defun)))
 
 ;;; init.el ends here

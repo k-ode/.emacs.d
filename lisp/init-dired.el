@@ -22,7 +22,9 @@
           dired-dwim-target t)))
 
 (use-package dired-x                    ; Additional tools for Dired
-  :bind (("C-x C-j" . dired-jump))
+  :defer nil
+  :bind (("C-c f j" . dired-jump)
+         ("C-x C-j" . dired-jump))
   :init (add-hook 'dired-mode-hook #'dired-omit-mode)
   :config
   (progn
