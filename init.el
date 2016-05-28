@@ -34,6 +34,12 @@
 (require 'bind-key)
 (require 'diminish)
 
+(use-package s
+  :ensure t)
+
+(use-package dash
+  :ensure t)
+
 (setq is-windows (equal system-type 'windows-nt))
 (setq is-linux (equal system-type 'gnu/linux))
 
@@ -84,6 +90,21 @@
 (dolist (file (directory-files defuns-dir t "\\w+"))
   (when (file-regular-p file)
     (load file)))
+
+(setq electric-indent-mode nil)
+
+;; Auto refresh buffers
+(global-auto-revert-mode 1)
+
+;; Answering just y or n is enough
+(defalias 'yes-or-no-p 'y-or-n-p)
+
+(use-package hydra
+  :ensure t)
+
+(use-package pt
+  :ensure t
+  :bind (("C-c p s t" . projectile-pt)))
 
 (require 'init-themes)
 (require 'init-undo-tree)
@@ -366,5 +387,40 @@
               ("C-c m e b" . eval-buffer)
               ("C-c m e e" . eval-last-sexp)
               ("C-c m e f" . eval-defun)))
+
+(use-package prodigy
+  :ensure t
+  :defer t
+  :config
+  
+  (prodigy-define-service
+   :name "OptoWebsite Gulp"
+   :command "gulp"
+   :cwd "c:/opto/ConrabInternalApplications/trunk/OptoWebsite/OptoWebsite"
+   :tags '(work)
+   :kill-signal 'sigkill
+   :kill-process-buffer-on-stop t)
+
+  (prodigy-define-service
+   :name "OptoV6 Webpack"
+   :command "npm"
+   :args '("run" "dev")
+   :cwd "c:/opto/Core/Code/ServerHtml5/Web"
+   :tags '(work)
+   :kill-signal 'sigkill
+   :kill-process-buffer-on-stop t)
+
+  (prodigy-define-service
+   :name "Mongodb"
+   :command "mongod"
+   :args '("-dbpath" "C:/home/bin/mongodb")
+   :cwd "C:\home\bin\mongodb"
+   :tags '(work)
+   :kill-signal 'sigkill
+   :kill-process-buffer-on-stop t)
+  )
+
+(use-package wgrep
+  :ensure t)
 
 ;;; init.el ends here
