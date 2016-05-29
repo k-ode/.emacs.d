@@ -401,6 +401,9 @@
          ("C-c c l" . comment-line)
          ("C-c c r" . comment-region)))
 
+(use-package ielm                       ; Emacs Lisp REPL
+  :bind (("C-c a '" . ielm)))
+
 (use-package elisp-mode                 ; Emacs Lisp editing
   :defer t
   :interpreter ("emacs" . emacs-lisp-mode)
