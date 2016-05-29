@@ -43,34 +43,12 @@
 
       (js2-imenu-extras-setup)
 
-      ;; (font-lock-add-keywords
-      ;;  'js-mode `(("\\(function\\) *("
-      ;;              (0 (progn (compose-region (match-beginning 1)
-      ;;                                        (match-end 1) "\u0192")
-      ;;                        nil)))))
-
-      ;; (font-lock-add-keywords
-      ;;  'js-mode `(("function *([^)]*) *{ *\\(return\\) "
-      ;;              (0 (progn (compose-region (match-beginning 1)
-      ;;                                        (match-end 1) "\u2190")
-      ;;                        nil)))))
-
-      ;; (font-lock-add-keywords
-      ;;  'js2-mode `(("function *([^)]*) *{ *\\(return\\) "
-      ;;               (0 (progn (compose-region (match-beginning 1)
-      ;;                                         (match-end 1) "\u2190")
-      ;;                         nil)))))
-
-      ;; (font-lock-add-keywords
-      ;;  'js2-mode `(("\\(function\\) *("
-      ;;               (0 (progn (compose-region (match-beginning 1)
-      ;;                                         (match-end 1) "\u0192")
-      ;;                         nil)))))
-
       )))
 
 (use-package js2-refactor
-  :ensure js2-mode
+  :ensure t
+  :after js2-mode
+  :defer t
   :config
   (progn
     (add-hook 'js2-mode-hook #'js2-refactor-mode)
@@ -78,7 +56,7 @@
     (define-key js2-mode-map (kbd "C-S-<up>") 'js2r-move-line-up)
     (define-key js2-refactor-mode-map (kbd "C-k") 'js2r-kill))
 
-  (defhydra hydra-js2-refactor-menu (:color teal
+  (defhydra js2-refactor-menu (:color teal
                                             :hint nil)
     "
 ^Function^                   ^Object/Array/String^        ^Variable^            ^Misc                             ^Wrap 
@@ -117,7 +95,7 @@ _cu_: contract function      _ao_: arguments to object    ^ ^                   
     ("sl" js2r-forward-slurp)
     ("ba" js2r-forward-barf))
 
-  (define-key js2-refactor-mode-map (kbd "C-c r") 'hydra-js2-refactor-menu/body)
+  (define-key js2-refactor-mode-map (kbd "C-c r") 'js2-refactor-menu/body)
 
   
   :diminish js2-refactor-mode)
