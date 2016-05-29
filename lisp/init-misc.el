@@ -9,9 +9,8 @@
   :kill-process-buffer-on-stop t)
 
 (prodigy-define-service
-  :name "OptoV6 Webpack"
-  :command "npm"
-  :args '("run" "dev")
+  :name "Opto Core Gulp"
+  :command "gulp"
   :cwd "c:/opto/Core/Code/ServerHtml5/Web"
   :tags '(work)
   :kill-signal 'sigkill
