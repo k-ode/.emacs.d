@@ -27,7 +27,6 @@
     ;; Prefixes for my personal bindings
     "C-c a" "applications"
     "C-c b" "buffers"
-    "C-c c" "compile-and-comments"
     "C-c e" "errors"
     "C-c f" "files"
     "C-c f v" "variables"

@@ -29,10 +29,4 @@
   (bind-key "C-c C-w" #'html-wrap-in-tag html-mode-map)
   (tagedit-add-experimental-features))
 
-(use-package simplezen
-  :ensure t
-  :config
-  (set (make-local-variable 'yas/fallback-behavior)
-       '(apply simplezen-expand-or-indent-for-tab)))
-
 (provide 'init-html)

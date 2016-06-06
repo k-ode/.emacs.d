@@ -16,6 +16,8 @@
             (warn "`helm-config' loaded! Get rid of it ASAP!")))
   :config
   (setq helm-split-window-in-side-p t
+        ;; Ignore case
+        helm-case-fold-search t
         ;; Fuzzy matching
         helm-buffers-fuzzy-matching t
         helm-recentf-fuzzy-match t
@@ -34,7 +36,8 @@
 (use-package helm-imenu                 ; Helm frontend for imenu
   :ensure helm
   :bind (("C-c j a" . helm-imenu-in-all-buffers)
-         ("C-c j t" . helm-imenu))
+         ("C-c j t" . helm-imenu)
+         ("C-x i" . helm-imenu))
   :config (setq helm-imenu-fuzzy-match t
                 ;; Don't automatically jump to candidate if only one match,
                 ;; because it makes the behaviour of this command unpredictable,

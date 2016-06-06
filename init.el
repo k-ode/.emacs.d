@@ -209,7 +209,7 @@
 
 (use-package expand-region              ; Expand region by semantic units
   :ensure t
-  :bind (("C-c v" . er/expand-region)))
+  :bind (("C-ä" . er/expand-region)))
 
 (use-package multiple-cursors
   :ensure t
@@ -218,6 +218,7 @@
          ("C-c o a"     . mc/vertical-align)
          ("C-c o e"     . mc/mark-more-like-this-extended)
          ("C-c o h"     . mc/mark-all-like-this-dwim)
+         ("M-ä"         . mc/mark-all-like-this-dwim)
          ("C-c o l"     . mc/edit-lines)
          ("C-c o n"     . mc/mark-next-like-this)
          ("C-c o p"     . mc/mark-previous-like-this)
@@ -397,9 +398,8 @@
          ("C-c j j" . avy-goto-char-2)))
 
 (use-package newcomment                 ; Built-in comment features
-  :bind (("C-c c d" . comment-dwim)
-         ("C-c c l" . comment-line)
-         ("C-c c r" . comment-region)))
+  :bind (("C-c c" . comment-dwim)
+         ("C-c u" . uncomment-region)))
 
 (use-package ielm                       ; Emacs Lisp REPL
   :bind (("C-c a '" . ielm)))
