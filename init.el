@@ -65,11 +65,6 @@
 (setq custom-file (expand-file-name "lisp/init-custom.el" user-emacs-directory))
 (load custom-file)
 
-;; Load tern dir
-(setq tern-dir
-      (expand-file-name "tern/emacs" user-emacs-directory))
-(add-to-list 'load-path tern-dir)
-
 ;; Turn off mouse interface early in startup to avoid momentary display
 (if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -141,7 +136,7 @@
 (require 'init-javascript)
 (require 'init-tern)
 (require 'init-helm)
-(require 'init-which-key)
+;;(require 'init-which-key)
 (require 'init-projectile)
 (require 'init-flycheck)
 (require 'init-rainbow-mode)
@@ -201,11 +196,6 @@
 
 (use-package idomenu
   :ensure t)
-
-(use-package beacon
-  :ensure t
-  :init (beacon-mode 1)
-  :diminish beacon-mode)
 
 (use-package expand-region              ; Expand region by semantic units
   :ensure t
@@ -412,38 +402,6 @@
               ("C-c m e b" . eval-buffer)
               ("C-c m e e" . eval-last-sexp)
               ("C-c m e f" . eval-defun)))
-
-(use-package prodigy
-  :ensure t
-  :defer t
-  :config
-  
-  (prodigy-define-service
-   :name "OptoWebsite Gulp"
-   :command "gulp"
-   :cwd "c:/opto/ConrabInternalApplications/trunk/OptoWebsite/OptoWebsite"
-   :tags '(work)
-   :kill-signal 'sigkill
-   :kill-process-buffer-on-stop t)
-
-  (prodigy-define-service
-   :name "OptoV6 Webpack"
-   :command "npm"
-   :args '("run" "dev")
-   :cwd "c:/opto/Core/Code/ServerHtml5/Web"
-   :tags '(work)
-   :kill-signal 'sigkill
-   :kill-process-buffer-on-stop t)
-
-  (prodigy-define-service
-   :name "Mongodb"
-   :command "mongod"
-   :args '("-dbpath" "C:/home/bin/mongodb")
-   :cwd "C:\home\bin\mongodb"
-   :tags '(work)
-   :kill-signal 'sigkill
-   :kill-process-buffer-on-stop t)
-  )
 
 (use-package wgrep
   :ensure t)

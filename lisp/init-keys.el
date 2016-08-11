@@ -1,3 +1,13 @@
+(define-key key-translation-map (kbd "C-5") (kbd "("))
+(define-key key-translation-map (kbd "C-6") (kbd ")"))
+(define-key key-translation-map (kbd "C-7") (kbd "{"))
+(define-key key-translation-map (kbd "C-8") (kbd "["))
+(define-key key-translation-map (kbd "C-9") (kbd "]"))
+(define-key key-translation-map (kbd "C-0") (kbd "}"))
+
+(when (string-equal system-type "windows-nt")
+  (global-set-key (kbd "<apps>") 'execute-extended-command))
+
 ;; ;; I never use suspend frame
 (global-unset-key (kbd "C-z")) 
 

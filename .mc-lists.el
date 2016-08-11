@@ -46,6 +46,7 @@
       '(
         beginning-of-buffer
         delete-window
+        helm-show-kill-ring
         ido-switch-buffer
         mc/mark-next-lines
         mouse-buffer-menu
