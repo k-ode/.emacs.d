@@ -3,7 +3,6 @@
   :init (projectile-global-mode)
   :config
   (progn
-    (run-with-idle-timer 10 nil #'projectile-cleanup-known-projects)
     (setq projectile-completion-system 'helm
           projectile-find-dir-includes-top-level t)
     (setq projectile-indexing-method 'alien)
