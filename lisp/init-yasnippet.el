@@ -14,6 +14,6 @@
 
             ;; Wrap around region
             (setq yas-wrap-around-region t))
-  :diminish (yas-minor-mode . " Ⓨ"))
+  :diminish yas-minor-mode)
 
 (provide 'init-yasnippet)

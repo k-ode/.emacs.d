@@ -45,6 +45,9 @@
 
       )))
 
+(use-package jade
+  :ensure t)
+
 (use-package js2-refactor
   :ensure t
   :after js2-mode

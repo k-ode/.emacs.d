@@ -18,6 +18,6 @@
          (setq-default flycheck-disabled-checkers
                        (append flycheck-disabled-checkers
                                '(javascript-jshint))))
-  :diminish (flycheck-mode . " Ⓢ"))
+  :diminish flycheck-mode)
 
 (provide 'init-flycheck)

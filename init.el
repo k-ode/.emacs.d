@@ -136,7 +136,7 @@
 (require 'init-javascript)
 (require 'init-tern)
 (require 'init-helm)
-;;(require 'init-which-key)
+(require 'init-which-key)
 (require 'init-projectile)
 (require 'init-flycheck)
 (require 'init-rainbow-mode)
@@ -271,12 +271,6 @@
 
 ;; Just save the files
 (setq compilation-ask-about-save nil)
-
-(use-package company-statistics         ; Sort company candidates by statistics
-  :ensure t
-  :defer t
-  :init (with-eval-after-load 'company
-          (company-statistics-mode)))
 
 (use-package anzu                       ; Position/matches count for isearch
   :ensure t
@@ -418,4 +412,104 @@
   :config
   (setq web-mode-indent-style 4))
 
+(use-package spaceline
+  :ensure t
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme)
+  (setq powerline-height 23)
+  (setq powerline-default-separator 'wave))
+
+(use-package eslint-fix
+  :ensure t)
+
+(use-package whitespace-cleanup-mode
+  :ensure t)
+
+;; comint stuff
+(setq comint-prompt-read-only t)
+
+(defun my-comint-preoutput-read-only (text)
+  (propertize text 'read-only t))
+
+(add-hook 'comint-preoutput-filter-functions
+          'my-comint-preoutput-read-only)
+
+(defun comint-previous-input (arg)
+  "Cycle backwards with wrap-around through input history, saving input."
+  (interactive "*p")
+  (unless (and (eq comint-input-ring-index nil)
+               (< arg 0))
+    (if (and (eq comint-input-ring-index 0)
+             (< arg 0)
+             comint-stored-incomplete-input)
+        (comint-restore-input)
+      (unless (and (eq comint-input-ring-index
+                       (- (ring-length comint-input-ring) 1))
+                   (> arg 0))
+        (comint-previous-matching-input "." arg)))))
+
+(defun my-clear-comint-buffer ()
+  (interactive)
+  (let ((comint-buffer-maximum-size 0))
+    (comint-truncate-buffer)))
+
+(defun my-kill-word (arg)
+  (interactive "p")
+  (unless buffer-read-only
+    (let ((beg (point))
+          (end (save-excursion (forward-word arg) (point)))
+          (point (save-excursion (goto-char
+                                  (if (> arg 0)
+                                      (next-single-char-property-change
+                                       (point) 'read-only)
+                                    (previous-single-char-property-change
+                                     (point) 'read-only)))
+                                 (point))))
+      (unless (get-char-property (point) 'read-only)
+        (if (if (> arg 0) (< point end) (> point end))
+            (kill-region beg point)
+          (kill-region beg end))))))
+
+(defun my-backward-kill-word (arg)
+  (interactive "p")
+  (my-kill-word (- arg)))
+
+(defun my-recenter-top-bottom ()
+  (interactive)
+  (goto-char (point-max))
+  (let ((recenter-positions '(top bottom)))
+    (recenter-top-bottom)))
+
+(with-eval-after-load 'comint
+  (define-key comint-mode-map (kbd "<remap> <kill-word>") 'my-kill-word)
+  (define-key comint-mode-map (kbd "<remap> <backward-kill-word>") 'my-backward-kill-word)
+  (define-key comint-mode-map (kbd "C-l") 'my-recenter-top-bottom)
+  (define-key comint-mode-map (kbd "C-S-l") 'my-clear-comint-buffer))
+
+;; company
+
+(defun company-transform-js (candidates)
+  (let ((methods))
+    (mapcar #'(lambda (c)
+                (let ((kind (plist-get (get-text-property 0 'completion c) :kind)))
+                  (if (or (equal kind "method") (equal kind "property"))
+                      (progn
+                        (add-to-list 'methods c)
+                        (setq candidates (delete c candidates))))))
+            candidates)
+    (append methods candidates)))
+
+(defun my-js-conf()
+  (setq-local company-transformers
+              (append company-transformers '(company-transform-js))))
+
+(add-hook 'js2-mode-hook 'my-js-conf)
+
+(use-package tide
+  :ensure t
+  :config
+  (add-hook 'js2-mode-hook #'tide-setup))
+
+(put 'erase-buffer 'disabled nil)
 ;;; init.el ends here
