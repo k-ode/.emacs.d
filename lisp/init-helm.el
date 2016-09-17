@@ -1,3 +1,13 @@
+(defun spacemacs//helm-hide-minibuffer-maybe ()
+  "Hide minibuffer in Helm session if we use the header line as input field."
+  (when (with-helm-buffer helm-echo-input-in-header-line)
+    (let ((ov (make-overlay (point-min) (point-max) nil nil t)))
+      (overlay-put ov 'window (selected-window))
+      (overlay-put ov 'face
+                   (let ((bg-color (face-background 'default nil)))
+                     `(:background ,bg-color :foreground ,bg-color)))
+      (setq-local cursor-type nil))))
+
 (use-package helm                       ; Powerful minibuffer input framework
   :ensure t
   :bind  (
@@ -15,15 +25,22 @@
           (with-eval-after-load 'helm-config
             (warn "`helm-config' loaded! Get rid of it ASAP!")))
   :config
-  (setq helm-split-window-in-side-p t
-        ;; Ignore case
-        helm-case-fold-search t
-        ;; Fuzzy matching
-        helm-buffers-fuzzy-matching t
-        helm-recentf-fuzzy-match t
-        helm-imenu-fuzzy-match t
-        ;; Use recentf to manage file name history
-        helm-ff-file-name-history-use-recentf t)
+  (setq
+   helm-truncate-lines t
+   helm-echo-input-in-header-line t
+   helm-split-window-in-side-p t
+   ;; Ignore case
+   helm-case-fold-search t
+   ;; Fuzzy matching
+   helm-autoresize-max-height 0
+   helm-autoresize-min-height 25
+   helm-buffers-fuzzy-matching t
+   helm-recentf-fuzzy-match t
+   helm-imenu-fuzzy-match t
+   ;; Use recentf to manage file name history
+   helm-ff-file-name-history-use-recentf t)
+  (add-hook 'helm-minibuffer-set-up-hook 'helm-hide-minibuffer-maybe)
+  (helm-autoresize-mode 1)
   :diminish helm-mode)
 
 (use-package helm-css-scss
@@ -60,5 +77,11 @@
   (setq helm-swoop-speed-or-color t     ; Colour over speed 8)
         ;; Split window like Helm does
         helm-swoop-split-window-function #'helm-default-display-buffer))
+
+(use-package helm-flycheck
+  :ensure t
+  :after helm
+  :config
+  (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
 
 (provide 'init-helm)
