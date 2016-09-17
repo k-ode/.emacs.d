@@ -1,4 +1,3 @@
-
 (use-package company                    ; Graphical (auto-)completion
   :ensure t
   :init (global-company-mode)

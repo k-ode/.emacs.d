@@ -292,6 +292,7 @@
         ;; Use separate buffers for one-file logs so that we don't need to reset
         ;; the filter everytime for full log view
         magit-log-buffer-file-locked t
+        magit-display-buffer-function 'magit-display-buffer-fullframe-status-topleft-v1
         ;; This is creepy, Magit
         magit-revision-show-gravatars nil))
 
@@ -324,6 +325,8 @@
 (use-package helm-ag
   :ensure t
   :bind (("C-c s p" . helm-projectile-ag))
+  :config
+  (setq helm-ag-base-command "pt -e --nocolor --nogroup")
   :defer t)
 
 (use-package ibuffer                    ; Better buffer list
@@ -511,5 +514,55 @@
   :config
   (add-hook 'js2-mode-hook #'tide-setup))
 
+;; Configure `display-buffer' behaviour for some special buffers.
+(setq
+ display-buffer-alist
+ `(
+   ;; Put REPLs and error lists into the bottom side window
+   (,(rx bos
+         (or "*Help"                         ; Help buffers
+             "*Warnings*"                    ; Emacs warnings
+             "*Compile-Log*"                 ; Emacs byte compiler log
+             "*compilation"                  ; Compilation buffers
+             "*Flycheck errors*"             ; Flycheck error list
+             "*shell"                        ; Shell window
+             "*powershell"                   ; SBT REPL and compilation buffer
+             "*opto-gulp*"
+             "*opto-iis-express*"
+             ))
+    (display-buffer-reuse-window
+     display-buffer-in-side-window)
+    (side            . bottom)
+    (reusable-frames . visible)
+    (window-height   . 0.33))
+   ;; Let `display-buffer' reuse visible frames for all buffers.  This must
+   ;; be the last entry in `display-buffer-alist', because it overrides any
+   ;; later entry with more specific actions.
+   ("." nil (reusable-frames . visible))))
+
+(defun lunaryorn-find-side-windows (&optional side)
+  "Get all side window if any.
+If SIDE is non-nil only get windows on that side."
+  (let (windows)
+    (walk-window-tree
+     (lambda (window)
+       (let ((window-side (window-parameter window 'window-side)))
+         (when (and window-side (or (not side) (eq window-side side)))
+           (push window windows)))))
+    windows))
+
+(defun lunaryorn-quit-all-side-windows ()
+  "Quit all side windows of the current frame."
+  (interactive)
+  (dolist (window (lunaryorn-find-side-windows))
+    (when (window-live-p window)
+      (quit-window nil window)
+      ;; When the window is still live, delete it
+      (when (window-live-p window)
+        (delete-window window)))))
+
+(global-set-key (kbd "C-c q") 'lunaryorn-quit-all-side-windows)
+
 (put 'erase-buffer 'disabled nil)
+
 ;;; init.el ends here
