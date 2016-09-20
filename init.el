@@ -212,7 +212,6 @@
          ("C-c o l"     . mc/edit-lines)
          ("C-c o n"     . mc/mark-next-like-this)
          ("C-c o p"     . mc/mark-previous-like-this)
-         ("C-c o r"     . vr/mc-mark)
          ("C-c o C-a"   . mc/edit-beginnings-of-lines)
          ("C-c o C-e"   . mc/edit-ends-of-lines)
          ("C-c o C-s"   . mc/mark-all-in-region)))
@@ -280,8 +279,7 @@
 
 (use-package magit                      ; The one and only Git frontend
   :ensure t
-  :bind (("C-c g c" . magit-clone)
-         ("C-c g s" . magit-status)
+  :bind (("C-c g s" . magit-status)
          ("C-c g b" . magit-blame)
          ("C-c g l" . magit-log-buffer-file)
          ("C-c g p" . magit-pull))
@@ -324,7 +322,8 @@
 
 (use-package helm-ag
   :ensure t
-  :bind (("C-c s p" . helm-projectile-ag))
+  :bind (("C-c s p" . helm-projectile-ag)
+         ("C-x ö" . helm-projectile-ag))
   :config
   (setq helm-ag-base-command "pt -e --nocolor --nogroup")
   :defer t)
@@ -377,13 +376,6 @@
   :config 
   (ignoramus-setup))
 
-(use-package avy-jump                   ; Jump to characters in buffers
-  :ensure avy
-  :bind (("C-c j w" . avy-goto-word-1)
-         ("C-c j l" . avy-goto-line)
-         ("C-c j b" . avy-pop-mark)
-         ("C-c j j" . avy-goto-char-2)))
-
 (use-package newcomment                 ; Built-in comment features
   :bind (("C-c c" . comment-dwim)
          ("C-c u" . uncomment-region)))
@@ -420,7 +412,7 @@
   :config
   (require 'spaceline-config)
   (spaceline-spacemacs-theme)
-  (setq powerline-height 23)
+  (setq powerline-height 25)
   (setq powerline-default-separator 'wave))
 
 (use-package eslint-fix

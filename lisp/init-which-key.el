@@ -1,4 +1,4 @@
-(use-package which-key                  ; Show help popups for prefix keys
+(use-package which-key
   :ensure t
   :init (which-key-mode)
   :config 
@@ -40,7 +40,6 @@
     "C-c p x" "projects/execute"
     "C-c p 4" "projects/other-window"
     "C-c s" "search"
-    "C-c t" "toggle"
     "C-c w" "windows/frames"
     "C-c x" "text")
 

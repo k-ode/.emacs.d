@@ -31,9 +31,9 @@
    helm-split-window-in-side-p t
    ;; Ignore case
    helm-case-fold-search t
-   ;; Fuzzy matching
    helm-autoresize-max-height 0
    helm-autoresize-min-height 25
+   ;; Fuzzy matching
    helm-buffers-fuzzy-matching t
    helm-recentf-fuzzy-match t
    helm-imenu-fuzzy-match t
@@ -48,7 +48,15 @@
   :defer t
   :config
   (progn
-    (setq helm-css-scss-split-direction 'split-window-vertically)))
+    (setq helm-css-scss-split-with-multiple-windows nil)
+    ;; Split direction. 'split-window-vertically or 'split-window-horizontally
+    (setq helm-css-scss-split-direction 'split-window-horizontally)
+    ;; Set local keybind map for css-mode / scss-mode / less-css-mode
+    (dolist (hooks '(css-mode-hook scss-mode-hook less-css-mode-hook))
+      (add-hook
+       hooks (lambda ()
+               (local-set-key (kbd "s-i") 'helm-css-scss)
+               (local-set-key (kbd "s-I") 'helm-css-scss-back-to-last-point))))))
 
 (use-package helm-imenu                 ; Helm frontend for imenu
   :ensure helm
