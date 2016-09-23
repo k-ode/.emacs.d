@@ -16,7 +16,7 @@
           ([remap switch-to-buffer] . helm-mini)
           ([remap execute-extended-command] . helm-M-x)
           ([remap yank-pop]        . helm-show-kill-ring)
-          ([remap insert-register] . helm-register)
+          ([remap insert-ro0egister] . helm-register)
           ([remap apropos-command] . helm-apropos)
           ([remap occur] . helm-occur)
           ("C-c f r" . helm-recentf)
@@ -43,26 +43,28 @@
   (helm-autoresize-mode 1)
   :diminish helm-mode)
 
+(defun css-imenu-keys ()
+  (local-set-key (kbd "C-x i") 'helm-css-scss)
+  (local-set-key (kbd "C-x C-i") 'helm-css-scss-multi)
+  (local-set-key (kbd "C-c j c") 'helm-css-scss)
+  (local-set-key (kbd "C-c j m") 'helm-css-scss-multi))
+
 (use-package helm-css-scss
   :ensure t
   :defer t
   :config
-  (progn
-    (setq helm-css-scss-split-with-multiple-windows nil)
-    ;; Split direction. 'split-window-vertically or 'split-window-horizontally
-    (setq helm-css-scss-split-direction 'split-window-horizontally)
-    ;; Set local keybind map for css-mode / scss-mode / less-css-mode
-    (dolist (hooks '(css-mode-hook scss-mode-hook less-css-mode-hook))
-      (add-hook
-       hooks (lambda ()
-               (local-set-key (kbd "s-i") 'helm-css-scss)
-               (local-set-key (kbd "s-I") 'helm-css-scss-back-to-last-point))))))
+  (setq helm-css-scss-split-window-function #'helm-default-display-buffer)
+  ;; Set local keybind map for css-mode / scss-mode / less-css-mode
+  (add-hook 'css-mode-hook 'css-imenu-keys)
+  (add-hook 'less-css-mode-hook 'css-imenu-keys)
+  (add-hook 'scss-mode-hook 'css-imenu-keys))
 
 (use-package helm-imenu                 ; Helm frontend for imenu
   :ensure helm
   :bind (("C-c j a" . helm-imenu-in-all-buffers)
          ("C-c j t" . helm-imenu)
-         ("C-x i" . helm-imenu))
+         ("C-x i" . helm-imenu)
+         ("C-x C-i" . helm-imenu-in-all-buffers))
   :config (setq helm-imenu-fuzzy-match t
                 ;; Don't automatically jump to candidate if only one match,
                 ;; because it makes the behaviour of this command unpredictable,

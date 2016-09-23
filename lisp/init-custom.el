@@ -7,7 +7,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    (default)))
+    ("98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default)))
  '(frame-brackground-mode (quote dark))
  '(grep-find-ignored-directories
    (quote

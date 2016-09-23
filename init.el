@@ -325,7 +325,7 @@
   :bind (("C-c s p" . helm-projectile-ag)
          ("C-x ö" . helm-projectile-ag))
   :config
-  (setq helm-ag-base-command "pt -e --nocolor --nogroup")
+  (setq helm-ag-base-command "pt --nocolor --nogroup")
   :defer t)
 
 (use-package ibuffer                    ; Better buffer list
@@ -554,6 +554,13 @@ If SIDE is non-nil only get windows on that side."
         (delete-window window)))))
 
 (global-set-key (kbd "C-c q") 'lunaryorn-quit-all-side-windows)
+
+(use-package neotree
+  :ensure t
+  :bind (("§" . neotree-toggle))
+  :config
+  (setq neo-theme 'arrow)
+  (setq neo-smart-open t))
 
 (put 'erase-buffer 'disabled nil)
 
