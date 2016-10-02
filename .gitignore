@@ -6,6 +6,7 @@ backups/
 tmp/
 server/
 .places
+/places
 bookmarks
 url
 url/cookies
@@ -18,5 +19,4 @@ ido.last
 /server/server
 /projectile-bookmarks.eld
 /projectile.cache
-/user-custom
 /history
