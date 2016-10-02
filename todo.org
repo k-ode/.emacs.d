@@ -1,0 +1,3 @@
+** TODO Test xref-js2
+** TODO Cleanup unused functions
+** TODO Move stuff from init.el into files

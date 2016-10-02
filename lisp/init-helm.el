@@ -15,8 +15,6 @@
           ([remap find-file] . helm-find-files)
           ([remap switch-to-buffer] . helm-mini)
           ([remap execute-extended-command] . helm-M-x)
-          ([remap yank-pop]        . helm-show-kill-ring)
-          ([remap insert-ro0egister] . helm-register)
           ([remap apropos-command] . helm-apropos)
           ([remap occur] . helm-occur)
           ("C-c f r" . helm-recentf)
@@ -74,15 +72,15 @@
 
 (use-package helm-ring                  ; Helm commands for rings
   :ensure helm
-  :bind (([remap yank-pop]        . helm-show-kill-ring)
+  :bind (("C-x C-y" . helm-show-kill-ring)
          ([remap insert-register] . helm-register)))
 
 (use-package helm-swoop                 ; Powerful buffer search for Emacs
   :ensure t
   :after helm
-  :bind (("C-c s s" . helm-swoop)
-         ("C-c s S" . helm-multi-swoop)
-         ("C-c s C-s" . helm-multi-swoop-all))
+  :bind (("C-c s w" . helm-swoop)
+         ("C-c s W" . helm-multi-swoop)
+         ("C-c s C-w" . helm-multi-swoop-all))
   :config
   (setq helm-swoop-speed-or-color t     ; Colour over speed 8)
         ;; Split window like Helm does

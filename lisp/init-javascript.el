@@ -12,28 +12,22 @@
   (progn
     (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
     (add-hook 'js2-mode-hook #'subword-mode)
-
+    
     (eval-after-load "js2-mode"
       '(defadvice js2-mode (after js2-rename-modeline activate)
          (setq mode-name "JS2")))
     
     (after-load 'js2-mode
       ;; Indendt case labels on extra level
-      (setq-default js2-indent-switch-body t)
-      ;; Globals
-      (setq-default js2-global-externs '("module" "require" "jQuery" "$" "setTimeout" "clearTimeout" "setInterval" "clearInterval" "location" "console" "JSON" "angular" "moment" "opto" "op"))
-      ;; Delay in seconds before re-parsing
-      (setq-default js2-idle-timer-delay 0.1)
-      ;; js2-line-break sets + at the end
-      (setq-default js2-concat-multiline-strings 'eol)
-
+      (setq js2-indent-switch-body t)
       ;; Let flycheck handle parse errors
-      (setq-default js2-allow-rhino-new-expr-initializer nil)
-      (setq-default js2-strict-inconsistent-return-warning nil)
-      (setq-default js2-mode-show-parse-errors nil)
-      (setq-default js2-mode-show-strict-warnings nil)
-      (setq-default js2-strict-missing-semi-warning nil)
-      (setq-default js2-strict-trailing-comma-warning nil)
+      (setq js2-allow-rhino-new-expr-initializer nil)
+      (setq js2-strict-inconsistent-return-warning nil)
+      (setq js2-mode-show-parse-errors nil)
+      (setq js2-mode-show-strict-warnings nil)
+      (setq js2-strict-missing-semi-warning nil)
+      (setq js2-strict-trailing-comma-warning nil)
+      (setq js2-highlight-level 1)
 
       ;; steal back alt-j
       (define-key js2-mode-map (kbd "M-j") '(lambda () (interactive)
@@ -41,12 +35,36 @@
                                               (indent-for-tab-command)))
       (define-key js2-mode-map (kbd "M-n") '(lambda () (interactive) (js2-line-break)))
 
-      (js2-imenu-extras-setup)
-
+      (define-key js2-mode-map [menu-bar javascript]
+        'undefined)
+      (define-key js2-mode-map [menu-bar Javascript]
+        'undefined)
+      (define-key js2-mode-map [menu-bar change]
+        '(menu-item "Change All Occurrences" mc/mark-all-like-this-dwim :help "Change All Occurrences."))
+      (define-key js2-mode-map [menu-bar references]
+        '(menu-item "Find All References" kg-projectile-js-references :help "Find All References."))
       )))
 
+(use-package tide
+  :ensure t
+  :after js2-mode
+  :config
+  (define-key tide-mode-map (kbd "<C-down-mouse-1>") '(lambda ()
+                                                        (interactive)
+                                                        (js2-down-mouse-3)
+                                                        (tide-jump-to-definition)))
+  (define-key js2-mode-map [menu-bar jump]
+    '(menu-item "Jump to Definition" tide-jump-to-definition :help "Jump to Definition."))
+  (define-key js2-mode-map [menu-bar rename]
+    '(menu-item "Rename Symbol" tide-rename-symbol :help "Rename symbol."))
+  :diminish tide-mode)
+
 (use-package jade
-  :ensure t)
+  :ensure t
+  :config
+  (global-set-key (kbd "<f5>") 'jade-reload)
+  (add-hook 'js2-mode-hook #'jade-interaction-mode)
+  :diminish jade-interaction-mode)
 
 (use-package js2-refactor
   :ensure t

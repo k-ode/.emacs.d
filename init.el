@@ -9,12 +9,6 @@
 ;; Please don't load outdated byte code
 (setq load-prefer-newer t)
 
-(require 'server)
-(setq server-use-tcp t)
-(defun server-ensure-safe-dir (dir) "Noop" t) 
-(unless (server-running-p)
-  (server-start))
-
 (require 'package)
 (setq package-enable-at-startup nil)
 (add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
@@ -22,8 +16,8 @@
 (setq package-check-signature nil)
 
 (package-initialize)
-
 ;; Bootstrap `use-package'
+
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -57,9 +51,9 @@
   (normal-top-level-add-subdirs-to-load-path))
 
 ;; Set up load path
-(add-to-list 'load-path lisp-dir)
 (add-to-list 'load-path site-lisp-dir)
 (add-to-list 'load-path user-custom-dir)
+(add-to-list 'load-path lisp-dir)
 
 ;; Keep emacs custom-settings in separate file
 (setq custom-file (expand-file-name "lisp/init-custom.el" user-emacs-directory))
@@ -76,7 +70,7 @@
 (setq initial-scratch-message "")
 
 (when window-system
-  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
+  (setq frame-tqqitle-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)
   (blink-cursor-mode -1))
 
@@ -87,6 +81,7 @@
     (load file)))
 
 (setq electric-indent-mode nil)
+(setq electric-pair-mode nil)
 
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 
@@ -178,13 +173,11 @@
                               ;; And all other kinds of boring files
                               #'ignoramus-boring-p)))
 
-;; Save point position between sessions
-(use-package saveplace
-  :init (setq-default save-place t)
-  :config (setq save-place-file (expand-file-name ".places" user-emacs-directory)))
+(use-package saveplace                  ; Save point position in files
+  :init (save-place-mode 1))
 
 (require 'setup-shell)
-(require 'init-smartparens)
+(require 'project-mappings)
 
 ;; Setup extensions
 (eval-after-load 'org '(require 'init-org))
@@ -212,6 +205,8 @@
          ("C-c o l"     . mc/edit-lines)
          ("C-c o n"     . mc/mark-next-like-this)
          ("C-c o p"     . mc/mark-previous-like-this)
+         ("M-<up>"      . mc/mark-previous-like-this)
+         ("M-<down>"    . mc/mark-next-like-this)
          ("C-c o C-a"   . mc/edit-beginnings-of-lines)
          ("C-c o C-e"   . mc/edit-ends-of-lines)
          ("C-c o C-s"   . mc/mark-all-in-region)))
@@ -241,11 +236,11 @@
 
 ;; Setup key bindings
 (require 'init-keys)
-
 (use-package move-text
   :ensure t
   :bind (("<C-S-up>" . move-text-up)
          ("<C-S-down>" . move-text-down)))
+
 
 (put 'scroll-left 'disabled nil)
 
@@ -311,9 +306,6 @@
    ("C-c s p" . highlight-symbol-prev-in-defun))
   ;; Navigate occurrences of the symbol under point with M-n and M-p, and
   ;; highlight symbol occurrences
-  :init
-  (dolist (fn '(highlight-symbol-nav-mode highlight-symbol-mode))
-    (add-hook 'prog-mode-hook fn))
   :config
   (setq highlight-symbol-idle-delay 0.4     ; Highlight almost immediately
         highlight-symbol-on-navigation-p t) ; Highlight immediately after
@@ -322,54 +314,11 @@
 
 (use-package helm-ag
   :ensure t
-  :bind (("C-c s p" . helm-projectile-ag)
+  :bind (("C-c s s" . helm-projectile-ag)
          ("C-x ö" . helm-projectile-ag))
   :config
   (setq helm-ag-base-command "pt --nocolor --nogroup")
-  :defer t)
-
-(use-package ibuffer                    ; Better buffer list
-  :bind (([remap list-buffers] . ibuffer))
-  ;; Show VC Status in ibuffer
-  :config
-  (setq ibuffer-formats
-        '((mark modified read-only vc-status-mini " "
-                (name 18 18 :left :elide)
-                " "
-                (size 9 -1 :right)
-                " "
-                (mode 16 16 :left :elide)
-                " "
-                (vc-status 16 16 :left)
-                " "
-                filename-and-process)
-          (mark modified read-only " "
-                (name 18 18 :left :elide)
-                " "
-                (size 9 -1 :right)
-                " "
-                (mode 16 16 :left :elide)
-                " " filename-and-process)
-          (mark " " (name 16 -1) " " filename))))
-
-(use-package ibuffer-vc                 ; Group buffers by VC project and status
-  :ensure t
-  :defer t
-  :init (add-hook 'ibuffer-hook
-                  (lambda ()
-                    (ibuffer-vc-set-filter-groups-by-vc-root)
-                    (unless (eq ibuffer-sorting-mode 'alphabetic)
-                      (ibuffer-do-sort-by-alphabetic)))))
-
-(use-package ibuffer-projectile         ; Group buffers by Projectile project
-  :ensure t
-  :disabled t
-  :defer t
-  :init (add-hook 'ibuffer-hook #'ibuffer-projectile-set-filter-groups))
-
-(use-package ace-window                 ; Fast window switching
-  :ensure t
-  :bind (("C-c w w" . ace-window)))
+  (setq helm-ag-use-grep-ignore-list t))
 
 (use-package ignoramus                  ; Ignore uninteresting files everywhere
   :ensure t
@@ -493,18 +442,13 @@
                         (add-to-list 'methods c)
                         (setq candidates (delete c candidates))))))
             candidates)
-    (append methods candidates)))
+    (append (reverse methods) candidates)))
 
 (defun my-js-conf()
   (setq-local company-transformers
               (append company-transformers '(company-transform-js))))
 
 (add-hook 'js2-mode-hook 'my-js-conf)
-
-(use-package tide
-  :ensure t
-  :config
-  (add-hook 'js2-mode-hook #'tide-setup))
 
 ;; Configure `display-buffer' behaviour for some special buffers.
 (setq
@@ -513,6 +457,9 @@
    ;; Put REPLs and error lists into the bottom side window
    (,(rx bos
          (or "*Help"                         ; Help buffers
+             "*tide-documentation"
+             "*tide-references"
+             "*pt-search"
              "*Warnings*"                    ; Emacs warnings
              "*Compile-Log*"                 ; Emacs byte compiler log
              "*compilation"                  ; Compilation buffers
@@ -555,12 +502,67 @@ If SIDE is non-nil only get windows on that side."
 
 (global-set-key (kbd "C-c q") 'lunaryorn-quit-all-side-windows)
 
+(use-package powershell
+  :ensure t)
+
 (use-package neotree
   :ensure t
-  :bind (("§" . neotree-toggle))
+  :bind (("<f8>" . neotree-toggle))
   :config
-  (setq neo-theme 'arrow)
-  (setq neo-smart-open t))
+  (setq neo-smart-open t)
+  (setq neo-theme 'nerd))
+
+(global-set-key (kbd "<mouse-3>") 'mouse-major-mode-menu)
+
+(defun kg-projectile-js-references ()
+  (interactive)
+  (let ((regexp (thing-at-point 'symbol)))
+    (if (fboundp 'projectile-project-root)
+        (pt-regexp regexp
+                   (projectile-project-root)
+                   (append (list "-G \"\.js$\"")
+                           (mapcar (lambda (val) (concat "--ignore=" val))
+                                   (append projectile-globally-ignored-files
+                                           projectile-globally-ignored-directories
+                                           grep-find-ignored-directories
+                                           grep-find-ignored-files))))
+      (error "Projectile is not available"))))
+
+(defun kg-ide-js-enable ()
+  (progn
+    (highlight-symbol-nav-mode 1)
+    (highlight-symbol-mode 1)
+    (flycheck-mode 1)
+    (company-mode 1)))
+
+(defun kg-ide-js-activate ()
+  (interactive)
+  (progn
+    (kg-ide-js-enable)
+    (add-hook 'js2-mode-hook #'kg-ide-js-enable)
+    ;; tide
+    (tide-setup)
+    (add-hook 'js2-mode-hook #'tide-setup)))
+
+(defun kg-ide-js-deactivate-disable ()
+  (highlight-symbol-nav-mode -1)
+  (highlight-symbol-mode -1)
+  (flycheck-mode -1)
+  (company-mode -1)
+  ;; tide
+  (tide-mode -1)
+  (setq-local eldoc-documentation-function 'ignore)
+  (setq-local imenu-auto-rescan nil)
+  (setq-local imenu-create-index-function 'js2-mode-create-imenu-index)
+  (kill-process "tsserver")
+  (remove-hook 'js2-mode-hook #'tide-setup)
+  (eldoc-remove-command 'typescript-insert-and-indent))
+
+(defun kg-ide-js-deactivate ()
+  (interactive)
+  (progn
+    (kg-ide-js-deactivate-disable)
+    (remove-hook 'js2-mode-hook #'kg-ide-js-disable)))
 
 (put 'erase-buffer 'disabled nil)
 

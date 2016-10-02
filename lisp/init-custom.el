@@ -7,7 +7,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default)))
+    ("9f3181dc1fabe5d58bbbda8c48ef7ece59b01bed606cfb868dd147e8b36af97c" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "84a0e9f3a2e3c239bcbfc5bdbd7c2ddd73e029948d47e1b14d955a0f72e78f80" "98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default)))
  '(frame-brackground-mode (quote dark))
  '(grep-find-ignored-directories
    (quote
@@ -19,12 +19,30 @@
  '(org-src-fontify-natively t t)
  '(package-selected-packages
    (quote
-    (neotree doom-themes helm-flycheck powershell tide whitespace-cleanup-mode spaceline eslint-fix jade csharp-mode which-key wgrep web-mode use-package undo-tree tagedit smooth-scrolling smartparens scss-mode restclient rainbow-mode pt move-text material-theme markdown-mode magit less-css-mode json-mode js2-refactor ignoramus idomenu ibuffer-vc hydra highlight-symbol helm-swoop helm-projectile helm-css-scss helm-ag flycheck f expand-region css-eldoc company-tern anzu ace-window)))
+    (neotree projectile helm js2-mode company doom-themes helm-flycheck powershell tide whitespace-cleanup-mode spaceline eslint-fix jade csharp-mode which-key wgrep web-mode use-package undo-tree tagedit smooth-scrolling smartparens scss-mode restclient rainbow-mode pt move-text material-theme markdown-mode magit less-css-mode json-mode js2-refactor ignoramus idomenu ibuffer-vc hydra highlight-symbol helm-swoop helm-projectile helm-css-scss helm-ag flycheck f expand-region css-eldoc company-tern anzu ace-window)))
  '(safe-local-variable-values
    (quote
-    ((projectile-project-compilation-cmd . "msbuild.exe c:/Dokument/ConrabOpto/Code/OPTOV6Html5.sln //m //nologo //v:q")
-     (projectile-project-compilation-cmd . "msbuild.exe c:/opto/OPTOV6/trunk/OPTOV6Html5.sln //m //nologo //v:q")
-     (projectile-project-compilation-cmd . "msbuild.exe c:/opto/ConrabInternalApplications/trunk/OptoWebsite/OptoWebsite/OptoWebsite.csproj //m //nologo //v:q"))))
+    ((eval progn
+           (add-to-list
+            (quote exec-path)
+            (concat
+             (locate-dominating-file default-directory ".dir-locals.el")
+             "Code/ServerHtml5/Web/node_modules/.bin/"))
+           (add-to-list
+            (quote grep-find-ignored-directories)
+            "bundle")
+           (dolist
+               (item
+                (list "*.txt" "*.xml"))
+             (add-to-list
+              (quote grep-find-ignored-directories)
+              item)))
+     (eval progn
+           (add-to-list
+            (quote exec-path)
+            (concat
+             (locate-dominating-file default-directory ".dir-locals.el")
+             "Code/ServerHtml5/Web/node_modules/.bin/"))))))
  '(show-paren-mode t)
  '(tab-width 4)
  '(tool-bar-mode nil))

@@ -8,6 +8,9 @@
 (when (string-equal system-type "windows-nt")
   (global-set-key (kbd "<apps>") 'execute-extended-command))
 
+(global-set-key (kbd "§") 'shell)
+(global-set-key (kbd "½") 'powershell)
+
 ;; ;; I never use suspend frame
 (global-unset-key (kbd "C-z")) 
 

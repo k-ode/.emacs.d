@@ -1,7 +1,7 @@
 (use-package elisp-mode                 ; Emacs Lisp editing
   :defer t
   :config (progn
-
+            (add-hook 'emacs-lisp-mode-hook (lambda () (company-mode)))
             (defadvice emacs-lisp-mode (after elisp-rename-modeline activate)
               (setq mode-name "ELisp"))))
 

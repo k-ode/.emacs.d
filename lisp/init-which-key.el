@@ -32,7 +32,7 @@
     "C-c i" "insert"
     "C-c i l" "licenses"
     "C-c j" "jump"
-    "C-c l" "language/spelling"
+    "C-c l" "layouts"
     "C-c m" "major mode"
     "C-c o" "cursors"
     "C-c p" "projects"
