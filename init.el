@@ -80,9 +80,6 @@
   (when (file-regular-p file)
     (load file)))
 
-(setq electric-indent-mode nil)
-(setq electric-pair-mode nil)
-
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 
 (setq debug-on-error nil)
