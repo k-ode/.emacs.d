@@ -530,10 +530,10 @@ If SIDE is non-nil only get windows on that side."
 
 (defun kg-ide-js-enable ()
   (progn
+    (setq-local company-idle-delay 0.33)
     (highlight-symbol-nav-mode 1)
     (highlight-symbol-mode 1)
-    (flycheck-mode 1)
-    (company-mode 1)))
+    (flycheck-mode 1)))
 
 (defun kg-ide-js-activate ()
   (interactive)
@@ -544,11 +544,11 @@ If SIDE is non-nil only get windows on that side."
     (tide-setup)
     (add-hook 'js2-mode-hook #'tide-setup)))
 
-(defun kg-ide-js-deactivate-disable ()
+(defun kj-ide-js-disable ()
   (highlight-symbol-nav-mode -1)
   (highlight-symbol-mode -1)
   (flycheck-mode -1)
-  (company-mode -1)
+  (setq-local company-idle-delay nil)
   ;; tide
   (tide-mode -1)
   (setq-local eldoc-documentation-function 'ignore)
@@ -561,7 +561,7 @@ If SIDE is non-nil only get windows on that side."
 (defun kg-ide-js-deactivate ()
   (interactive)
   (progn
-    (kg-ide-js-deactivate-disable)
+    (kj-ide-js-disable)
     (remove-hook 'js2-mode-hook #'kg-ide-js-disable)))
 
 (put 'erase-buffer 'disabled nil)

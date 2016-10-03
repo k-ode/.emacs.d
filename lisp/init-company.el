@@ -1,10 +1,12 @@
 (use-package company                    ; Graphical (auto-)completion
   :ensure t
+  :init
+  (global-company-mode)
   :config
   (progn
     (define-key company-active-map (kbd "<tab>") nil)
     (setq company-minimum-prefix-length 1
-          company-idle-delay 0.33 ;; Show when I stop typing
+          company-idle-delay nil
           company-selection-wrap-around t
           company-show-numbers t
           company-tooltip-align-annotations t
