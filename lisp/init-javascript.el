@@ -49,6 +49,9 @@
   :ensure t
   :after js2-mode
   :config
+  (eldoc-mode)
+  (tide-setup)
+  (add-hook 'js2-mode-hook #'tide-setup)
   (define-key tide-mode-map (kbd "<C-down-mouse-1>") '(lambda ()
                                                         (interactive)
                                                         (js2-down-mouse-3)

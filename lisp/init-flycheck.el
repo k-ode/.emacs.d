@@ -5,7 +5,7 @@
          ("C-c e p" . flycheck-previous-error))
   :init (global-flycheck-mode)
   :config
-  (progn (setq flycheck-check-syntax-automatically nil)
+  (progn (setq flycheck-check-syntax-automatically '(mode-enabled save))
          (setq-default flycheck-disabled-checkers
                        (append flycheck-disabled-checkers
                                '(javascript-jshint javascript-tide))))

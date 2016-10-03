@@ -300,6 +300,9 @@
 (use-package highlight-symbol           ; Highlighting and commands for symbols
   :ensure t
   :defer t
+  :init
+  (dolist (fn '(highlight-symbol-nav-mode highlight-symbol-mode))
+    (add-hook 'prog-mode-hook fn))
   :bind
   (("C-c s %" . highlight-symbol-query-replace)
    ("C-c s n" . highlight-symbol-next-in-defun)
@@ -518,6 +521,11 @@ If SIDE is non-nil only get windows on that side."
 (use-package helm-descbinds             ; Describe key bindings with Helm
   :ensure t
   :init (helm-descbinds-mode))
+
+;;(setq garbage-collection-messages t)
+(setq gc-cons-threshold (* 511 1024 1024))
+(setq gc-cons-percentage 0.5)
+(run-with-idle-timer 5 t #'garbage-collect)
 
 (put 'erase-buffer 'disabled nil)
 
