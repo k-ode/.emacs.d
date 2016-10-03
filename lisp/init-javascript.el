@@ -45,13 +45,16 @@
         '(menu-item "Find All References" kg-projectile-js-references :help "Find All References."))
       )))
 
+(defun setup-tide-mode ()
+  (interactive)
+  (eldoc-mode)
+  (tide-setup))
+
 (use-package tide
   :ensure t
   :after js2-mode
   :config
-  (eldoc-mode)
-  (tide-setup)
-  (add-hook 'js2-mode-hook #'tide-setup)
+  (add-hook 'js2-mode-hook #'tide-setup-mode)
   (define-key tide-mode-map (kbd "<C-down-mouse-1>") '(lambda ()
                                                         (interactive)
                                                         (js2-down-mouse-3)
