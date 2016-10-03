@@ -3,9 +3,9 @@
   :bind (("C-c e l" . list-flycheck-errors)
          ("C-c e n" . flycheck-next-error)
          ("C-c e p" . flycheck-previous-error))
+  :init (global-flycheck-mode)
   :config
-  ;; Only check buffer syntax when saving file or enabling mode
-  (progn (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  (progn (setq flycheck-check-syntax-automatically nil)
          (setq-default flycheck-disabled-checkers
                        (append flycheck-disabled-checkers
                                '(javascript-jshint javascript-tide))))

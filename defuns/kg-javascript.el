@@ -14,38 +14,39 @@
 
 (defun kg-ide-js-enable ()
   (progn
-    (setq-local company-idle-delay 0.33)
+    (tide-setup)
     (highlight-symbol-nav-mode 1)
     (highlight-symbol-mode 1)
-    (flycheck-mode 1)))
+    (eldoc-mode 1)
+    (setq-local company-idle-delay 0.33)
+    (setq-local flycheck-check-syntax-automatically '(mode-enabled save))
+    (add-hook 'js2-mode-hook #'tide-setup)))
 
 (defun kg-ide-js-activate ()
   (interactive)
-  (progn
+  (progn                                          
     (kg-ide-js-enable)
-    (add-hook 'js2-mode-hook #'kg-ide-js-enable)
-    ;; tide
-    (tide-setup)
-    (add-hook 'js2-mode-hook #'tide-setup)))
+    (add-hook 'js2-mode-hook #'kg-ide-js-enable)))
 
-(defun kj-ide-js-disable ()
+(defun kg-ide-js-disable ()
   (highlight-symbol-nav-mode -1)
   (highlight-symbol-mode -1)
-  (flycheck-mode -1)
+  (eldoc-mode -1)
   (setq-local company-idle-delay nil)
+  (setq-local flycheck-check-syntax-automatically nil)
   ;; tide
-  (tide-mode -1)
   (setq-local eldoc-documentation-function 'ignore)
   (setq-local imenu-auto-rescan nil)
   (setq-local imenu-create-index-function 'js2-mode-create-imenu-index)
   (kill-process "tsserver")
   (remove-hook 'js2-mode-hook #'tide-setup)
-  (eldoc-remove-command 'typescript-insert-and-indent))
+  (eldoc-remove-command 'typescript-insert-and-indent)
+  )
 
 (defun kg-ide-js-deactivate ()
   (interactive)
   (progn
-    (kj-ide-js-disable)
+    (kg-ide-js-disable)
     (remove-hook 'js2-mode-hook #'kg-ide-js-disable)))
 
 (provide 'kg-javascript)

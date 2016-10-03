@@ -241,6 +241,9 @@
 
 (put 'scroll-left 'disabled nil)
 
+;; Don't globally enable eldoc
+(global-eldoc-mode -1)
+
 ;; Don't break lines
 (setq-default truncate-lines t)
 
