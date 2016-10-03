@@ -1,3 +1,5 @@
+(global-set-key (kbd "<mouse-3>") 'mouse-major-mode-menu)
+
 (define-key key-translation-map (kbd "C-5") (kbd "("))
 (define-key key-translation-map (kbd "C-6") (kbd ")"))
 (define-key key-translation-map (kbd "C-7") (kbd "{"))

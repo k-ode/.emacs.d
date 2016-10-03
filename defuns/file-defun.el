@@ -30,8 +30,4 @@
         (kill-buffer buffer)
         (message "File '%s' successfully removed" filename)))))
 
-(defun file-name-with-one-directory (file-name)
-  (concat (cadr (reverse (split-string file-name "/"))) "/"
-		  (file-name-nondirectory file-name)))
-
 (provide 'file-defuns)
