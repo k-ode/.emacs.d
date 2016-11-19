@@ -32,7 +32,7 @@ the current position of point, then move it to the beginning of the line."
   :type 'list
   :group 'kg)
 
-(defcustom kg-yank-indent-modes '(LaTeX-mode TeX-mode)
+(defcustom kg-yank-indent-modes '(sgml-mode LaTeX-mode TeX-mode)
   "Modes in which to indent regions that are yanked (or yank-popped).
 Only modes that don't derive from `prog-mode' should be listed here."
   :type 'list

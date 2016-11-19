@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        kill-region-or-backward-word
         smart-line-beginning
         ))
 

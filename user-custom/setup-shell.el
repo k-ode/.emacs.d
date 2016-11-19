@@ -1,4 +1,4 @@
-(defun kimgronqvist-set-bash-shell ()
+(defun kg-set-bash-shell ()
   (interactive)
   (when window-system
     (setq explicit-shell-file-name "C:/Program Files/Git/bin/sh.exe")

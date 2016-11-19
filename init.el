@@ -85,10 +85,10 @@
 (setq debug-on-error nil)
 
 ;; Wanna use enter as newline and indent in programming modes
-(add-hook 'prog-mode-hook
-          (lambda ()
-            (local-set-key (kbd "RET") 'newline-and-indent)
-            (local-set-key (kbd "<S-return>") 'newline)))
+(dolist (fn '(prog-mode-hook html-mode-hook))
+  (add-hook fn (lambda ()
+                 (local-set-key (kbd "RET") 'newline-and-indent)
+                 (local-set-key (kbd "<S-return>") 'newline))))
 
 ;; I prefer to read files side by side
 (setq ediff-split-window-function (quote split-window-horizontally))
@@ -194,6 +194,8 @@
 (use-package multiple-cursors
   :ensure t
   :bind (("C-S-<mouse-1>" . mc/add-cursor-on-click)
+         ("C-S-<up>"      . mc/mark-previous-like-this)
+         ("C-S-<down>"    . mc/mark-next-like-this)
          ("C-c o <SPC>" . mc/vertical-align-with-space)
          ("C-c o a"     . mc/vertical-align)
          ("C-c o e"     . mc/mark-more-like-this-extended)
@@ -202,8 +204,6 @@
          ("C-c o l"     . mc/edit-lines)
          ("C-c o n"     . mc/mark-next-like-this)
          ("C-c o p"     . mc/mark-previous-like-this)
-         ("M-<up>"      . mc/mark-previous-like-this)
-         ("M-<down>"    . mc/mark-next-like-this)
          ("C-c o C-a"   . mc/edit-beginnings-of-lines)
          ("C-c o C-e"   . mc/edit-ends-of-lines)
          ("C-c o C-s"   . mc/mark-all-in-region)))
@@ -233,11 +233,11 @@
 
 ;; Setup key bindings
 (require 'init-keys)
+
 (use-package move-text
   :ensure t
-  :bind (("<C-S-up>" . move-text-up)
-         ("<C-S-down>" . move-text-down)))
-
+  :bind (("<M-up>" . move-text-up)
+         ("<M-down>" . move-text-down)))
 
 (put 'scroll-left 'disabled nil)
 
@@ -353,11 +353,8 @@
   :config
   (setq markdown-command "pandoc"))
 
-(use-package web-mode
-  :ensure t
-  :defer t
-  :config
-  (setq web-mode-indent-style 4))
+(use-package rjsx-mode
+  :ensure t)
 
 (use-package spaceline
   :ensure t
@@ -434,6 +431,8 @@
   (define-key comint-mode-map (kbd "C-l") 'my-recenter-top-bottom)
   (define-key comint-mode-map (kbd "C-S-l") 'my-clear-comint-buffer))
 
+(setq compilation-scroll-output t)
+
 ;; company
 
 (defun company-transform-js (candidates)
@@ -469,8 +468,8 @@
              "*Flycheck errors*"             ; Flycheck error list
              "*shell"                        ; Shell window
              "*powershell"                   ; SBT REPL and compilation buffer
-             "*opto-gulp*"
-             "*opto-iis-express*"
+             "*optov6-gulp*"
+             "*optov6-iis-express*"
              ))
     (display-buffer-reuse-window
      display-buffer-in-side-window)
@@ -528,5 +527,7 @@ If SIDE is non-nil only get windows on that side."
 (run-with-idle-timer 5 t #'garbage-collect)
 
 (put 'erase-buffer 'disabled nil)
+
+(setq ediff-temp-file-prefix "C:/home/.emacs.d/tmp")
 
 ;;; init.el ends here

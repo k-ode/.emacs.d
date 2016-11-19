@@ -45,16 +45,10 @@
         '(menu-item "Find All References" kg-projectile-js-references :help "Find All References."))
       )))
 
-(defun setup-tide-mode ()
-  (interactive)
-  (eldoc-mode)
-  (tide-setup))
-
 (use-package tide
   :ensure t
   :after js2-mode
   :config
-  (add-hook 'js2-mode-hook #'tide-setup-mode)
   (define-key tide-mode-map (kbd "<C-down-mouse-1>") '(lambda ()
                                                         (interactive)
                                                         (js2-down-mouse-3)
@@ -79,8 +73,8 @@
   :config
   (progn
     (add-hook 'js2-mode-hook #'js2-refactor-mode)
-    (define-key js2-mode-map (kbd "C-S-<down>") 'js2r-move-line-down)
-    (define-key js2-mode-map (kbd "C-S-<up>") 'js2r-move-line-up)
+    (define-key js2-mode-map (kbd "M-<down>") 'js2r-move-line-down)
+    (define-key js2-mode-map (kbd "M-<up>") 'js2r-move-line-up)
     (define-key js2-refactor-mode-map (kbd "C-k") 'js2r-kill))
 
   (defhydra js2-refactor-menu (:color teal

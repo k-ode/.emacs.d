@@ -6,7 +6,7 @@
   (progn
     (define-key company-active-map (kbd "<tab>") nil)
     (setq company-minimum-prefix-length 1
-          company-idle-delay 0.33
+          company-idle-delay nil
           company-selection-wrap-around t
           company-show-numbers t
           company-tooltip-align-annotations t
