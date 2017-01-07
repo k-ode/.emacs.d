@@ -530,4 +530,7 @@ If SIDE is non-nil only get windows on that side."
 
 (setq ediff-temp-file-prefix "C:/home/.emacs.d/tmp")
 
+(use-package fsharp-mode
+  :ensure t)
+
 ;;; init.el ends here
