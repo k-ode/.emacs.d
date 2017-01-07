@@ -6,7 +6,7 @@
   :init
   (progn
     (global-flycheck-mode)
-    (setq flycheck-global-modes '(js2-mode html-mode less-css-mode web-mode)))
+    (setq flycheck-global-modes '(rjsx-mode js2-mode html-mode less-css-mode web-mode)))
   :config
   (progn (setq flycheck-check-syntax-automatically '(mode-enabled save))
          (setq-default flycheck-disabled-checkers
@@ -39,7 +39,7 @@ See URL `https://github.com/eslint/eslint'."
             (flycheck-sanitize-errors errors))
     errors)
   :enabled (lambda () t)
-  :modes (js-mode js-jsx-mode js2-mode js2-jsx-mode js3-mode)
+  :modes (js-mode rjsx-mode js-jsx-mode js2-mode js2-jsx-mode js3-mode)
   :next-checkers ((warning . javascript-jscs))
   :verify
   (lambda (_)

@@ -1,5 +1,8 @@
  ;; Opto v6
 
+(defun replace-in-string (what with in)
+  (replace-regexp-in-string (regexp-quote what) with in nil 'literal))
+
 (defun kg-optov6-build ()
   (interactive)
   (compile "msbuild.exe c:/opto/Core/Code/OPTOV6Html5.sln //m //nologo //v:q"))
@@ -7,6 +10,10 @@
 (defun kg-optov6-precheck ()
   (interactive)
   (compile "cd c:/opto/Core/Code/ && ./Release.WebIncludes.PreCheck.cmd"))
+
+(defun kg-optov6-fix-fucking-broken-shit-csproj ()
+  (interactive)
+  (compile "cd c:/opto/Core/Code/ && ./Release.WebIncludes.FixIncludes.cmd"))
 
 (defun kg-optov6-customizations-build ()
   (interactive)
@@ -23,6 +30,12 @@
 (defun kg-optov6-tests ()
   (interactive)
   (async-shell-command "cd c:/opto/Core/Code/ServerHtml5/Web && npm run test -- --watch" "*optov6-tests*"))
+
+(defun kg-optov6-tests-for-file ()
+  (interactive)
+  (async-shell-command
+   (concat "cd c:/opto/Core/Code/ServerHtml5/Web && npm run test -- " (replace-in-string "c:" "/c" (buffer-file-name)) " --watch")
+   (concat "*optov6-tests-for-" (downcase (buffer-name)) "*")))
 
 (defun kg-optov6-mobile ()
   (interactive)

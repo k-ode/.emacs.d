@@ -3,6 +3,7 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        electric-pair-delete-pair
         kill-region-or-backward-word
         smart-line-beginning
         ))
