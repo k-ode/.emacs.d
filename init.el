@@ -521,6 +521,9 @@ If SIDE is non-nil only get windows on that side."
   :ensure t
   :init (helm-descbinds-mode))
 
+(use-package fsharp-mode
+  :ensure t)
+
 ;;(setq garbage-collection-messages t)
 (setq gc-cons-threshold (* 511 1024 1024))
 (setq gc-cons-percentage 0.5)
