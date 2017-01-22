@@ -61,10 +61,22 @@
 
 (use-package jade
   :ensure t
+  :bind (("C-c m j" . jade-connect-to-chrome))
   :config
   (global-set-key (kbd "<f5>") 'jade-reload)
   (add-hook 'js2-mode-hook #'jade-interaction-mode)
   :diminish jade-interaction-mode)
+
+(use-package js-comint
+  :ensure t
+  :bind (("C-c m r" . run-js))
+  :config
+  (defun inferior-js-mode-hook-setup ()
+    (add-hook 'comint-output-filter-functions 'js-comint-process-output))
+  (add-hook 'inferior-js-mode-hook 'inferior-js-mode-hook-setup t)
+  (add-hook 'js2-mode-hook
+            (lambda ()
+              (local-set-key (kbd "C-x C-e") 'js-send-last-sexp))))
 
 (use-package js2-refactor
   :ensure t

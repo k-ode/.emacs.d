@@ -7,7 +7,7 @@
  '(column-number-mode t)
  '(custom-safe-themes
    (quote
-    ("ef479623c75026d8ba1de98a8cb74198f6f3eedc6fca509990ac2559ba830675" "2601b6cb623a44e906f61d42685dfc1ad2d06c7906088856b5e780af3a1b5036" "398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" "16241cf61a64014901a8dfb661cff9e5d9702f743f4e888c26de8c92267242d6" "9f3181dc1fabe5d58bbbda8c48ef7ece59b01bed606cfb868dd147e8b36af97c" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "84a0e9f3a2e3c239bcbfc5bdbd7c2ddd73e029948d47e1b14d955a0f72e78f80" "98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default)))
+    ("fa197eae8396863c1ce30faaa5df2eca6449f86fd43506ade97076a85d327753" "ef479623c75026d8ba1de98a8cb74198f6f3eedc6fca509990ac2559ba830675" "2601b6cb623a44e906f61d42685dfc1ad2d06c7906088856b5e780af3a1b5036" "398f0209bfd642cf7a5e3e03bdc20db2822fd6746225a4bd99ccf9b26d3059d0" "16241cf61a64014901a8dfb661cff9e5d9702f743f4e888c26de8c92267242d6" "9f3181dc1fabe5d58bbbda8c48ef7ece59b01bed606cfb868dd147e8b36af97c" "06dbcfac3705aaaa79e1a3264c6fd44ef0cf86ef5ed67930e4007e63a8c1e8ee" "84a0e9f3a2e3c239bcbfc5bdbd7c2ddd73e029948d47e1b14d955a0f72e78f80" "98cc377af705c0f2133bb6d340bf0becd08944a588804ee655809da5d8140de6" default)))
  '(electric-indent-mode nil)
  '(electric-pair-mode t)
  '(frame-brackground-mode (quote dark))
@@ -22,7 +22,7 @@
  '(org-src-fontify-natively t t)
  '(package-selected-packages
    (quote
-    (fsharp-mode rjsx-mode helm-descbinds neotree projectile helm js2-mode company doom-themes helm-flycheck powershell tide whitespace-cleanup-mode spaceline eslint-fix jade csharp-mode which-key wgrep web-mode use-package undo-tree tagedit smooth-scrolling smartparens scss-mode restclient rainbow-mode pt move-text material-theme markdown-mode magit less-css-mode json-mode js2-refactor ignoramus idomenu ibuffer-vc hydra highlight-symbol helm-swoop helm-projectile helm-css-scss helm-ag flycheck f expand-region css-eldoc company-tern anzu ace-window)))
+    (js-comint fsharp-mode rjsx-mode helm-descbinds neotree projectile helm js2-mode company doom-themes helm-flycheck powershell tide whitespace-cleanup-mode spaceline eslint-fix jade csharp-mode which-key wgrep web-mode use-package undo-tree tagedit smooth-scrolling smartparens scss-mode restclient rainbow-mode pt move-text material-theme markdown-mode magit less-css-mode json-mode js2-refactor ignoramus idomenu ibuffer-vc hydra highlight-symbol helm-swoop helm-projectile helm-css-scss helm-ag flycheck f expand-region css-eldoc company-tern anzu ace-window)))
  '(safe-local-variable-values
    (quote
     ((eval progn
