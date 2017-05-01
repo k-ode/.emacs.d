@@ -16,6 +16,9 @@
 ;; ;; I never use suspend frame
 (global-unset-key (kbd "C-z")) 
 
+(global-unset-key (kbd "<C-next>"))
+(global-unset-key (kbd "<C-prior>")) 
+
 ;; ;; Completion that uses many different methods to find options.
 (global-set-key (kbd "C-.") 'company-complete)
 (global-set-key (kbd "C-,") 'completion-at-point)
