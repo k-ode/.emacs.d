@@ -68,5 +68,4 @@
  '(org-done ((t (:background "#263238" :foreground "#8bc34a" :weight normal))))
  '(org-level-1 ((t (:inherit outline-1 :background "#263238" :box nil :weight normal :height 1.0))))
  '(org-level-2 ((t (:inherit outline-2 :background "#263238" :box nil :height 1.0))))
- '(org-todo ((t (:background "#263238" :foreground "#ffab91" :weight normal))))
- '(which-func ((t (:foreground "#A89984")))))
+ '(org-todo ((t (:background "#263238" :foreground "#ffab91" :weight normal)))))
