@@ -531,6 +531,8 @@ If SIDE is non-nil only get windows on that side."
 
 (put 'erase-buffer 'disabled nil)
 
+(setq-default line-spacing 3)
+
 (setq ediff-temp-file-prefix "C:/home/.emacs.d/tmp")
 
 (use-package fsharp-mode
