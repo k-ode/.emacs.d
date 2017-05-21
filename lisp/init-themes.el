@@ -1,10 +1,7 @@
-(use-package material-theme
-  :ensure t
-  ;;:init (load-theme 'material)
-  )
-
 (use-package doom-themes
   :ensure t
-  :init (load-theme 'doom-one))
+  :init
+  (require 'doom-neotree)
+  (load-theme 'doom-one))
 
 (provide 'init-themes)

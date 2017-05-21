@@ -59,13 +59,12 @@
     '(menu-item "Rename Symbol" tide-rename-symbol :help "Rename symbol."))
   :diminish tide-mode)
 
-(use-package jade
+(use-package indium
   :ensure t
-  :bind (("C-c m j" . jade-connect-to-chrome))
-  :config
-  (global-set-key (kbd "<f5>") 'jade-reload)
-  (add-hook 'js2-mode-hook #'jade-interaction-mode)
-  :diminish jade-interaction-mode)
+  :config)
+  ;; (global-set-key (kbd "<f5>") 'jade-reload)
+  ;; (add-hook 'js2-mode-hook #'jade-interaction-mode)
+  ;; :diminish jade-interaction-mode)
 
 (use-package js-comint
   :ensure t
@@ -82,7 +81,6 @@
 (use-package js2-refactor
   :ensure t
   :after js2-mode
-  :defer t
   :config
   (progn
     (add-hook 'js2-mode-hook #'js2-refactor-mode)

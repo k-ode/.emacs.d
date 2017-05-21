@@ -239,8 +239,6 @@
   :bind (("<M-up>" . move-text-up)
          ("<M-down>" . move-text-down)))
 
-(put 'scroll-left 'disabled nil)
-
 ;; Don't globally enable eldoc
 (global-eldoc-mode -1)
 
@@ -368,7 +366,10 @@
   :ensure t)
 
 (use-package whitespace-cleanup-mode
-  :ensure t)
+  :ensure t
+  :init
+  (global-whitespace-cleanup-mode)
+  :diminish whitespace-cleanup-mode)
 
 ;; comint stuff
 (setq comint-prompt-read-only t)
@@ -512,7 +513,8 @@ If SIDE is non-nil only get windows on that side."
   :bind (("<f8>" . neotree-toggle))
   :config
   (setq neo-smart-open t)
-  (setq neo-theme 'nerd))
+  (setq neo-theme 'nerd)
+  (setq neo-window-width 35))
 
 (use-package kg-javascript
   :load-path "defuns/")
@@ -530,6 +532,8 @@ If SIDE is non-nil only get windows on that side."
 (run-with-idle-timer 5 t #'garbage-collect)
 
 (put 'erase-buffer 'disabled nil)
+
+(setq-default line-spacing 3)
 
 (setq ediff-temp-file-prefix "C:/home/.emacs.d/tmp")
 

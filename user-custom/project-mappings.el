@@ -23,9 +23,17 @@
   (interactive)
   (compile "msbuild.exe c:/opto/Core/Code/OPTOV6Html5.sln //t:'Clean,Build' //m //nologo //v:q"))
 
+(defun kg-opto-deployment-clean-build ()
+  (interactive)
+  (compile "msbuild.exe c:/opto/Deployment/Code/src/Opto.Installer.sln //t:'Clean,Build' //m //nologo //v:q"))
+
+(defun kg-opto-deployment-restore-packages ()
+  (interactive)
+  (compile "cd c:/opto/Deployment/Code/ && ./RestorePackages.cmd"))
+
 (defun kg-optov6-restore-packages ()
   (interactive)
-  (compile "cd c:/opto/Core/Code/ && ./nuget.exe restore"))
+  (compile "cd c:/opto/Core/Code/ && ./RestorePackages.cmd"))
 
 (defun kg-optov6-tests ()
   (interactive)
@@ -77,5 +85,11 @@
 (defun kg-adrian-start-mongodb ()
   (interactive)
   (async-shell-command "cd c:/home/bin/mongodb && mongod -dbpath C:/home/bin/mongodb" "*mongodb*"))
+
+;; komx
+
+(defun kg-komx-tests ()
+  (interactive)
+  (async-shell-command "cd c:/opto/komx && npm run test" "*komx-tests*"))
 
 (provide 'project-mappings)

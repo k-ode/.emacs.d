@@ -3,9 +3,15 @@
 
 (setq mc/cmds-to-run-for-all
       '(
+        electric-newline-and-maybe-indent
         electric-pair-delete-pair
+        js2r-kill
+        kill-region
         kill-region-or-backward-word
+        overwrite-mode
+        repeat
         smart-line-beginning
+        tagedit-insert-dot
         ))
 
 (setq mc/cmds-to-run-once
