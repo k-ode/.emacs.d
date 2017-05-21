@@ -74,6 +74,7 @@
   (defun inferior-js-mode-hook-setup ()
     (add-hook 'comint-output-filter-functions 'js-comint-process-output))
   (add-hook 'inferior-js-mode-hook 'inferior-js-mode-hook-setup t)
+  (local-set-key (kbd "C-x C-e") 'js-send-last-sexp)
   (add-hook 'js2-mode-hook
             (lambda ()
               (local-set-key (kbd "C-x C-e") 'js-send-last-sexp))))

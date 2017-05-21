@@ -536,4 +536,6 @@ If SIDE is non-nil only get windows on that side."
 (use-package fsharp-mode
   :ensure t)
 
+(setq-default line-spacing 3)
+
 ;;; init.el ends here
