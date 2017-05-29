@@ -74,6 +74,10 @@
   (tooltip-mode -1)
   (blink-cursor-mode -1))
 
+(electric-indent-mode nil)
+(electric-pair-mode t)
+(show-paren-mode t)
+
 ;; Functions (load all files in defuns-dir)
 (setq defuns-dir (expand-file-name "defuns" user-emacs-directory))
 (dolist (file (directory-files defuns-dir t "\\w+"))
@@ -537,8 +541,20 @@ If SIDE is non-nil only get windows on that side."
 
 (setq ediff-temp-file-prefix "C:/home/.emacs.d/tmp")
 
-(use-package fsharp-mode
+(use-package web-mode
   :ensure t)
+
+(defun my/use-eslint-from-node-modules ()
+  (let* ((root (locate-dominating-file
+                (or (buffer-file-name) default-directory)
+                "node_modules"))
+         (eslint (and root
+                      (expand-file-name "node_modules/.bin/eslint.cmd"
+                                        root))))
+    (when (and eslint (file-executable-p eslint))
+      (setq-local flycheck-javascript-eslint-executable eslint))))
+
+(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
 (setq-default line-spacing 3)
 

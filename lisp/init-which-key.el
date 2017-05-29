@@ -3,7 +3,7 @@
   :init (which-key-mode)
   :config 
   (setq which-key-idle-delay 0.4
-        which-key-allow-imprecise-window-fit t
+        which-key-allow-imprecise-window-fit nil
         which-key-sort-order 'which-key-prefix-then-key-order
         which-key-description-replacement-alist
         '(("Prefix Command" . "prefix")
