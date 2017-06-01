@@ -355,9 +355,6 @@
   :config
   (setq markdown-command "pandoc"))
 
-(use-package rjsx-mode
-  :ensure t)
-
 (use-package spaceline
   :ensure t
   :config

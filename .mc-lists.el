@@ -8,6 +8,7 @@
         js2r-kill
         kill-region
         kill-region-or-backward-word
+        markdown-exdent-or-delete
         overwrite-mode
         repeat
         smart-line-beginning

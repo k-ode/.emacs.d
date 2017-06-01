@@ -4,13 +4,15 @@
 (use-package json-mode
   :ensure t
   :config
+  (add-hook 'json-mode-hook
+            (lambda ()
+              (setq-local js-indent-level 2)))
   (add-to-list 'auto-mode-alist '("\\.json$" . json-mode)))
 
 (use-package js2-mode
   :ensure t
   :config
   (progn
-    (add-to-list 'auto-mode-alist '("\\.js$" . js2-mode))
     (add-hook 'js2-mode-hook #'subword-mode)
     
     (eval-after-load "js2-mode"
@@ -45,6 +47,11 @@
         '(menu-item "Find All References" kg-projectile-js-references :help "Find All References."))
       )))
 
+(use-package rjsx-mode
+  :ensure t
+  :config 
+  (add-to-list 'auto-mode-alist '("\\.js$" . rjsx-mode)))
+
 (use-package tide
   :ensure t
   :after js2-mode
@@ -60,23 +67,7 @@
   :diminish tide-mode)
 
 (use-package indium
-  :ensure t
-  :config)
-  ;; (global-set-key (kbd "<f5>") 'jade-reload)
-  ;; (add-hook 'js2-mode-hook #'jade-interaction-mode)
-  ;; :diminish jade-interaction-mode)
-
-(use-package js-comint
-  :ensure t
-  :bind (("C-c m r" . run-js))
-  :config
-  (defun inferior-js-mode-hook-setup ()
-    (add-hook 'comint-output-filter-functions 'js-comint-process-output))
-  (add-hook 'inferior-js-mode-hook 'inferior-js-mode-hook-setup t)
-  (local-set-key (kbd "C-x C-e") 'js-send-last-sexp)
-  (add-hook 'js2-mode-hook
-            (lambda ()
-              (local-set-key (kbd "C-x C-e") 'js-send-last-sexp))))
+  :ensure t)
 
 (use-package js2-refactor
   :ensure t
@@ -128,7 +119,6 @@ _cu_: contract function      _ao_: arguments to object    ^ ^                   
     ("ba" js2r-forward-barf))
 
   (define-key js2-refactor-mode-map (kbd "C-c r") 'js2-refactor-menu/body)
-
   
   :diminish js2-refactor-mode)
 
