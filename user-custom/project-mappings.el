@@ -15,9 +15,13 @@
   (interactive)
   (compile "cd c:/opto/Core/Code/ && ./Release.WebIncludes.FixIncludes.cmd"))
 
-(defun kg-optov6-customizations-build ()
+(defun kg-optov6-mods-build ()
   (interactive)
-  (compile "msbuild.exe c:/opto/Opto.Mods.ConrabOpto/Code/Mods.sln //m //nologo //v:q"))
+  (compile "msbuild.exe c:/opto/Opto.Mods/Code/Mods.sln //m //nologo //v:q"))
+
+(defun kg-optov6-mods-clean-build ()
+  (interactive)
+  (compile "msbuild.exe c:/opto/Opto.Mods/Code/Mods.sln //t:'Clean,Build' //m //nologo //v:q"))
 
 (defun kg-optov6-clean-build ()
   (interactive)
@@ -37,7 +41,7 @@
 
 (defun kg-optov6-tests ()
   (interactive)
-  (async-shell-command "cd c:/opto/Core/Code/ServerHtml5/Web && npm run test -- --watch" "*optov6-tests*"))
+  (async-shell-command "cd c:/opto/Core/Code/ServerHtml5/Web && npm run test" "*optov6-tests*"))
 
 (defun kg-optov6-tests-for-file ()
   (interactive)
