@@ -355,13 +355,13 @@
   :config
   (setq markdown-command "pandoc"))
 
-(use-package spaceline
-  :ensure t
-  :config
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme)
-  (setq powerline-height 25)
-  (setq powerline-default-separator 'wave))
+;; (use-package spaceline
+;;   :ensure t
+;;   :config
+;;   (require 'spaceline-config)
+;;   (spaceline-spacemacs-theme)
+;;   (setq powerline-height 25)
+;;   (setq powerline-default-separator 'wave))
 
 (use-package eslint-fix
   :ensure t)
@@ -554,5 +554,22 @@ If SIDE is non-nil only get windows on that side."
 (add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
 
 (setq-default line-spacing 3)
+
+;; Dashboard startup screen
+(use-package dashboard
+  :ensure t
+  :if (display-graphic-p)
+  :config (progn
+            (add-hook 'dashboard-mode-hook
+                      (lambda ()
+                        ;;(visual-fill-column-mode 1)
+                        (visual-line-mode -1)
+                        (toggle-truncate-lines t)
+                        (setq truncate-lines t)))
+
+            (setq dashboard-items '((recents . 10) (projects . 10)))
+            (dashboard-setup-startup-hook)))
+
+(setq inhibit-compacting-font-caches t)
 
 ;;; init.el ends here

@@ -66,8 +66,16 @@
     '(menu-item "Rename Symbol" tide-rename-symbol :help "Rename symbol."))
   :diminish tide-mode)
 
-(use-package indium
-  :ensure t)
+;; (use-package indium
+;;   :ensure t
+;;   :config
+;;   (setq indium-v8-cache-disabled t))
+(require 'indium)
+(setq indium-v8-cache-disabled t)
+(autoload 'cider--make-result-overlay "cider-overlays")
+(defun t/overlay-indium (r)
+  (cider--make-result-overlay (indium-fontify-js "%s" r) :where (point) :duration 'command))
+(add-hook 'indium-interaction-eval-node-hook #'t/overlay-indium)
 
 (use-package js2-refactor
   :ensure t
