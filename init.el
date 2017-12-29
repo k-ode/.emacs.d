@@ -92,6 +92,7 @@
   (when (file-regular-p file)
     (load file)))
 
+;; saner isearch
 (define-key isearch-mode-map [remap isearch-delete-char] 'isearch-del-char)
 
 (setq debug-on-error nil)
@@ -135,6 +136,7 @@
 (require 'init-org)
 (require 'init-lisp)
 (require 'init-css)
+
 (require 'init-csharp)
 (require 'init-company)
 (require 'init-javascript)
