@@ -14,9 +14,11 @@
                                '(javascript-jshint javascript-tide))))
   :diminish flycheck-mode)
 
+(setq flycheck-javascript-eslint-executable "eslint_d")
+
 (flycheck-define-checker javascript-eslint
   "A Javascript syntax and style checker using eslint.
-See URL `https://github.com/eslint/eslint'."
+See URL `http://eslint.org/'."
   :command ("eslint" "--format=checkstyle"
             (option-list "--rulesdir" flycheck-eslint-rules-directories)
             "--stdin" "--stdin-filename" source-original)
@@ -39,7 +41,7 @@ See URL `https://github.com/eslint/eslint'."
             (flycheck-sanitize-errors errors))
     errors)
   :enabled (lambda () t)
-  :modes (js-mode rjsx-mode js-jsx-mode js2-mode js2-jsx-mode js3-mode)
+  :modes (js-mode js-jsx-mode js2-mode js2-jsx-mode js3-mode rjsx-mode)
   :next-checkers ((warning . javascript-jscs))
   :verify
   (lambda (_)

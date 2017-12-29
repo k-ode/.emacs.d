@@ -89,7 +89,12 @@
 (use-package helm-flycheck
   :ensure t
   :after helm
-  :config
-  (define-key flycheck-mode-map (kbd "C-c ! h") 'helm-flycheck))
+  :bind (:map flycheck-mode-map
+              ("C-c ! h" . 'helm-flycheck)))
+
+(use-package helm-descbinds             ; Describe key bindings with Helm
+  :ensure t
+  :defer t
+  :config (helm-descbinds-mode))
 
 (provide 'init-helm)

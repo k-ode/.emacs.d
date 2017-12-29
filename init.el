@@ -6,6 +6,12 @@
 
 ;;; Code:
 
+;; Perfomance
+(defvar last-file-name-handler-alist file-name-handler-alist)
+(setq gc-cons-threshold 402653184
+      gc-cons-percentage 0.6
+      file-name-handler-alist nil)
+
 ;; Please don't load outdated byte code
 (setq load-prefer-newer t)
 
@@ -16,8 +22,8 @@
 (setq package-check-signature nil)
 
 (package-initialize)
-;; Bootstrap `use-package'
 
+;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
@@ -26,7 +32,9 @@
   (require 'use-package))
 
 (require 'bind-key)
-(require 'diminish)
+
+(use-package diminish
+  :ensure t)
 
 (use-package s
   :ensure t)
@@ -70,7 +78,7 @@
 (setq initial-scratch-message "")
 
 (when window-system
-  (setq frame-tqqitle-format '(buffer-file-name "%f" ("%b")))
+  (setq frame-title-format '(buffer-file-name "%f" ("%b")))
   (tooltip-mode -1)
   (blink-cursor-mode -1))
 
@@ -213,7 +221,8 @@
          ("C-c o C-s"   . mc/mark-all-in-region)))
 
 ;; Undo/redo window configuration with C-c <left>/<right>
-(use-package winner-mode
+(use-package winner
+
   :init (winner-mode))
 
 ;; Change window quickly with S-left and S-right
@@ -265,6 +274,9 @@
 (put 'downcase-region 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
+;; enable erase-buffer command
+(put 'erase-buffer 'disabled nil)
+
 ;; Just save the files
 (setq compilation-ask-about-save nil)
 
@@ -301,7 +313,6 @@
 
 (use-package highlight-symbol           ; Highlighting and commands for symbols
   :ensure t
-  :defer t
   :init
   (dolist (fn '(highlight-symbol-nav-mode highlight-symbol-mode))
     (add-hook 'prog-mode-hook fn))
@@ -347,6 +358,7 @@
               ("C-c m e f" . eval-defun)))
 
 (use-package wgrep
+  :defer t
   :ensure t)
 
 (use-package markdown-mode
@@ -355,20 +367,16 @@
   :config
   (setq markdown-command "pandoc"))
 
-;; (use-package spaceline
+;; (use-package eslintd-fix
 ;;   :ensure t
 ;;   :config
-;;   (require 'spaceline-config)
-;;   (spaceline-spacemacs-theme)
-;;   (setq powerline-height 25)
-;;   (setq powerline-default-separator 'wave))
-
-(use-package eslint-fix
-  :ensure t)
+;;   (setq eslintd-fix-portfile "c:/Users/kg/.eslint_d"))
+(require 'eslintd-fix)
+(setq eslintd-fix-portfile "c:/Users/kg/.eslint_d")
 
 (use-package whitespace-cleanup-mode
   :ensure t
-  :init
+  :config
   (global-whitespace-cleanup-mode)
   :diminish whitespace-cleanup-mode)
 
@@ -434,26 +442,7 @@
   (define-key comint-mode-map (kbd "C-S-l") 'my-clear-comint-buffer))
 
 (setq compilation-scroll-output t)
-
-;; company
-
-(defun company-transform-js (candidates)
-  (let ((methods))
-    (mapcar #'(lambda (c)
-                (let ((kind (plist-get (get-text-property 0 'completion c) :kind)))
-                  (if (or (equal kind "method") (equal kind "property"))
-                      (progn
-                        (add-to-list 'methods c)
-                        (setq candidates (delete c candidates))))))
-            candidates)
-    (append (reverse methods) candidates)))
-
-(defun my-js-conf()
-  (setq-local company-transformers
-              (append company-transformers '(company-transform-js))))
-
-(add-hook 'js2-mode-hook 'my-js-conf)
-
+ 
 ;; Configure `display-buffer' behaviour for some special buffers.
 (setq
  display-buffer-alist
@@ -506,9 +495,6 @@ If SIDE is non-nil only get windows on that side."
 
 (global-set-key (kbd "C-c q") 'lunaryorn-quit-all-side-windows)
 
-(use-package powershell
-  :ensure t)
-
 (use-package neotree
   :ensure t
   :bind (("<f8>" . neotree-toggle))
@@ -520,56 +506,30 @@ If SIDE is non-nil only get windows on that side."
 (use-package kg-javascript
   :load-path "defuns/")
 
-(use-package helm-descbinds             ; Describe key bindings with Helm
-  :ensure t
-  :init (helm-descbinds-mode))
-
 (use-package fsharp-mode
+  :mode "\\.fs[iylx]?$"
   :ensure t)
-
-;;(setq garbage-collection-messages t)
-(setq gc-cons-threshold (* 511 1024 1024))
-(setq gc-cons-percentage 0.5)
-(run-with-idle-timer 5 t #'garbage-collect)
-
-(put 'erase-buffer 'disabled nil)
 
 (setq-default line-spacing 3)
 
 (setq ediff-temp-file-prefix "C:/home/.emacs.d/tmp")
 
-(use-package web-mode
-  :ensure t)
-
-(defun my/use-eslint-from-node-modules ()
-  (let* ((root (locate-dominating-file
-                (or (buffer-file-name) default-directory)
-                "node_modules"))
-         (eslint (and root
-                      (expand-file-name "node_modules/.bin/eslint.cmd"
-                                        root))))
-    (when (and eslint (file-executable-p eslint))
-      (setq-local flycheck-javascript-eslint-executable eslint))))
-
-(add-hook 'flycheck-mode-hook #'my/use-eslint-from-node-modules)
-
-(setq-default line-spacing 3)
-
 ;; Dashboard startup screen
 (use-package dashboard
   :ensure t
   :if (display-graphic-p)
-  :config (progn
-            (add-hook 'dashboard-mode-hook
-                      (lambda ()
-                        ;;(visual-fill-column-mode 1)
-                        (visual-line-mode -1)
-                        (toggle-truncate-lines t)
-                        (setq truncate-lines t)))
-
-            (setq dashboard-items '((recents . 10) (projects . 10)))
-            (dashboard-setup-startup-hook)))
+  :config
+  (add-hook 'dashboard-mode-hook
+            (lambda ()
+              (visual-line-mode -1)
+              (toggle-truncate-lines t)))
+  (setq dashboard-items '((recents . 10) (projects . 10)))
+  (dashboard-setup-startup-hook))
 
 (setq inhibit-compacting-font-caches t)
 
-;;; init.el ends here
+(setq gc-cons-threshold 16777216
+      gc-cons-percentage 0.1
+      file-name-handler-alist last-file-name-handler-alist)
+
+;; init.el ends here

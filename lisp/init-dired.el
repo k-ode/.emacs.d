@@ -6,6 +6,8 @@
 
 (use-package dired                      ; Edit directories
   :defer t
+  :init
+  (add-hook 'dired-mode-hook #'dired-hide-details-mode)
   :config
   (progn
     (require 'dired-x)
@@ -25,7 +27,8 @@
   :defer nil
   :bind (("C-c f j" . dired-jump)
          ("C-x C-j" . dired-jump))
-  :init (add-hook 'dired-mode-hook #'dired-omit-mode)
+  :init
+  (add-hook 'dired-mode-hook #'dired-omit-mode)
   :config
   (progn
     (setq dired-omit-verbose nil)        ; Shut up, dired
@@ -37,6 +40,7 @@
     (add-function :after (symbol-function 'dired-omit-startup)
                   (lambda () (diminish 'dired-omit-mode ""))
                   '((name . dired-omit-mode-diminish)))))
+
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

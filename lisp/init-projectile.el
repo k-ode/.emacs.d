@@ -13,7 +13,8 @@
 (use-package helm-projectile            ; Helm frontend for Projectile
   :ensure t
   :defer t
-  :bind (("C-x o" . projectile-find-file))
+  :bind (("C-x o" . helm-projectile)
+         ("C-ö" . helm-projectile))
   :after projectile
   :init (helm-projectile-on)
   :config

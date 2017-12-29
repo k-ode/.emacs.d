@@ -11,6 +11,10 @@
   (interactive)
   (compile "cd c:/opto/Core/Code/ && ./Release.WebIncludes.PreCheck.cmd"))
 
+(defun kg-optov6-db-patch-up ()
+  (interactive)
+  (compile "cd c:/opto/Core/Code/tools/dev && ./Exec.DbPatchUp.cmd"))
+
 (defun kg-optov6-fix-fucking-broken-shit-csproj ()
   (interactive)
   (compile "cd c:/opto/Core/Code/ && ./Release.WebIncludes.FixIncludes.cmd"))
@@ -27,6 +31,10 @@
   (interactive)
   (compile "msbuild.exe c:/opto/Core/Code/OPTOV6Html5.sln //t:'Clean,Build' //m //nologo //v:q"))
 
+(defun kg-optov6-restore-packages ()
+  (interactive)
+  (compile "cd c:/opto/Core/Code/ && ./RestorePackages.cmd"))
+
 (defun kg-opto-deployment-clean-build ()
   (interactive)
   (compile "msbuild.exe c:/opto/Deployment/Code/src/Opto.Installer.sln //t:'Clean,Build' //m //nologo //v:q"))
@@ -35,10 +43,6 @@
   (interactive)
   (compile "cd c:/opto/Deployment/Code/ && ./RestorePackages.cmd"))
 
-(defun kg-optov6-restore-packages ()
-  (interactive)
-  (compile "cd c:/opto/Core/Code/ && ./RestorePackages.cmd"))
-
 (defun kg-optov6-tests ()
   (interactive)
   (async-shell-command "cd c:/opto/Core/Code/ServerHtml5/Web && npm run test" "*optov6-tests*"))
@@ -46,8 +50,8 @@
 (defun kg-optov6-tests-for-file ()
   (interactive)
   (async-shell-command
-   (concat "cd c:/opto/Core/Code/ServerHtml5/Web && npm run test -- " (replace-in-string "c:" "/c" (buffer-file-name)) " --watch")
-   (concat "*optov6-tests-for-" (downcase (buffer-name)) "*")))
+       (concat "cd c:/opto/Core/Code/ServerHtml5/Web && npm run test -- " (file-name-nondirectory (buffer-file-name)) " --watch --colors")
+       (concat "*optov6-tests-for-" (downcase (buffer-name)) "*")))
 
 (defun kg-optov6-mobile ()
   (interactive)
