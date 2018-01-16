@@ -9,7 +9,6 @@
         kill-region
         kill-region-or-backward-word
         markdown-exdent-or-delete
-        overwrite-mode
         repeat
         smart-line-beginning
         tagedit-insert-dot
@@ -18,4 +17,6 @@
 (setq mc/cmds-to-run-once
       '(
         mouse-major-mode-menu
+        helm-ag--edit-commit
+        wgrep-finish-edit
         ))

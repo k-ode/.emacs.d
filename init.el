@@ -1,3 +1,4 @@
+
 ;;; init.el --- Emacs configuration of Kim Grönqvist
 
 ;;; Commentary:
@@ -360,7 +361,6 @@
               ("C-c m e f" . eval-defun)))
 
 (use-package wgrep
-  :defer t
   :ensure t)
 
 (use-package markdown-mode
@@ -525,7 +525,7 @@ If SIDE is non-nil only get windows on that side."
             (lambda ()
               (visual-line-mode -1)
               (toggle-truncate-lines t)))
-  (setq dashboard-items '((recents . 10) (projects . 10)))
+  (setq dashboard-items '((recents . 10) ))
   (dashboard-setup-startup-hook))
 
 (setq inhibit-compacting-font-caches t)
@@ -533,5 +533,12 @@ If SIDE is non-nil only get windows on that side."
 (setq gc-cons-threshold 16777216
       gc-cons-percentage 0.1
       file-name-handler-alist last-file-name-handler-alist)
+
+(use-package sml-mode
+  :mode "\\.sml$"
+  :ensure t)
+
+(use-package fontawesome
+  :ensure t)
 
 ;; init.el ends here
