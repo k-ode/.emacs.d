@@ -8,10 +8,10 @@
 ;;; Code:
 
 ;; Perfomance
-(defvar last-file-name-handler-alist file-name-handler-alist)
-(setq gc-cons-threshold 402653184
-      gc-cons-percentage 0.6
-      file-name-handler-alist nil)
+;; (defvar last-file-name-handler-alist file-name-handler-alist)
+;; (setq gc-cons-threshold 402653184
+;;       gc-cons-percentage 0.6
+;;       file-name-handler-alist nil)
 
 ;; Please don't load outdated byte code
 (setq load-prefer-newer t)
@@ -517,22 +517,22 @@ If SIDE is non-nil only get windows on that side."
 (setq ediff-temp-file-prefix "C:/home/.emacs.d/tmp")
 
 ;; Dashboard startup screen
-(use-package dashboard
-  :ensure t
-  :if (display-graphic-p)
-  :config
-  (add-hook 'dashboard-mode-hook
-            (lambda ()
-              (visual-line-mode -1)
-              (toggle-truncate-lines t)))
-  (setq dashboard-items '((recents . 10) ))
-  (dashboard-setup-startup-hook))
+;; (use-package dashboard
+;;   :ensure t
+;;   :if (display-graphic-p)
+;;   :config
+;;   (add-hook 'dashboard-mode-hook
+;;             (lambda ()
+;;               (visual-line-mode -1)
+;;               (toggle-truncate-lines t)))
+;;   (setq dashboard-items '((recents . 10) ))
+;;   (dashboard-setup-startup-hook))
 
-(setq inhibit-compacting-font-caches t)
+;; (setq inhibit-compacting-font-caches t)
 
-(setq gc-cons-threshold 16777216
-      gc-cons-percentage 0.1
-      file-name-handler-alist last-file-name-handler-alist)
+;; (setq gc-cons-threshold 16777216
+;;       gc-cons-percentage 0.1
+;;       file-name-handler-alist last-file-name-handler-alist)
 
 (use-package sml-mode
   :mode "\\.sml$"

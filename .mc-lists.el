@@ -5,6 +5,7 @@
       '(
         electric-newline-and-maybe-indent
         electric-pair-delete-pair
+        helm-M-x
         js2r-kill
         kill-region
         kill-region-or-backward-word
@@ -16,7 +17,7 @@
 
 (setq mc/cmds-to-run-once
       '(
-        mouse-major-mode-menu
         helm-ag--edit-commit
+        mouse-major-mode-menu
         wgrep-finish-edit
         ))
